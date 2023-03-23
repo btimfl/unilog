@@ -238,7 +238,7 @@ export default function DashboardNDR() {
                     </CardBody>
                 </Card>
             </HStack>
-            <Card my={4}>
+            <Card mt={4}>
                 <CardHeader py={3} fontWeight="bold">
                     NDR Reason Split
                 </CardHeader>

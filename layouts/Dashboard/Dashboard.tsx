@@ -115,7 +115,7 @@ export default function Dashboard({ children }: { children: ReactNode }) {
                     </TabList>
 
                     <Box className={styles.dashboardTabPanel} h={'calc(100% - 2.5rem)'}>
-                        <Box overflow={'auto'} h={'100%'}>
+                        <Box overflow={'auto'} h={'100%'} className={styles.scrollShadows} zIndex={10}>
                             {children}
                         </Box>
                     </Box>
