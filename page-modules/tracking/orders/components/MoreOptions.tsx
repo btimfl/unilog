@@ -33,7 +33,7 @@ export default function MenuOptions({ filters }: Props) {
     }
 
     return (
-        <Menu autoSelect={false} arrowPadding={8}>
+        <Menu autoSelect={false} arrowPadding={8} isLazy={true}>
             <Tooltip hasArrow label="Actions" isOpen={tooltipOpen} defaultIsOpen={false} closeOnPointerDown={true}>
                 <MenuButton
                     as={IconButton}
