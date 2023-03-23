@@ -1,6 +1,7 @@
 import { DownloadIcon } from '@chakra-ui/icons'
 import { IconButton, Menu, MenuButton, MenuItem, MenuList, Text, Tooltip } from '@chakra-ui/react'
 import * as PapaParse from 'papaparse'
+import { useState } from 'react'
 import { HiEllipsisVertical } from 'react-icons/hi2'
 
 import { useShipments } from '../hooks/queries'
@@ -11,6 +12,7 @@ type Props = {
 }
 
 export default function MenuOptions({ filters }: Props) {
+    const [tooltipOpen, setTooltipOpen] = useState(false)
     const { data } = useShipments(filters)
 
     function handleCSVDownload() {
@@ -31,14 +33,17 @@ export default function MenuOptions({ filters }: Props) {
     }
 
     return (
-        <Menu autoSelect={false}>
-            <Tooltip hasArrow label="Menu Options" defaultIsOpen={false} closeOnClick={true}>
+        <Menu autoSelect={false} arrowPadding={8}>
+            <Tooltip hasArrow label="Actions" isOpen={tooltipOpen} defaultIsOpen={false} closeOnPointerDown={true}>
                 <MenuButton
                     as={IconButton}
                     aria-label="Options"
                     icon={<HiEllipsisVertical />}
                     size="sm"
                     fontSize="lg"
+                    onClick={() => setTooltipOpen(false)}
+                    onMouseEnter={() => setTooltipOpen(true)}
+                    onMouseLeave={() => setTooltipOpen(false)}
                 />
             </Tooltip>
             <MenuList zIndex={3}>

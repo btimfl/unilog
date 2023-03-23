@@ -44,8 +44,8 @@ export async function fetchShipments(filters: Filters): Promise<FetchShipmentsTy
             'APP-KEY': '#$%^SK&SNLSH*^%SF',
         },
         body: JSON.stringify({
-            to,
-            from,
+            to: to || null,
+            from: from || null,
             sort_by: sortBy,
             time_range_filters: timeline,
             filters: filterBy,
