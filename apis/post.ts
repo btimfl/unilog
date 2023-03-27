@@ -54,3 +54,27 @@ export async function fetchShipments(filters: Filters): Promise<FetchShipmentsTy
         }),
     })
 }
+
+export type FetchNonDeliveryReportsType = {
+    code: number
+    description: string
+    result: {
+        username: string
+        delivery_records: {
+            columnA: 'Column A Placeholder'
+            columnB: 'Column B Placeholder'
+            columnC: 'Column C Placeholder'
+            columnD: 'Column D Placeholder'
+            columnE: 'Column E Placeholder'
+            expandableRow: 'Expandable Row Placeholder'
+        }[]
+    }
+}
+export async function fetchNonDeliveryReports(): Promise<FetchNonDeliveryReportsType> {
+    return gateway(`ndr`, {
+        method: 'POST',
+        headers: {
+            'APP-KEY': '#$%^SK&SNLSH*^%SF',
+        },
+    })
+}
