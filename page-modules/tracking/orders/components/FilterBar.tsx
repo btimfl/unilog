@@ -47,6 +47,7 @@ function reducer(state: DefaultFilters, { type, payload }: Actions): DefaultFilt
                 sortBy: INIT_DEFAULT_FILTER_VALUES.sortBy,
                 filterBy: INIT_DEFAULT_FILTER_VALUES.filterBy,
                 timeline: INIT_DEFAULT_FILTER_VALUES.timeline,
+                ...payload,
             }
         default:
             return state
@@ -67,20 +68,25 @@ export default function FilterBar({ filters, setFilters }: Props) {
 
     const isShipmentsFetching = useIsFetching({ queryKey: ['shipments'] })
 
-    function applyFilters(wasReset = false) {
+    function applyFilters(
+        wasReset = false,
+        defaultFilterValues?: Partial<DefaultFilters>,
+        customFilterValues?: CustomFilters,
+    ) {
         if (wasReset) {
-            resetFilters()
+            resetFilters(defaultFilterValues, customFilterValues)
             setFilters({
                 ...INIT_DEFAULT_FILTER_VALUES,
+                ...defaultFilterValues,
                 searchText: defaultFilters.searchText,
                 customFilters: INIT_CUSTOM_FILTER_VALUES,
             })
         } else setFilters({ ...defaultFilters, customFilters: customFilters })
     }
 
-    function resetFilters() {
-        dispatchDefaultFilterChange({ type: ActionType.RESET_FILTERS, payload: null })
-        setCustomFilters(INIT_CUSTOM_FILTER_VALUES)
+    function resetFilters(defaultFilterValues?: Partial<DefaultFilters>, customFilterValues?: CustomFilters) {
+        dispatchDefaultFilterChange({ type: ActionType.RESET_FILTERS, payload: defaultFilterValues })
+        setCustomFilters({ ...INIT_CUSTOM_FILTER_VALUES, ...customFilterValues })
     }
 
     return (
@@ -101,7 +107,10 @@ export default function FilterBar({ filters, setFilters }: Props) {
                                 payload: e.target.value,
                             })
                         }
-                        onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && applyFilters(true)}
+                        onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>
+                            e.key === 'Enter' &&
+                            applyFilters(true, { timeline: e.currentTarget.value ? 'last_90_days' : 'last_7_days' })
+                        }
                     />
                 </InputGroup>
                 <Flex gap={4}>
