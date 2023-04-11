@@ -1,7 +1,7 @@
 import { Center, Text } from '@chakra-ui/react'
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { ColumnDef, Row, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { useVirtual } from '@tanstack/react-virtual'
-import { useMemo, useRef } from 'react'
+import { Fragment, ReactNode, useMemo, useRef } from 'react'
 
 import styles from './TanstackTable.module.scss'
 
@@ -10,14 +10,24 @@ type Props<K> = {
     columns: ColumnDef<K>[]
     headerRowHeight?: number
     dataRowHeight?: number
+    getRowCanExpand?: (row: Row<K>) => boolean
+    renderSubComponent?: (row: Row<K>) => ReactNode
 }
 
-export default function TanstackTable<K>({ data, columns, headerRowHeight = 2, dataRowHeight = 4 }: Props<K>) {
+export default function TanstackTable<K>({
+    data,
+    columns,
+    getRowCanExpand,
+    renderSubComponent,
+    headerRowHeight = 2,
+    dataRowHeight = 4,
+}: Props<K>) {
     const memoizedProps = useMemo(() => ({ data, columns }), [data, columns])
 
     const table = useReactTable<K>({
         data: memoizedProps.data,
         columns: memoizedProps.columns,
+        getRowCanExpand,
         getCoreRowModel: getCoreRowModel(),
     })
 
@@ -63,20 +73,29 @@ export default function TanstackTable<K>({ data, columns, headerRowHeight = 2, d
                     {virtualRows.map((virtualRow) => {
                         const row = rows[virtualRow.index]
                         return (
-                            <tr key={row.id} style={{ height: `${dataRowHeight}rem` }}>
-                                {row.getVisibleCells().map((cell) => {
-                                    return (
-                                        <td
-                                            key={cell.id}
-                                            style={{
-                                                width: cell.column.getSize(),
-                                            }}
-                                        >
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </td>
-                                    )
-                                })}
-                            </tr>
+                            <Fragment key={row.id}>
+                                <tr style={{ height: `${dataRowHeight}rem` }}>
+                                    {row.getVisibleCells().map((cell) => {
+                                        return (
+                                            <td
+                                                key={cell.id}
+                                                style={{
+                                                    width: cell.column.getSize(),
+                                                }}
+                                            >
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </td>
+                                        )
+                                    })}
+                                </tr>
+                                {row.getIsExpanded() ? (
+                                    <tr>
+                                        <td colSpan={row.getVisibleCells().length}>{renderSubComponent?.(row)}</td>
+                                    </tr>
+                                ) : (
+                                    <></>
+                                )}
+                            </Fragment>
                         )
                     })}
                     {paddingBottom > 0 && (
