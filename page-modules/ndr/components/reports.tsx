@@ -8,6 +8,7 @@ import DatatableSkeleton from 'shared/components/Skeletons/Datatable'
 import { useReports } from '../hooks/queries'
 import { ReportsColumns } from '../types/reports'
 import { sanitiseData } from '../utils'
+import NDRDetailCell from './ndr-detail-cell'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createColumns(): ColumnDef<ReportsColumns, any>[] {
@@ -15,7 +16,7 @@ function createColumns(): ColumnDef<ReportsColumns, any>[] {
 
     return [
         columnHelper.accessor('columnA', {
-            cell: (info) => info.getValue(),
+            cell: () => <NDRDetailCell />,
             header: 'NDR Details',
             size: 300,
         }),
@@ -31,10 +32,20 @@ function createColumns(): ColumnDef<ReportsColumns, any>[] {
         }),
         columnHelper.accessor('columnD', {
             cell: (info) => info.getValue(),
-            header: 'Shipment Details',
+            header: 'Delivery Address',
             size: 300,
         }),
         columnHelper.accessor('columnE', {
+            cell: (info) => info.getValue(),
+            header: 'Field Executive Info',
+            size: 300,
+        }),
+        columnHelper.accessor('columnF', {
+            cell: (info) => info.getValue(),
+            header: 'Shipment Details',
+            size: 300,
+        }),
+        columnHelper.accessor('columnG', {
             cell: (info) => info.getValue(),
             header: 'Last Action By',
             size: 300,
@@ -49,7 +60,7 @@ function createColumns(): ColumnDef<ReportsColumns, any>[] {
                             onClick={row.getToggleExpandedHandler()}
                             rightIcon={row.getIsExpanded() ? <ChevronDownIcon /> : <ChevronUpIcon />}
                         >
-                            View History
+                            {row.getIsExpanded() ? `Hide` : `View`} History
                         </Button>
                     ) : (
                         <></>
@@ -78,13 +89,15 @@ export default function Reports() {
     if (isError) return <Center h="400px">{String(error) ?? 'An error occurred, please try again later!'}</Center>
 
     return (
-        <Box mt={4} maxH={`62dvh`} overflow="scroll" border="1px solid var(--chakra-colors-gray-100)">
+        <Box maxH={`62dvh`} overflow="scroll" border="1px solid var(--chakra-colors-gray-100)">
             <TanstackTable<ReportsColumns>
                 data={memoizedData}
                 columns={memoizedColumns}
                 getRowCanExpand={() => true}
                 renderSubComponent={(row: Row<ReportsColumns>) => (
-                    <span>{JSON.stringify(row.getValue('expandableRow'))}</span>
+                    <span>
+                        HI {row.getValue('columnA')} {JSON.stringify(row.getValue('expandableRow'))}
+                    </span>
                 )}
             />
         </Box>

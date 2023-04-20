@@ -66,6 +66,8 @@ export type FetchNonDeliveryReportsType = {
             columnC: 'Column C Placeholder'
             columnD: 'Column D Placeholder'
             columnE: 'Column E Placeholder'
+            columnF: 'Column F Placeholder'
+            columnG: 'Column G Placeholder'
             expandableRow: 'Expandable Row Placeholder'
         }[]
     }

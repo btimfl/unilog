@@ -12,6 +12,8 @@ export function sanitiseData(data: FetchNonDeliveryReportsType | null | undefine
             columnC: record.columnC,
             columnD: record.columnD,
             columnE: record.columnE,
+            columnF: record.columnF,
+            columnG: record.columnG,
             expandableRow: record.expandableRow,
         }
     })

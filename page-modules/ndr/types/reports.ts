@@ -4,5 +4,7 @@ export type ReportsColumns = {
     columnC: string
     columnD: string
     columnE: string
+    columnF: string
+    columnG: string
     expandableRow: string
 }
