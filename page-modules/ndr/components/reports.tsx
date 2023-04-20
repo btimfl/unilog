@@ -6,8 +6,10 @@ import { useMemo } from 'react'
 import DatatableSkeleton from 'shared/components/Skeletons/Datatable'
 
 import { useReports } from '../hooks/queries'
+import usePagination from '../hooks/usePagination'
 import { ReportsColumns } from '../types/reports'
 import { sanitiseData } from '../utils'
+import PaginationBar from './PaginationBar'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createColumns(): ColumnDef<ReportsColumns, any>[] {
@@ -68,6 +70,8 @@ export default function Reports() {
     const memoizedData = useMemo(() => sanitiseData(data), [data])
     const memoizedColumns = useMemo(() => createColumns(), [])
 
+    const { pageIndex, pageSize, pageCount, setPagination } = usePagination(data)
+
     if (isLoading)
         return (
             <Box w={'100%'} h={'90%'} mt={4}>
@@ -78,7 +82,7 @@ export default function Reports() {
     if (isError) return <Center h="400px">{String(error) ?? 'An error occurred, please try again later!'}</Center>
 
     return (
-        <Box mt={4} maxH={`62dvh`} overflow="scroll" border="1px solid var(--chakra-colors-gray-100)">
+        <Box maxH={`62dvh`} overflow="scroll" border="1px solid var(--chakra-colors-gray-100)">
             <TanstackTable<ReportsColumns>
                 data={memoizedData}
                 columns={memoizedColumns}
@@ -86,6 +90,13 @@ export default function Reports() {
                 renderSubComponent={(row: Row<ReportsColumns>) => (
                     <span>{JSON.stringify(row.getValue('expandableRow'))}</span>
                 )}
+                strategy="VirtualRows"
+            />
+            <PaginationBar
+                pageIndex={pageIndex}
+                pageSize={pageSize}
+                pageCount={pageCount}
+                setPagination={setPagination}
             />
         </Box>
     )
