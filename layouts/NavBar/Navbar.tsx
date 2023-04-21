@@ -1,5 +1,6 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Avatar, Flex, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import Link from 'next/link'
 
 import BreadcrumbComp from '../Breadcrumb/Breadcrumb'
 import styles from './navbar.module.scss'
@@ -16,7 +17,11 @@ export default function NavBar() {
                     <ChevronDownIcon color="gray.500" />
                 </MenuButton>
                 <MenuList>
-                    <MenuItem fontSize="sm">Settings</MenuItem>
+                    <MenuItem fontSize="sm">
+                        <Link href="https://unilog.unicommerce.com/admin" target="_blank" rel="noreferrer">
+                            Settings
+                        </Link>
+                    </MenuItem>
                     <MenuItem fontSize="sm">User Info</MenuItem>
                     <MenuItem fontSize="sm">Logout</MenuItem>
                 </MenuList>
