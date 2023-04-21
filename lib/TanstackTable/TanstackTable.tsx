@@ -1,13 +1,16 @@
 import { Center, Text } from '@chakra-ui/react'
 import { ColumnDef, Row, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { useVirtual } from '@tanstack/react-virtual'
-import { Fragment, ReactNode, useMemo, useRef } from 'react'
+import { ReactNode, useMemo, useRef } from 'react'
 
+import Basic from './Basic'
 import styles from './TanstackTable.module.scss'
+import VirtualRows from './VirtualRows'
+import { TableStrategy } from './types'
 
 type Props<K> = {
     data: K[]
     columns: ColumnDef<K>[]
+    strategy: TableStrategy
     headerRowHeight?: number
     dataRowHeight?: number
     getRowCanExpand?: (row: Row<K>) => boolean
@@ -21,6 +24,7 @@ export default function TanstackTable<K>({
     renderSubComponent,
     headerRowHeight = 2,
     dataRowHeight = 4,
+    strategy,
 }: Props<K>) {
     const memoizedProps = useMemo(() => ({ data, columns }), [data, columns])
 
@@ -33,14 +37,6 @@ export default function TanstackTable<K>({
 
     const tableContainerRef = useRef<HTMLDivElement>(null)
     const { rows } = table.getRowModel()
-    const rowVirtualizer = useVirtual({
-        parentRef: tableContainerRef,
-        size: rows.length,
-        overscan: 10,
-    })
-    const { virtualItems: virtualRows, totalSize } = rowVirtualizer
-    const paddingTop = virtualRows.length > 0 ? virtualRows?.[0]?.start || 0 : 0
-    const paddingBottom = virtualRows.length > 0 ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0) : 0
 
     return (
         <div className={styles.container} ref={tableContainerRef}>
@@ -65,43 +61,16 @@ export default function TanstackTable<K>({
                     ))}
                 </thead>
                 <tbody>
-                    {paddingTop > 0 && (
-                        <tr>
-                            <td style={{ height: `${paddingTop}px` }} />
-                        </tr>
+                    {strategy === 'VirtualRows' && (
+                        <VirtualRows<K>
+                            rows={rows}
+                            tableContainerRef={tableContainerRef}
+                            dataRowHeight={dataRowHeight}
+                            renderSubComponent={renderSubComponent}
+                        />
                     )}
-                    {virtualRows.map((virtualRow) => {
-                        const row = rows[virtualRow.index]
-                        return (
-                            <Fragment key={row.id}>
-                                <tr style={{ height: `${dataRowHeight}rem` }}>
-                                    {row.getVisibleCells().map((cell) => {
-                                        return (
-                                            <td
-                                                key={cell.id}
-                                                style={{
-                                                    width: cell.column.getSize(),
-                                                }}
-                                            >
-                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                            </td>
-                                        )
-                                    })}
-                                </tr>
-                                {row.getIsExpanded() ? (
-                                    <tr>
-                                        <td colSpan={row.getVisibleCells().length}>{renderSubComponent?.(row)}</td>
-                                    </tr>
-                                ) : (
-                                    <></>
-                                )}
-                            </Fragment>
-                        )
-                    })}
-                    {paddingBottom > 0 && (
-                        <tr>
-                            <td style={{ height: `${paddingBottom}px` }} />
-                        </tr>
+                    {strategy === 'Basic' && (
+                        <Basic<K> dataRowHeight={dataRowHeight} renderSubComponent={renderSubComponent} rows={rows} />
                     )}
                 </tbody>
                 <tfoot>

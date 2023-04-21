@@ -1,4 +1,5 @@
 import { FetchShipmentsType } from 'apis/post'
+import { parseDate } from 'shared/utils/functions'
 
 import { CustomFilters, DefaultFilters, Filters } from './types/filters'
 import { ShipmentsColumns } from './types/shipment'
@@ -23,17 +24,6 @@ export const INIT_FILTER_VALUES: Filters = {
     filterBy: [],
     searchText: '',
     customFilters: {},
-}
-
-export function parseDate(date: string | null | undefined): string {
-    if (!date) return '-'
-
-    return new Date(date).toLocaleDateString('en-IN', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    })
 }
 
 export function sanitiseData(data: FetchShipmentsType | null | undefined): ShipmentsColumns[] {

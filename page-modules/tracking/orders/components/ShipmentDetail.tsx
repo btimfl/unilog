@@ -1,7 +1,7 @@
 import { Box, Center, Divider, Flex, Spinner, Text } from '@chakra-ui/react'
+import { parseDate } from 'shared/utils/functions'
 
 import { useShipmentDetails } from '../hooks/queries'
-import { parseDate } from '../utils'
 import ChakraTable from './ChakraTable'
 
 type Props = {

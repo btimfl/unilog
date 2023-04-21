@@ -1,56 +1,96 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
-import { Box, Button, Center } from '@chakra-ui/react'
+import { Box, Button, Center, Text } from '@chakra-ui/react'
 import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
 import { useMemo } from 'react'
 import DatatableSkeleton from 'shared/components/Skeletons/Datatable'
 
 import { useReports } from '../hooks/queries'
+import usePagination from '../hooks/usePagination'
 import { ReportsColumns } from '../types/reports'
 import { sanitiseData } from '../utils'
-import NDRDetailCell from './ndr-detail-cell'
+import PaginationBar from './PaginationBar'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createColumns(): ColumnDef<ReportsColumns, any>[] {
     const columnHelper = createColumnHelper<ReportsColumns>()
 
     return [
-        columnHelper.accessor('columnA', {
-            cell: () => <NDRDetailCell />,
+        columnHelper.accessor('ndrDetails', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue().date}</Text>
+                    <Text>{info.getValue().attempts}</Text>
+                    <Text>{info.getValue().reason}</Text>
+                    <Text>{info.getValue().pending}</Text>
+                </>
+            ),
             header: 'NDR Details',
             size: 300,
         }),
-        columnHelper.accessor('columnB', {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor('orderDetails', {
+            cell: (info) => (
+                <>
+                    <Text>ID: {info.getValue().id}</Text>
+                    <Text>₹{info.getValue().amount}</Text>
+                    <Text>{info.getValue().paymentMethod}</Text>
+                </>
+            ),
             header: 'Order Details',
             size: 300,
         }),
-        columnHelper.accessor('columnC', {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor('customerDetails', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue().name}</Text>
+                    <Text>{info.getValue().phone}</Text>
+                    <Text>{info.getValue().email}</Text>
+                    <Text>
+                        {info.getValue().city}, {info.getValue().state}, {info.getValue().pincode}
+                    </Text>
+                </>
+            ),
             header: 'Customer Details',
             size: 300,
         }),
-        columnHelper.accessor('columnD', {
-            cell: (info) => info.getValue(),
-            header: 'Delivery Address',
-            size: 300,
-        }),
-        columnHelper.accessor('columnE', {
-            cell: (info) => info.getValue(),
-            header: 'Field Executive Info',
-            size: 300,
-        }),
-        columnHelper.accessor('columnF', {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor('deliveryAddress', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue()}</Text>
+                </>
+            ),
             header: 'Shipment Details',
             size: 300,
         }),
-        columnHelper.accessor('columnG', {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor('fieldExecutiveInfo', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue()}</Text>
+                </>
+            ),
+            header: 'Field Executive Info',
+            size: 300,
+        }),
+        columnHelper.accessor('shipmentDetails', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue().id}</Text>
+                    <Text>{info.getValue().carrier}</Text>
+                </>
+            ),
+            header: 'Shipment Details',
+            size: 300,
+        }),
+        columnHelper.accessor('lastActionBy', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue()}</Text>
+                </>
+            ),
             header: 'Last Action By',
             size: 300,
         }),
-        columnHelper.accessor('expandableRow', {
+        columnHelper.accessor('actions', {
             cell: ({ row }) => (
                 <>
                     {row.getCanExpand() ? (
@@ -60,7 +100,7 @@ function createColumns(): ColumnDef<ReportsColumns, any>[] {
                             onClick={row.getToggleExpandedHandler()}
                             rightIcon={row.getIsExpanded() ? <ChevronDownIcon /> : <ChevronUpIcon />}
                         >
-                            {row.getIsExpanded() ? `Hide` : `View`} History
+                            View History
                         </Button>
                     ) : (
                         <></>
@@ -79,6 +119,8 @@ export default function Reports() {
     const memoizedData = useMemo(() => sanitiseData(data), [data])
     const memoizedColumns = useMemo(() => createColumns(), [])
 
+    const { pageIndex, pageSize, pageCount, setPagination } = usePagination(data)
+
     if (isLoading)
         return (
             <Box w={'100%'} h={'90%'} mt={4}>
@@ -95,10 +137,15 @@ export default function Reports() {
                 columns={memoizedColumns}
                 getRowCanExpand={() => true}
                 renderSubComponent={(row: Row<ReportsColumns>) => (
-                    <span>
-                        HI {row.getValue('columnA')} {JSON.stringify(row.getValue('expandableRow'))}
-                    </span>
+                    <span>{JSON.stringify(row.getValue('historyRow') || 'Test')}</span>
                 )}
+                strategy="VirtualRows"
+            />
+            <PaginationBar
+                pageIndex={pageIndex}
+                pageSize={pageSize}
+                pageCount={pageCount}
+                setPagination={setPagination}
             />
         </Box>
     )
