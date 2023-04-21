@@ -11,8 +11,7 @@ export default function usePagination(data: FetchNonDeliveryReportsType | undefi
     const [pageCount, setPageCount] = useState<number>(1)
 
     useEffect(() => {
-        // setPageCount(Math.ceil(data?.result.meta.total / pageSize))
-        setPageCount(1)
+        setPageCount(Math.ceil((data?.meta.total ?? 1) / pageSize))
     }, [data, pageSize])
 
     return { pageIndex, pageSize, pageCount, setPagination }

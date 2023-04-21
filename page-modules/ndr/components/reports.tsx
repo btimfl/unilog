@@ -1,5 +1,5 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
-import { Box, Button, Center } from '@chakra-ui/react'
+import { Box, Button, Center, Text } from '@chakra-ui/react'
 import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
 import { useMemo } from 'react'
@@ -16,32 +16,81 @@ function createColumns(): ColumnDef<ReportsColumns, any>[] {
     const columnHelper = createColumnHelper<ReportsColumns>()
 
     return [
-        columnHelper.accessor('columnA', {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor('ndrDetails', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue().date}</Text>
+                    <Text>{info.getValue().attempts}</Text>
+                    <Text>{info.getValue().reason}</Text>
+                    <Text>{info.getValue().pending}</Text>
+                </>
+            ),
             header: 'NDR Details',
             size: 300,
         }),
-        columnHelper.accessor('columnB', {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor('orderDetails', {
+            cell: (info) => (
+                <>
+                    <Text>ID: {info.getValue().id}</Text>
+                    <Text>₹{info.getValue().amount}</Text>
+                    <Text>{info.getValue().paymentMethod}</Text>
+                </>
+            ),
             header: 'Order Details',
             size: 300,
         }),
-        columnHelper.accessor('columnC', {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor('customerDetails', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue().name}</Text>
+                    <Text>{info.getValue().phone}</Text>
+                    <Text>{info.getValue().email}</Text>
+                    <Text>
+                        {info.getValue().city}, {info.getValue().state}, {info.getValue().pincode}
+                    </Text>
+                </>
+            ),
             header: 'Customer Details',
             size: 300,
         }),
-        columnHelper.accessor('columnD', {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor('deliveryAddress', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue()}</Text>
+                </>
+            ),
             header: 'Shipment Details',
             size: 300,
         }),
-        columnHelper.accessor('columnE', {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor('fieldExecutiveInfo', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue()}</Text>
+                </>
+            ),
+            header: 'Field Executive Info',
+            size: 300,
+        }),
+        columnHelper.accessor('shipmentDetails', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue().id}</Text>
+                    <Text>{info.getValue().carrier}</Text>
+                </>
+            ),
+            header: 'Shipment Details',
+            size: 300,
+        }),
+        columnHelper.accessor('lastActionBy', {
+            cell: (info) => (
+                <>
+                    <Text>{info.getValue()}</Text>
+                </>
+            ),
             header: 'Last Action By',
             size: 300,
         }),
-        columnHelper.accessor('expandableRow', {
+        columnHelper.accessor('actions', {
             cell: ({ row }) => (
                 <>
                     {row.getCanExpand() ? (
@@ -88,7 +137,7 @@ export default function Reports() {
                 columns={memoizedColumns}
                 getRowCanExpand={() => true}
                 renderSubComponent={(row: Row<ReportsColumns>) => (
-                    <span>{JSON.stringify(row.getValue('expandableRow'))}</span>
+                    <span>{JSON.stringify(row.getValue('historyRow') || 'Test')}</span>
                 )}
                 strategy="VirtualRows"
             />
