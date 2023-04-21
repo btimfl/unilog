@@ -29,7 +29,7 @@ export default function DashboardNDR() {
         <>
             <Card>
                 <CardHeader fontWeight="bold" py={3}>
-                    Shipment Details
+                    Shipment details
                 </CardHeader>
                 <Divider color="gray.100" />
                 <CardBody>
@@ -79,7 +79,7 @@ export default function DashboardNDR() {
             <HStack gap={2} alignItems={`flex-start`} mt={4}>
                 <Card w={`45%`}>
                     <CardHeader fontWeight="bold" py={3}>
-                        NDR Response
+                        NDR response
                     </CardHeader>
                     <Divider />
                     <CardBody py={4} h={`180px`}>
@@ -110,7 +110,7 @@ export default function DashboardNDR() {
                 </Card>
                 <Card w={`55%`}>
                     <CardHeader fontWeight="bold" py={3}>
-                        NDR Funnels
+                        NDR funnels
                     </CardHeader>
                     <Divider />
                     <CardBody py={4}>
@@ -244,7 +244,7 @@ export default function DashboardNDR() {
                 </Card>
                 <Card w={`100%`}>
                     <CardHeader py={3} fontWeight="bold">
-                        NDR Status
+                        NDR status
                     </CardHeader>
                     <Divider />
                     <CardBody>

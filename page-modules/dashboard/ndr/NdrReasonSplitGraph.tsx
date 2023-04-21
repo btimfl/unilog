@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react'
-import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
+import { ArcElement, Chart as ChartJS, ChartOptions, Legend, Tooltip } from 'chart.js'
 import React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 
@@ -32,7 +32,7 @@ export const data = {
     ],
 }
 
-const options = {
+const options: ChartOptions = {
     animation: {
         duration: 500,
     },
