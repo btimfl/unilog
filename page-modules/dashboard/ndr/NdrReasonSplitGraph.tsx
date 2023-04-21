@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react'
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
 import React from 'react'
-import { Pie } from 'react-chartjs-2'
+import { Doughnut } from 'react-chartjs-2'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -38,10 +38,10 @@ const options = {
     },
 }
 
-export function NdrPieChart() {
+export function NdrReasonSplitGraph() {
     return (
-        <Flex h={`400px`} justify="center">
-            <Pie data={data} options={options} />
+        <Flex h={`300px`} justify="center">
+            <Doughnut data={data} options={options} />
         </Flex>
     )
 }

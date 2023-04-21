@@ -20,16 +20,11 @@ import {
     Wrap,
 } from '@chakra-ui/react'
 import Dashboard from 'layouts/Dashboard/Dashboard'
-import { Pie, PieChart } from 'recharts'
+import { NdrReasonSplitGraph } from 'page-modules/dashboard/ndr/NdrReasonSplitGraph'
+import { NdrStatusGraph } from 'page-modules/dashboard/ndr/NdrStatusGraph'
+import { NdrToDeliveryAttemptGraph } from 'page-modules/dashboard/ndr/NdrToDeliveryAttemptGraph'
 
 export default function DashboardNDR() {
-    const data = [
-        { name: 'Geeksforgeeks', students: 400 },
-        { name: 'Technical scripter', students: 700 },
-        { name: 'Geek-i-knack', students: 200 },
-        { name: 'Geek-o-mania', students: 1000 },
-    ]
-
     return (
         <>
             <Card>
@@ -81,9 +76,8 @@ export default function DashboardNDR() {
                     </StatGroup>
                 </CardBody>
             </Card>
-            {/* <Divider my={4} /> */}
             <HStack gap={2} alignItems={`flex-start`} mt={4}>
-                <Card w={`40%`}>
+                <Card w={`45%`}>
                     <CardHeader fontWeight="bold" py={3}>
                         NDR Response
                     </CardHeader>
@@ -114,7 +108,7 @@ export default function DashboardNDR() {
                         </Wrap>
                     </CardBody>
                 </Card>
-                <Card w={`60%`}>
+                <Card w={`55%`}>
                     <CardHeader fontWeight="bold" py={3}>
                         NDR Funnels
                     </CardHeader>
@@ -238,24 +232,106 @@ export default function DashboardNDR() {
                     </CardBody>
                 </Card>
             </HStack>
-            <Card mt={4}>
-                <CardHeader py={3} fontWeight="bold">
-                    NDR Reason Split
-                </CardHeader>
-                <Divider />
-                <CardBody>
-                    <PieChart width={200} height={200}>
-                        <Pie
-                            isAnimationActive={false}
-                            data={data}
-                            dataKey="students"
-                            outerRadius={100}
-                            innerRadius={60}
-                            fill="green"
-                        />
-                    </PieChart>
-                </CardBody>
-            </Card>
+            <HStack gap={2} alignItems={`flex-start`} mt={4}>
+                <Card w={`100%`}>
+                    <CardHeader py={3} fontWeight="bold">
+                        NDR Reason Split
+                    </CardHeader>
+                    <Divider />
+                    <CardBody h={`150px`}>
+                        <NdrReasonSplitGraph />
+                    </CardBody>
+                </Card>
+                <Card w={`100%`}>
+                    <CardHeader py={3} fontWeight="bold">
+                        NDR Status
+                    </CardHeader>
+                    <Divider />
+                    <CardBody>
+                        <NdrStatusGraph />
+                    </CardBody>
+                </Card>
+                <Card w={`100%`}>
+                    <CardHeader py={3} fontWeight="bold">
+                        NDR to delivery attempt
+                    </CardHeader>
+                    <Divider />
+                    <CardBody>
+                        <NdrToDeliveryAttemptGraph />
+                    </CardBody>
+                </Card>
+            </HStack>
+            <HStack gap={2} alignItems={`flex-start`} mt={4}>
+                <Card w={`100%`}>
+                    <CardHeader fontWeight="bold" py={3}>
+                        Total NDR Raised
+                    </CardHeader>
+                    <Divider color="gray.100" />
+                    <CardBody>
+                        <StatGroup>
+                            <Stat textAlign={`center`}>
+                                <StatLabel>NDR Raised</StatLabel>
+                                <StatNumber>9,712</StatNumber>
+                                <StatHelpText mb={0}>
+                                    <StatArrow type="increase" />
+                                    12.34%
+                                </StatHelpText>
+                            </Stat>
+                            <Divider orientation="vertical" color="red.500" />
+                            <Stat textAlign={`center`}>
+                                <StatLabel>Actions Required</StatLabel>
+                                <StatNumber>345</StatNumber>
+                                <Tooltip label="from last week" hasArrow={true}>
+                                    <StatHelpText mb={0}>
+                                        <StatArrow type="decrease" />
+                                        <Text cursor="pointer" as="span">
+                                            23.6%
+                                        </Text>
+                                    </StatHelpText>
+                                </Tooltip>
+                            </Stat>
+                            <Divider orientation="vertical" color="red.500" />
+                            <Stat textAlign={`center`}>
+                                <StatLabel>Delivered</StatLabel>
+                                <StatNumber>5,670</StatNumber>
+                                <StatHelpText mb={0}>
+                                    <StatArrow type="increase" />
+                                    9.13%
+                                </StatHelpText>
+                            </Stat>
+                            <Divider orientation="vertical" color="red.500" />
+                            <Stat textAlign={`center`}>
+                                <StatLabel>Post NDR</StatLabel>
+                                <StatNumber>5,670</StatNumber>
+                                <StatHelpText mb={0}>
+                                    <StatArrow type="increase" />
+                                    2.30%
+                                </StatHelpText>
+                            </Stat>
+                        </StatGroup>
+                    </CardBody>
+                </Card>
+            </HStack>
+            <HStack gap={2} alignItems={`flex-start`} mt={4}>
+                <Card w={`100%`}>
+                    <CardHeader py={3} fontWeight="bold">
+                        Success by Courier
+                    </CardHeader>
+                    <Divider />
+                    <CardBody>
+                        <NdrStatusGraph />
+                    </CardBody>
+                </Card>
+                <Card w={`100%`}>
+                    <CardHeader py={3} fontWeight="bold">
+                        NDR Reason
+                    </CardHeader>
+                    <Divider />
+                    <CardBody>
+                        <NdrStatusGraph />
+                    </CardBody>
+                </Card>
+            </HStack>
         </>
     )
 }
