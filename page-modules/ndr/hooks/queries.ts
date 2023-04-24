@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchNonDeliveryReports } from 'apis/post'
+import { fetchNonDeliveryReports } from 'apis/get'
 
 export function useReports() {
     return useQuery({
