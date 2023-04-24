@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             router.events.off('routeChangeComplete', handleRouteDone)
             router.events.off('routeChangeError', handleRouteDone)
         }
-    }, [])
+    }, [router.events])
 
     return (
         <ChakraProvider resetCSS={true}>
@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                         className: 'default-toast',
                     }}
                 />
-                {router.route === '/404' || router.route === '/_error' ? (
+                {router.route === '/404' || router.route === '/_error' || router.route === '/grant' ? (
                     <Component {...pageProps} />
                 ) : (
                     <MainLayout>

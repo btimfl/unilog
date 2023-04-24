@@ -1,5 +1,5 @@
-const baseURL = 'http://tenant-unilog.unicommerce.com'
-// const baseURL = 'http://localhost:4003'
+// const baseURL = 'http://tenant-unilog.unicommerce.com'
+const baseURL = 'http://localhost:4005'
 
 const access_token =
     'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXJhZy52eWFzQHVuaWNvbW1lcmNlLmNvbSIsIlVTRVJfREVUQUlMUyI6eyJ1c2VybmFtZSI6InBhcmFnLnZ5YXNAdW5pY29tbWVyY2UuY29tIiwic2Vzc2lvbklkIjoiMmYzYWQ0Y2ItOWI3OC00NmE1LTliZTMtNzAxZmNmMjA5N2E4IiwidGVuYW50IjoidGVuYW50IiwicHJvZHVjdCI6IlNUQU5EQVJEIiwicm9sZSI6IkFETUlOIn0sImV4cCI6MTY4MjA3Njc2NCwiaWF0IjoxNjgxOTkwMzY0fQ.2XitJFTFNE-eU_-O25mxqEPu0VNJ9hjdHpUziIcLXPRIFtkvdlqXScRd1uwA0FIbfOSBHO647N9C-18tLBiqtg'

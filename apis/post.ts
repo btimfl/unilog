@@ -169,3 +169,19 @@ export async function fetchNonDeliveryReports({
         },
     )
 }
+
+type FetchAuthTokenType = {
+    jwt: string | null
+}
+
+export async function fetchAuthGrant(session_id: string): Promise<FetchAuthTokenType> {
+    const headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    return gateway(`api/seller/auth_jwt`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+            session_id,
+        }),
+    })
+}
