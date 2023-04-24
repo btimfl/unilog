@@ -180,3 +180,33 @@ export async function fetchExtendedMetadata(): Promise<FetchExtendedMetadata> {
 
     return mappedData
 }
+
+interface summary {
+    title: string
+    value: number
+}
+interface FetchNdrShortSummaryType {
+    summary_items: summary[]
+}
+export async function fetchNdrShortSummary(): Promise<FetchNdrShortSummaryType> {
+    return await gateway(`session/api/v1/ndr/reports/short_summary`, {
+        method: 'GET',
+    })
+}
+
+export interface dateRange {
+    start_date: string
+    end_date: string
+}
+export interface FetchNdrStatusSplitType {
+    'Delivered': number
+    'RTO': number
+    'Pending': number
+    'Lost/Damaged': number
+    'date_range': dateRange
+}
+export async function fetchNdrStatusSplit(): Promise<FetchNdrStatusSplitType> {
+    return await gateway(`session/api/v1/ndr/reports/status_split`, {
+        method: 'GET',
+    })
+}

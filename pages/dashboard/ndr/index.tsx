@@ -21,8 +21,9 @@ import {
 } from '@chakra-ui/react'
 import Dashboard from 'layouts/Dashboard/Dashboard'
 import { NdrReasonSplitGraph } from 'page-modules/dashboard/ndr/NdrReasonSplitGraph'
-import { NdrStatusGraph } from 'page-modules/dashboard/ndr/NdrStatusGraph'
+import { NdrStatusSplitGraph } from 'page-modules/dashboard/ndr/NdrStatusSplitGraph'
 import { NdrToDeliveryAttemptGraph } from 'page-modules/dashboard/ndr/NdrToDeliveryAttemptGraph'
+import { NdrShortSummary } from 'page-modules/ndr/components/ShortSummary/ShortSummary'
 
 export default function DashboardNDR() {
     return (
@@ -33,47 +34,7 @@ export default function DashboardNDR() {
                 </CardHeader>
                 <Divider color="gray.100" />
                 <CardBody>
-                    <StatGroup>
-                        <Stat textAlign={`center`}>
-                            <StatLabel>NDR Raised</StatLabel>
-                            <StatNumber>9,712</StatNumber>
-                            <StatHelpText mb={0}>
-                                <StatArrow type="increase" />
-                                12.34%
-                            </StatHelpText>
-                        </Stat>
-                        <Divider orientation="vertical" color="red.500" />
-                        <Stat textAlign={`center`}>
-                            <StatLabel>Actions Required</StatLabel>
-                            <StatNumber>345</StatNumber>
-                            <Tooltip label="from last week" hasArrow={true}>
-                                <StatHelpText mb={0}>
-                                    <StatArrow type="decrease" />
-                                    <Text cursor="pointer" as="span">
-                                        23.6%
-                                    </Text>
-                                </StatHelpText>
-                            </Tooltip>
-                        </Stat>
-                        <Divider orientation="vertical" color="red.500" />
-                        <Stat textAlign={`center`}>
-                            <StatLabel>Delivered</StatLabel>
-                            <StatNumber>5,670</StatNumber>
-                            <StatHelpText mb={0}>
-                                <StatArrow type="increase" />
-                                9.13%
-                            </StatHelpText>
-                        </Stat>
-                        <Divider orientation="vertical" color="red.500" />
-                        <Stat textAlign={`center`}>
-                            <StatLabel>Post NDR</StatLabel>
-                            <StatNumber>5,670</StatNumber>
-                            <StatHelpText mb={0}>
-                                <StatArrow type="increase" />
-                                2.30%
-                            </StatHelpText>
-                        </Stat>
-                    </StatGroup>
+                    <NdrShortSummary />
                 </CardBody>
             </Card>
             <HStack gap={2} alignItems={`flex-start`} mt={4}>
@@ -244,11 +205,11 @@ export default function DashboardNDR() {
                 </Card>
                 <Card w={`100%`}>
                     <CardHeader py={3} fontWeight="bold">
-                        NDR status
+                        NDR status split
                     </CardHeader>
                     <Divider />
                     <CardBody>
-                        <NdrStatusGraph />
+                        <NdrStatusSplitGraph />
                     </CardBody>
                 </Card>
                 <Card w={`100%`}>
@@ -319,7 +280,7 @@ export default function DashboardNDR() {
                     </CardHeader>
                     <Divider />
                     <CardBody>
-                        <NdrStatusGraph />
+                        <NdrStatusSplitGraph />
                     </CardBody>
                 </Card>
                 <Card w={`100%`}>
@@ -328,7 +289,7 @@ export default function DashboardNDR() {
                     </CardHeader>
                     <Divider />
                     <CardBody>
-                        <NdrStatusGraph />
+                        <NdrStatusSplitGraph />
                     </CardBody>
                 </Card>
             </HStack>

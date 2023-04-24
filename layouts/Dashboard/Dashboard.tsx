@@ -31,7 +31,6 @@ export default function Dashboard({ children }: { children: ReactNode }) {
             <CardBody h={'100%'}>
                 <Tabs
                     isLazy
-                    isFitted
                     className={styles.dashboardTabsContainer}
                     color="gray.700"
                     index={tabIndex}
@@ -39,17 +38,19 @@ export default function Dashboard({ children }: { children: ReactNode }) {
                     h={'100%'}
                 >
                     <TabList h={'2.5rem'}>
-                        <Tab
-                            className={styles.dashboardTab}
-                            fontSize="sm"
-                            _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                            fontWeight="bold"
-                            paddingInline={0}
-                        >
-                            <Link href={ROUTES.HOME_PAGE}>Overview</Link>
-                        </Tab>
+                        <Link href={ROUTES.HOME_PAGE}>
+                            <Tab
+                                className={styles.dashboardTab}
+                                fontSize="sm"
+                                _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
+                                fontWeight="bold"
+                                paddingInline={4}
+                            >
+                                Overview
+                            </Tab>
+                        </Link>
 
-                        <Tab
+                        {/* <Tab
                             className={styles.dashboardTab}
                             fontSize="sm"
                             _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
@@ -66,17 +67,19 @@ export default function Dashboard({ children }: { children: ReactNode }) {
                             paddingInline={0}
                         >
                             <Link href="/dashboard/shipments">Shipments</Link>
-                        </Tab>
-                        <Tab
-                            className={styles.dashboardTab}
-                            fontSize="sm"
-                            _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                            fontWeight="bold"
-                            paddingInline={0}
-                        >
-                            <Link href="/dashboard/ndr">NDR</Link>
-                        </Tab>
-                        <Tab
+                        </Tab> */}
+                        <Link href="/dashboard/ndr">
+                            <Tab
+                                className={styles.dashboardTab}
+                                fontSize="sm"
+                                _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
+                                fontWeight="bold"
+                                paddingInline={4}
+                            >
+                                NDR
+                            </Tab>
+                        </Link>
+                        {/* <Tab
                             className={styles.dashboardTab}
                             fontSize="sm"
                             _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
@@ -111,7 +114,7 @@ export default function Dashboard({ children }: { children: ReactNode }) {
                             paddingInline={0}
                         >
                             <Link href="/dashboard/tracking">Tracking</Link>
-                        </Tab>
+                        </Tab> */}
                     </TabList>
 
                     <Box className={styles.dashboardTabPanel} h={'calc(100% - 2.5rem)'}>
