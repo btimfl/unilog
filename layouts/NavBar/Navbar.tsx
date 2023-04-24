@@ -1,11 +1,18 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Avatar, Flex, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import Cookies from 'js-cookie'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import BreadcrumbComp from '../Breadcrumb/Breadcrumb'
 import styles from './navbar.module.scss'
 
 export default function NavBar() {
+    const router = useRouter()
+    const handleLogoutClick = () => {
+        Cookies.remove('JWT-TOKEN')
+        router.push('https://unilog.unicommerce.com/')
+    }
     return (
         <Flex className={styles.NavBar} flexDir="row" justify={`space-between`} align="center" px={4} cursor="pointer">
             <Flex className={styles.leftSide} align="center" ps={2}>
@@ -23,7 +30,9 @@ export default function NavBar() {
                         </Link>
                     </MenuItem>
                     <MenuItem fontSize="sm">User Info</MenuItem>
-                    <MenuItem fontSize="sm">Logout</MenuItem>
+                    <MenuItem fontSize="sm" onClick={handleLogoutClick}>
+                        Logout
+                    </MenuItem>
                 </MenuList>
             </Menu>
         </Flex>

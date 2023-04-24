@@ -1,6 +1,7 @@
 import { Center, Flex, Icon, Text } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchAuthGrant } from 'apis/post'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import queryString from 'query-string'
 import React, { useEffect, useState } from 'react'
@@ -37,7 +38,7 @@ export default function AuthGrant() {
 
     useEffect(() => {
         if (apiResponse?.jwt) {
-            // window.jwt = apiResponse?.jwt;
+            Cookies.set('JWT-TOKEN', apiResponse?.jwt)
             router.push('/dashboard/overview')
         }
     }, [apiResponse, router])

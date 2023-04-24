@@ -40,9 +40,6 @@ export async function fetchShipments(filters: Filters): Promise<FetchShipmentsTy
 
     return gateway(`shipper/api/tracking-list`, {
         method: 'POST',
-        headers: {
-            'APP-KEY': '#$%^SK&SNLSH*^%SF',
-        },
         body: JSON.stringify({
             to: to || null,
             from: from || null,
@@ -161,11 +158,6 @@ export async function fetchNonDeliveryReports({
         }&is_web=${is_web}&status=${status}&from=${from}&to=${to}`,
         {
             method: 'GET',
-            headers: {
-                'APP-KEY': '#$%^SK&SNLSH*^%SF',
-                'content-type': 'application/json',
-                'accept': '*/*',
-            },
         },
     )
 }
