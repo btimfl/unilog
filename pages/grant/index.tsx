@@ -28,7 +28,6 @@ export default function AuthGrant() {
     })
 
     useEffect(() => {
-        console.log('>> QueryParams: ', queryParams)
         if (!queryParams?.id) {
             setHasError(true)
         } else {
