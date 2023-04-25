@@ -158,7 +158,7 @@ export default function Shipments({ filters }: Props) {
 
     return (
         <Box mt={4} maxH={`62dvh`} overflow="scroll" border="1px solid var(--chakra-colors-gray-100)">
-            <TanstackTable<ShipmentsColumns> data={memoizedData} columns={memoizedColumns} />
+            <TanstackTable<ShipmentsColumns> data={memoizedData} columns={memoizedColumns} strategy="VirtualRows" />
             <Drawer isOpen={isOpen} placement="right" onClose={hideShipmentDetails} size="xl">
                 <DrawerOverlay transform="none !important" />
                 <DrawerContent transform="none !important">

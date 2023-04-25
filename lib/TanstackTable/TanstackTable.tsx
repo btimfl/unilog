@@ -1,36 +1,42 @@
 import { Center, Text } from '@chakra-ui/react'
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { useVirtual } from '@tanstack/react-virtual'
-import { useMemo, useRef } from 'react'
+import { ColumnDef, Row, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { ReactNode, useMemo, useRef } from 'react'
 
+import Basic from './Basic'
 import styles from './TanstackTable.module.scss'
+import VirtualRows from './VirtualRows'
+import { TableStrategy } from './types'
 
 type Props<K> = {
     data: K[]
     columns: ColumnDef<K>[]
+    strategy: TableStrategy
     headerRowHeight?: number
     dataRowHeight?: number
+    getRowCanExpand?: (row: Row<K>) => boolean
+    renderSubComponent?: (row: Row<K>) => ReactNode
 }
 
-export default function TanstackTable<K>({ data, columns, headerRowHeight = 2, dataRowHeight = 4 }: Props<K>) {
+export default function TanstackTable<K>({
+    data,
+    columns,
+    getRowCanExpand,
+    renderSubComponent,
+    headerRowHeight = 2,
+    dataRowHeight = 4,
+    strategy,
+}: Props<K>) {
     const memoizedProps = useMemo(() => ({ data, columns }), [data, columns])
 
     const table = useReactTable<K>({
         data: memoizedProps.data,
         columns: memoizedProps.columns,
+        getRowCanExpand,
         getCoreRowModel: getCoreRowModel(),
     })
 
     const tableContainerRef = useRef<HTMLDivElement>(null)
     const { rows } = table.getRowModel()
-    const rowVirtualizer = useVirtual({
-        parentRef: tableContainerRef,
-        size: rows.length,
-        overscan: 10,
-    })
-    const { virtualItems: virtualRows, totalSize } = rowVirtualizer
-    const paddingTop = virtualRows.length > 0 ? virtualRows?.[0]?.start || 0 : 0
-    const paddingBottom = virtualRows.length > 0 ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0) : 0
 
     return (
         <div className={styles.container} ref={tableContainerRef}>
@@ -55,34 +61,16 @@ export default function TanstackTable<K>({ data, columns, headerRowHeight = 2, d
                     ))}
                 </thead>
                 <tbody>
-                    {paddingTop > 0 && (
-                        <tr>
-                            <td style={{ height: `${paddingTop}px` }} />
-                        </tr>
+                    {strategy === 'VirtualRows' && (
+                        <VirtualRows<K>
+                            rows={rows}
+                            tableContainerRef={tableContainerRef}
+                            dataRowHeight={dataRowHeight}
+                            renderSubComponent={renderSubComponent}
+                        />
                     )}
-                    {virtualRows.map((virtualRow) => {
-                        const row = rows[virtualRow.index]
-                        return (
-                            <tr key={row.id} style={{ height: `${dataRowHeight}rem` }}>
-                                {row.getVisibleCells().map((cell) => {
-                                    return (
-                                        <td
-                                            key={cell.id}
-                                            style={{
-                                                width: cell.column.getSize(),
-                                            }}
-                                        >
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </td>
-                                    )
-                                })}
-                            </tr>
-                        )
-                    })}
-                    {paddingBottom > 0 && (
-                        <tr>
-                            <td style={{ height: `${paddingBottom}px` }} />
-                        </tr>
+                    {strategy === 'Basic' && (
+                        <Basic<K> dataRowHeight={dataRowHeight} renderSubComponent={renderSubComponent} rows={rows} />
                     )}
                 </tbody>
                 <tfoot>

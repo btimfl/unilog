@@ -68,9 +68,7 @@ type FetchShipmentDetails = {
 
 export async function fetchShipmentDetails(trackingNumber: string): Promise<FetchShipmentDetails> {
     return await gateway(`shipper/api/tracking-details?tr_number=${trackingNumber}`, {
-        headers: {
-            'APP-KEY': '#$%^SK&SNLSH*^%SF',
-        },
+        method: 'GET',
     })
 }
 
@@ -91,11 +89,7 @@ type FetchMetaData = {
 }
 
 export async function fetchMetadata(): Promise<FetchMetaData> {
-    return await gateway(`api/system/meta`, {
-        headers: {
-            'APP-KEY': '#$%^SK&SNLSH*^%SF',
-        },
-    })
+    return await gateway(`api/system/meta`, { method: 'GET' })
 }
 
 type ServerFields = {
@@ -163,9 +157,7 @@ function mapToFields(serverFields: ServerFields): Fields {
 
 export async function fetchExtendedMetadata(): Promise<FetchExtendedMetadata> {
     const data = (await gateway(`api/system/get_extended_meta`, {
-        headers: {
-            'APP-KEY': '#$%^SK&SNLSH*^%SF',
-        },
+        method: 'GET',
     })) as FetchExtendedMetadataServer
 
     const mappedData: FetchExtendedMetadata = {
@@ -179,4 +171,34 @@ export async function fetchExtendedMetadata(): Promise<FetchExtendedMetadata> {
     }
 
     return mappedData
+}
+
+interface summary {
+    title: string
+    value: number
+}
+interface FetchNdrShortSummaryType {
+    summary_items: summary[]
+}
+export async function fetchNdrShortSummary(): Promise<FetchNdrShortSummaryType> {
+    return await gateway(`session/api/v1/ndr/reports/short_summary`, {
+        method: 'GET',
+    })
+}
+
+export interface dateRange {
+    start_date: string
+    end_date: string
+}
+export interface FetchNdrStatusSplitType {
+    'Delivered': number
+    'RTO': number
+    'Pending': number
+    'Lost/Damaged': number
+    'date_range': dateRange
+}
+export async function fetchNdrStatusSplit(): Promise<FetchNdrStatusSplitType> {
+    return await gateway(`session/api/v1/ndr/reports/status_split`, {
+        method: 'GET',
+    })
 }

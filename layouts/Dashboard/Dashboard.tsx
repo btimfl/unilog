@@ -1,13 +1,35 @@
-import { Box, CardBody, Tab, TabList, Tabs } from '@chakra-ui/react'
+import { Box, CardBody, IconButton, Tab, TabList, Tabs, Tooltip } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Toolbar from 'page-modules/dashboard/ndr/components/Toolbar'
 import React, { ReactNode, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { FiRefreshCw } from 'react-icons/fi'
 import PageCard from 'shared/components/PageCard/PageCard'
 import { ROUTES } from 'shared/utils/enums'
 
 import { DASHBOARD_ROUTE_MAP, DASHBOARD_ROUTE_PATH } from './dashboard-route-map'
 import styles from './dashboard.module.scss'
+
+function TabToolbar(tabIndex: number): ReactNode {
+    switch (tabIndex) {
+        case 0:
+            return (
+                <Tooltip label="Refresh" hasArrow>
+                    <IconButton
+                        size="sm"
+                        aria-label={'Refresh'}
+                        icon={<FiRefreshCw />}
+                        onClick={() => toast('Refreshing...')}
+                    />
+                </Tooltip>
+            )
+        case 1:
+            return <Toolbar />
+    }
+
+    return <></>
+}
 
 export default function Dashboard({ children }: { children: ReactNode }) {
     const router = useRouter()
@@ -18,20 +40,15 @@ export default function Dashboard({ children }: { children: ReactNode }) {
         setTabIndex(DASHBOARD_ROUTE_MAP[tabName].index)
     }, [router.pathname])
 
-    const handleRefresh = () => {
-        return toast('Refreshing...')
-    }
-
     return (
         <PageCard
             title="Dashboard"
             subtitle="Consolidation of all your data across UniLog."
-            handleRefresh={handleRefresh}
+            toolbar={TabToolbar(tabIndex)}
         >
             <CardBody h={'100%'}>
                 <Tabs
                     isLazy
-                    isFitted
                     className={styles.dashboardTabsContainer}
                     color="gray.700"
                     index={tabIndex}
@@ -39,17 +56,19 @@ export default function Dashboard({ children }: { children: ReactNode }) {
                     h={'100%'}
                 >
                     <TabList h={'2.5rem'}>
-                        <Tab
-                            className={styles.dashboardTab}
-                            fontSize="sm"
-                            _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                            fontWeight="bold"
-                            paddingInline={0}
-                        >
-                            <Link href={ROUTES.HOME_PAGE}>Overview</Link>
-                        </Tab>
+                        <Link href={ROUTES.HOME_PAGE}>
+                            <Tab
+                                className={styles.dashboardTab}
+                                fontSize="sm"
+                                _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
+                                fontWeight="bold"
+                                paddingInline={4}
+                            >
+                                Overview
+                            </Tab>
+                        </Link>
 
-                        <Tab
+                        {/* <Tab
                             className={styles.dashboardTab}
                             fontSize="sm"
                             _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
@@ -66,17 +85,19 @@ export default function Dashboard({ children }: { children: ReactNode }) {
                             paddingInline={0}
                         >
                             <Link href="/dashboard/shipments">Shipments</Link>
-                        </Tab>
-                        <Tab
-                            className={styles.dashboardTab}
-                            fontSize="sm"
-                            _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                            fontWeight="bold"
-                            paddingInline={0}
-                        >
-                            <Link href="/dashboard/ndr">NDR</Link>
-                        </Tab>
-                        <Tab
+                        </Tab> */}
+                        <Link href="/dashboard/ndr">
+                            <Tab
+                                className={styles.dashboardTab}
+                                fontSize="sm"
+                                _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
+                                fontWeight="bold"
+                                paddingInline={4}
+                            >
+                                NDR
+                            </Tab>
+                        </Link>
+                        {/* <Tab
                             className={styles.dashboardTab}
                             fontSize="sm"
                             _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
@@ -111,11 +132,11 @@ export default function Dashboard({ children }: { children: ReactNode }) {
                             paddingInline={0}
                         >
                             <Link href="/dashboard/tracking">Tracking</Link>
-                        </Tab>
+                        </Tab> */}
                     </TabList>
 
                     <Box className={styles.dashboardTabPanel} h={'calc(100% - 2.5rem)'}>
-                        <Box overflow={'auto'} h={'100%'} className={styles.scrollShadows} zIndex={10}>
+                        <Box overflow={'auto'} h={'100%'} zIndex={10}>
                             {children}
                         </Box>
                     </Box>

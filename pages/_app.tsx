@@ -6,10 +6,15 @@ import { useRouter } from 'next/router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import React, { FC, ReactNode, useEffect } from 'react'
+import 'react-date-range/dist/styles.css'
+// main css file
+import 'react-date-range/dist/theme/default.css'
 import { Toaster } from 'react-hot-toast'
 
 import MainLayout from '../layouts/MainLayout'
 import '../styles/globals.css'
+
+// theme css file
 
 NProgress.configure({ showSpinner: false })
 const queryClient = new QueryClient()
@@ -36,7 +41,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             router.events.off('routeChangeComplete', handleRouteDone)
             router.events.off('routeChangeError', handleRouteDone)
         }
-    }, [])
+    }, [router.events])
 
     return (
         <ChakraProvider resetCSS={true}>
@@ -46,7 +51,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                         className: 'default-toast',
                     }}
                 />
-                {router.route === '/404' || router.route === '/_error' ? (
+                {router.route === '/404' || router.route === '/_error' || router.route === '/grant' ? (
                     <Component {...pageProps} />
                 ) : (
                     <MainLayout>

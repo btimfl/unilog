@@ -19,7 +19,7 @@
         z-index: 2;
 
         tr {
-            box-shadow: 0 0 10px 0 gainsboro;
+            border-bottom: 1px solid var(--chakra-colors-gray-200);
             th {
                 border-bottom: 1px solid var(--chakra-colors-gray-100);
                 border-right: 1px solid var(--chakra-colors-gray-100);
