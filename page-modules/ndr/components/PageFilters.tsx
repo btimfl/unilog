@@ -57,6 +57,7 @@ export default function PageFilters({ filters }: Props) {
                     <SearchIcon color="gray.300" fontSize="sm" />
                 </InputLeftElement>
                 <Input
+                    minW={'18rem'}
                     borderRadius={'0.3rem'}
                     value={pageFilters.searchText}
                     placeholder="Search AWB/Order/Phone/Email"
@@ -97,7 +98,7 @@ export default function PageFilters({ filters }: Props) {
                     />
                 </PopoverContent>
                 <Menu autoSelect={false} closeOnSelect={false}>
-                    <MenuButton background="white" fontSize="small" w={'100%'}>
+                    <MenuButton background="white" fontSize="small" w={'100%'} minW={'10rem'}>
                         <Flex
                             align="center"
                             justifyContent="space-between"
