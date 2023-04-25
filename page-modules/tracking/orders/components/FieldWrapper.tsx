@@ -16,19 +16,13 @@ export default function FieldWrapper<T extends FieldType>({ fieldKey, field, per
     const formik = useFormikContext()
 
     useEffect(() => {
-        const updatedFilters: CustomFilters = Object.keys(formik.values || {}).reduce<CustomFilters>(
-            (prev, fieldKey) => {
-                return {
-                    ...prev,
-                    [fieldKey]: {
-                        type: field.type,
-                        value: formik.values?.[fieldKey as keyof typeof formik.values] || INIT_VALUE_MAP[field.type],
-                    },
-                }
+        persistFilters((prevFilters) => ({
+            ...prevFilters,
+            [fieldKey]: {
+                type: field.type,
+                value: formik.values?.[fieldKey as keyof typeof formik.values] || INIT_VALUE_MAP[field.type],
             },
-            {},
-        )
-        persistFilters(updatedFilters)
+        }))
     }, [formik.values])
 
     return <FormField fieldKey={fieldKey} field={field} />

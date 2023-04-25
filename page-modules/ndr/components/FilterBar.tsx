@@ -18,6 +18,7 @@ import {
 import { NDR_ROUTE_MAP } from 'layouts/NDR/NDR-route-map'
 import { useState } from 'react'
 import { MdFilterAlt } from 'react-icons/md'
+import { INIT_VALUE_MAP } from 'shared/utils/forms'
 
 import { useFilterContext } from '../FilterProvider'
 import { useFilters } from '../hooks/queries'
@@ -100,8 +101,16 @@ export default function FilterBar({ tabIndex }: Props) {
                                     h={`28px`}
                                     mb={4}
                                     w={'100%'}
-                                    // isDisabled={!haveFiltersChanged}
-                                    onClick={() => console.log('Reset all clicked')}
+                                    isDisabled={Object.keys(localCustomFilters).every(
+                                        (key) =>
+                                            JSON.stringify(localCustomFilters[key].value) ==
+                                            JSON.stringify(INIT_VALUE_MAP[localCustomFilters[key].type]),
+                                    )}
+                                    onClick={() => {
+                                        setLocalCustomFilters({})
+                                        setCustomFilters({})
+                                        onClose()
+                                    }}
                                 >
                                     Reset all
                                 </Button>
