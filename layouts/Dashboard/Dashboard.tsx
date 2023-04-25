@@ -1,13 +1,35 @@
-import { Box, CardBody, Tab, TabList, Tabs } from '@chakra-ui/react'
+import { Box, CardBody, IconButton, Tab, TabList, Tabs, Tooltip } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Toolbar from 'page-modules/dashboard/ndr/Toolbar'
 import React, { ReactNode, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { FiRefreshCw } from 'react-icons/fi'
 import PageCard from 'shared/components/PageCard/PageCard'
 import { ROUTES } from 'shared/utils/enums'
 
 import { DASHBOARD_ROUTE_MAP, DASHBOARD_ROUTE_PATH } from './dashboard-route-map'
 import styles from './dashboard.module.scss'
+
+function TabToolbar(tabIndex: number): ReactNode {
+    switch (tabIndex) {
+        case 0:
+            return (
+                <Tooltip label="Refresh" hasArrow>
+                    <IconButton
+                        size="sm"
+                        aria-label={'Refresh'}
+                        icon={<FiRefreshCw />}
+                        onClick={() => toast('Refreshing...')}
+                    />
+                </Tooltip>
+            )
+        case 1:
+            return <Toolbar />
+    }
+
+    return <></>
+}
 
 export default function Dashboard({ children }: { children: ReactNode }) {
     const router = useRouter()
@@ -18,15 +40,11 @@ export default function Dashboard({ children }: { children: ReactNode }) {
         setTabIndex(DASHBOARD_ROUTE_MAP[tabName].index)
     }, [router.pathname])
 
-    const handleRefresh = () => {
-        return toast('Refreshing...')
-    }
-
     return (
         <PageCard
             title="Dashboard"
             subtitle="Consolidation of all your data across UniLog."
-            handleRefresh={handleRefresh}
+            toolbar={TabToolbar(tabIndex)}
         >
             <CardBody h={'100%'}>
                 <Tabs
