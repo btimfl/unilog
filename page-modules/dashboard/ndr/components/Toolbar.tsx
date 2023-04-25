@@ -10,50 +10,15 @@ import {
     PopoverTrigger,
     useDisclosure,
 } from '@chakra-ui/react'
-import { format } from 'date-fns'
-import { useEffect, useState } from 'react'
-import { DateRangePicker, Range } from 'react-date-range'
+import { DateRangePicker } from 'react-date-range'
 import { RxCalendar } from 'react-icons/rx'
+
+import { useDateRange } from '../hooks/custom'
 
 export default function Toolbar() {
     const { onOpen, onClose, isOpen } = useDisclosure()
 
-    const [state, setState] = useState<{ selection: Range }>({
-        selection: {
-            startDate: new Date(),
-            endDate: new Date(),
-            key: 'selection',
-        },
-    })
-    const [displayDate, setDisplayDate] = useState('')
-    const [startDate, setStartDate] = useState('')
-    const [endDate, setEndDate] = useState('')
-
-    const handleDateSelection = (_state: Range) => {
-        setState({
-            selection: _state,
-        })
-
-        if (!!state.selection.startDate && !!state.selection.endDate) {
-            setStartDate(format(state.selection.startDate, 'yyyy-MM-dd'))
-            setEndDate(format(state.selection.endDate, 'yyyy-MM-dd'))
-        } else {
-            setStartDate('')
-            setEndDate('')
-        }
-
-        if (state.selection.startDate !== state.selection.endDate) {
-            return onClose()
-        }
-    }
-
-    useEffect(() => {
-        if (!!startDate && !!endDate) {
-            setDisplayDate(`${startDate} to ${endDate}`)
-        } else {
-            setDisplayDate(`Select a date range`)
-        }
-    }, [startDate, endDate])
+    const { displayDate, range, setRange } = useDateRange(onClose)
 
     return (
         <Flex align="center" gap={4}>
@@ -72,19 +37,19 @@ export default function Toolbar() {
                                 fontSize="xs"
                                 w={`180px`}
                                 value={displayDate}
+                                placeholder="Select a date range"
                             />
                         </InputGroup>
                     </PopoverTrigger>
                     <PopoverContent w={`800px`}>
                         <DateRangePicker
-                            onChange={(item) => handleDateSelection(item.selection)}
+                            onChange={(item) => setRange({ selection: item.selection })}
                             moveRangeOnFirstSelection={false}
                             months={2}
-                            ranges={[state.selection]}
+                            ranges={[range.selection]}
                             inputRanges={[]}
                             direction="horizontal"
                         />
-                        ;
                     </PopoverContent>
                 </Popover>
             </Box>

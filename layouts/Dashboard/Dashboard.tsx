@@ -1,7 +1,7 @@
 import { Box, CardBody, IconButton, Tab, TabList, Tabs, Tooltip } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import Toolbar from 'page-modules/dashboard/ndr/Toolbar'
+import Toolbar from 'page-modules/dashboard/ndr/components/Toolbar'
 import React, { ReactNode, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FiRefreshCw } from 'react-icons/fi'
