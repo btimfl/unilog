@@ -34,13 +34,13 @@ function findTabKey(tabIndex: number) {
 }
 
 export default function FilterBar({ tabIndex }: Props) {
-    const { data: response, isLoading, isError } = useFilters()
+    const { data, isLoading, isError } = useFilters()
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
         <Flex>
             {/* Page Filters */}
-            <PageFilters filters={response?.data.filter((filter) => filter.page_key === 'NDR_PAGE_FILTER') ?? []} />
+            <PageFilters filters={data?.filter((filter) => filter.page_key === 'NDR_PAGE_FILTER') ?? []} />
 
             {/* Custom Filters */}
             <Tooltip hasArrow label="Filters">
@@ -82,9 +82,9 @@ export default function FilterBar({ tabIndex }: Props) {
                                 <Text>Filters unavailable! Please try again later.</Text>
                             </Center>
                         )}
-                        {response && (
+                        {data && (
                             <CustomFilters
-                                filters={response.data.filter((filter) => filter.page_key === findTabKey(tabIndex))}
+                                filters={data.filter((filter) => filter.page_key === findTabKey(tabIndex))}
                             />
                         )}
                     </DrawerBody>

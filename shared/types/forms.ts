@@ -1,6 +1,7 @@
 export type FieldTypeToValue = {
     multi_select: string[]
     text_input: string
+    select: string
 }
 
 export type FieldType = keyof FieldTypeToValue
