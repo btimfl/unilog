@@ -29,6 +29,10 @@ export default function FilterProvider({ children }: { children: ReactNode }) {
         console.log('Page Filters >>>', pageFilters)
     }, [pageFilters])
 
+    useEffect(() => {
+        console.log('Custom Filters >>>', customFilters)
+    }, [customFilters])
+
     return (
         <FilterContext.Provider
             value={{

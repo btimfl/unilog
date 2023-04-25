@@ -16,9 +16,12 @@ import {
     useDisclosure,
 } from '@chakra-ui/react'
 import { NDR_ROUTE_MAP } from 'layouts/NDR/NDR-route-map'
+import { useState } from 'react'
 import { MdFilterAlt } from 'react-icons/md'
 
+import { useFilterContext } from '../FilterProvider'
 import { useFilters } from '../hooks/queries'
+import { CustomFilters as CustomFiltersType } from '../types/filters'
 import CustomFilters from './CustomFilters'
 import PageFilters from './PageFilters'
 
@@ -36,6 +39,9 @@ function findTabKey(tabIndex: number) {
 export default function FilterBar({ tabIndex }: Props) {
     const { data, isLoading, isError } = useFilters()
     const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const [localCustomFilters, setLocalCustomFilters] = useState<CustomFiltersType>({})
+    const { setCustomFilters } = useFilterContext()
 
     return (
         <Flex>
@@ -63,7 +69,7 @@ export default function FilterBar({ tabIndex }: Props) {
                 ></IconButton>
             </Tooltip>
 
-            <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xl">
+            <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">
                 <DrawerOverlay transform="none !important" />
                 <DrawerContent transform="none !important">
                     <DrawerCloseButton />
@@ -83,21 +89,47 @@ export default function FilterBar({ tabIndex }: Props) {
                             </Center>
                         )}
                         {data && (
-                            <CustomFilters
-                                filters={data.filter((filter) => filter.page_key === findTabKey(tabIndex))}
-                            />
+                            <>
+                                <CustomFilters
+                                    filters={data.filter((filter) => filter.page_key === findTabKey(tabIndex))}
+                                    customFilters={localCustomFilters}
+                                    setCustomFilters={setLocalCustomFilters}
+                                />
+                                <Button
+                                    size={'xs'}
+                                    h={`28px`}
+                                    mb={4}
+                                    w={'100%'}
+                                    // isDisabled={!haveFiltersChanged}
+                                    onClick={() => console.log('Reset all clicked')}
+                                >
+                                    Reset all
+                                </Button>
+                            </>
                         )}
                     </DrawerBody>
 
                     <DrawerFooter
-                        justifyContent="flex-start"
-                        borderTop="1px solid var(--chakra-colors-gray-200)"
                         py={2}
                         px={4}
                         bg={`gray.100`}
+                        justifyContent={'flex-start'}
+                        borderTop={'1px solid var(--chakra-colors-gray-200)'}
                     >
                         <Flex justify="flex-start">
-                            <Button bg={`white`} variant="outline" onClick={onClose} size="sm" h={`28px`}>
+                            <Button
+                                mr={4}
+                                colorScheme={'teal'}
+                                onClick={() => {
+                                    setCustomFilters(localCustomFilters)
+                                    onClose()
+                                }}
+                                size={'xs'}
+                                h={`28px`}
+                            >
+                                Search
+                            </Button>
+                            <Button bg={`white`} variant={'outline'} onClick={onClose} size={'xs'} h={`28px`}>
                                 Close
                             </Button>
                         </Flex>
