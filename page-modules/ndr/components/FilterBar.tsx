@@ -22,6 +22,7 @@ import { INIT_VALUE_MAP } from 'shared/utils/forms'
 
 import { useFilterContext } from '../FilterProvider'
 import { useFilters } from '../hooks/queries'
+import useDeviations from '../hooks/useDeviations'
 import { CustomFilters as CustomFiltersType } from '../types/filters'
 import CustomFilters from './CustomFilters'
 import PageFilters from './PageFilters'
@@ -42,7 +43,11 @@ export default function FilterBar({ tabIndex }: Props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [localCustomFilters, setLocalCustomFilters] = useState<CustomFiltersType>({})
-    const { setCustomFilters } = useFilterContext()
+    const { customFilters, setCustomFilters } = useFilterContext()
+    const deviations = useDeviations(
+        customFilters,
+        data?.filter((filter) => filter.page_key === findTabKey(tabIndex)),
+    )
 
     return (
         <Flex>
@@ -56,13 +61,13 @@ export default function FilterBar({ tabIndex }: Props) {
                     icon={
                         <>
                             <MdFilterAlt />
-                            {/* {deviations ? (
+                            {deviations ? (
                                 <Text position={'absolute'} w={2} h={2} bottom={2} right={1} fontSize={'xx-small'}>
                                     {deviations}
                                 </Text>
                             ) : (
                                 <></>
-                            )} */}
+                            )}
                         </>
                     }
                     size="sm"
