@@ -1,15 +1,14 @@
-import { Box, Card, CardHeader, Divider, Flex, Heading, IconButton, Text, Tooltip } from '@chakra-ui/react'
+import { Box, Card, CardHeader, Divider, Flex, Heading, Text } from '@chakra-ui/react'
 import { ReactNode } from 'react'
-import { FiRefreshCw } from 'react-icons/fi'
 
 type Props = {
     title: string
     subtitle?: string
-    handleRefresh?: () => void
+    toolbar?: ReactNode
     children: ReactNode
 }
 
-export default function PageCard({ title, subtitle, handleRefresh, children }: Props) {
+export default function PageCard({ title, subtitle, toolbar, children }: Props) {
     return (
         <Card w={`100%`} h={'100%'} variant="outline">
             <CardHeader pb={2} h={'5rem'}>
@@ -22,20 +21,7 @@ export default function PageCard({ title, subtitle, handleRefresh, children }: P
                             {subtitle}
                         </Text>
                     </Box>
-                    {handleRefresh ? (
-                        <Box>
-                            <Tooltip label="Refresh" hasArrow>
-                                <IconButton
-                                    size="sm"
-                                    aria-label={'Refresh'}
-                                    icon={<FiRefreshCw />}
-                                    onClick={handleRefresh}
-                                />
-                            </Tooltip>
-                        </Box>
-                    ) : (
-                        <></>
-                    )}
+                    {toolbar}
                 </Flex>
             </CardHeader>
             <Divider />

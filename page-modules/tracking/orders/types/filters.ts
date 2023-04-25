@@ -64,5 +64,5 @@ export type Actions =
       }
     | {
           type: ActionType.RESET_FILTERS
-          payload: null
+          payload: Partial<DefaultFilters> | undefined
       }

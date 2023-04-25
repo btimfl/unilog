@@ -1,8 +1,8 @@
 import { Box, CardBody, Tab, TabList, Tabs } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import FilterBar from 'page-modules/ndr/components/FilterBar'
 import React, { ReactNode, useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
 import PageCard from 'shared/components/PageCard/PageCard'
 
 import { NDR_ROUTE_MAP, NDR_ROUTE_PATH } from './NDR-route-map'
@@ -17,12 +17,8 @@ export default function NDR({ children }: { children: ReactNode }) {
         setTabIndex(NDR_ROUTE_MAP[tabName].index)
     }, [router.pathname])
 
-    const handleRefresh = () => {
-        return toast('Refreshing...')
-    }
-
     return (
-        <PageCard title="NDR" subtitle="Non Delivery Reports" handleRefresh={handleRefresh}>
+        <PageCard title="NDR" subtitle="Non Delivery Reports">
             <CardBody h={'100%'}>
                 <Tabs
                     isLazy
@@ -69,6 +65,10 @@ export default function NDR({ children }: { children: ReactNode }) {
                         >
                             <Link href="/ndr/rto">RTO</Link>
                         </Tab>
+
+                        <Box ml={'auto'}>
+                            <FilterBar tabIndex={tabIndex} />
+                        </Box>
                     </TabList>
 
                     <Box className={styles.ndrTabPanel} h={'calc(100% - 2.5rem)'}>

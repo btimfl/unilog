@@ -3,17 +3,17 @@ export const DASHBOARD_ROUTE_MAP = {
         index: 0,
         breadcrumb: 'Overview',
     },
-    orders: {
+    ndr: {
         index: 1,
+        breadcrumb: 'NDR',
+    },
+    orders: {
+        index: 2,
         breadcrumb: 'Orders',
     },
     shipments: {
-        index: 2,
-        breadcrumb: 'Shipments',
-    },
-    ndr: {
         index: 3,
-        breadcrumb: 'NDR',
+        breadcrumb: 'Shipments',
     },
     rto: {
         index: 4,

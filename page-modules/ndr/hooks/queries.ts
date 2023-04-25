@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchNonDeliveryReports } from 'apis/get'
+import { fetchNdrFilterMetadata, fetchNonDeliveryReports } from 'apis/get'
 
 export function useReports() {
     return useQuery({
@@ -14,5 +14,14 @@ export function useReports() {
                 to: '2023-04-06',
             }),
         refetchOnWindowFocus: false,
+    })
+}
+
+export function useFilters() {
+    return useQuery({
+        queryKey: ['ndr-filters'],
+        queryFn: () => fetchNdrFilterMetadata('NDR_PAGE_FILTER'),
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
     })
 }
