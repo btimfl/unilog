@@ -20,7 +20,13 @@ export type ReportsColumns = {
         pincode: string
         state: string
     }
-    deliveryAddress: string
+    deliveryAddress: {
+        city: string
+        state: string
+        address: string
+        pincode: string
+        country: string
+    }
     fieldExecutiveInfo: string
     shipmentDetails: {
         id: string

@@ -4,6 +4,7 @@ import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
 import { useMemo } from 'react'
 import DatatableSkeleton from 'shared/components/Skeletons/Datatable'
+import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
 import { useReports } from '../hooks/queries'
 import usePagination from '../hooks/usePagination'
@@ -56,10 +57,14 @@ function createColumns(): ColumnDef<ReportsColumns, any>[] {
         columnHelper.accessor('deliveryAddress', {
             cell: (info) => (
                 <>
-                    <Text>{info.getValue()}</Text>
+                    <TextWithTooltip text={info.getValue().address} width={'8rem'}></TextWithTooltip>
+                    <Text>
+                        {info.getValue().city}, {info.getValue().state}, {info.getValue().pincode}
+                    </Text>
+                    <Text>{info.getValue().country}</Text>
                 </>
             ),
-            header: 'Shipment Details',
+            header: 'Delivery Address',
             size: 300,
         }),
         columnHelper.accessor('fieldExecutiveInfo', {

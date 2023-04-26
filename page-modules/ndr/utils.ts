@@ -33,7 +33,13 @@ export function sanitiseData(apiResponse: FetchNonDeliveryReportsType | null | u
             pincode: record.customer_info.pincode,
             state: record.customer_info.state,
         },
-        deliveryAddress: 'Unavailable', // TODO
+        deliveryAddress: {
+            country: record.delivery_address.country,
+            pincode: record.delivery_address.pincode,
+            address: record.delivery_address.address,
+            city: record.delivery_address.city,
+            state: record.delivery_address.state,
+        },
         fieldExecutiveInfo: 'Unavailable', // TODO
         shipmentDetails: {
             id: record.tracking_number,
