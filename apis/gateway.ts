@@ -2,9 +2,9 @@ import Cookies from 'js-cookie'
 import Router from 'next/router'
 import toast from 'react-hot-toast'
 
-// const baseAppURL = 'http://localhost:4005'
-const baseAuthURL = 'http://unilog.unicommerce.com'
-const baseAppURL = 'http://api-unilog.unicommerce.com'
+const baseAuthURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4005' : 'http://unilog.unicommerce.com'
+const baseAppURL =
+    process.env.NODE_ENV === 'development' ? 'http://localhost:4005' : 'http://api-unilog.unicommerce.com'
 
 const access_token =
     'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXJhZy52eWFzQHVuaWNvbW1lcmNlLmNvbSIsIlVTRVJfREVUQUlMUyI6eyJ1c2VybmFtZSI6InBhcmFnLnZ5YXNAdW5pY29tbWVyY2UuY29tIiwic2Vzc2lvbklkIjoiMmYzYWQ0Y2ItOWI3OC00NmE1LTliZTMtNzAxZmNmMjA5N2E4IiwidGVuYW50IjoidGVuYW50IiwicHJvZHVjdCI6IlNUQU5EQVJEIiwicm9sZSI6IkFETUlOIn0sImV4cCI6MTY4MjA3Njc2NCwiaWF0IjoxNjgxOTkwMzY0fQ.2XitJFTFNE-eU_-O25mxqEPu0VNJ9hjdHpUziIcLXPRIFtkvdlqXScRd1uwA0FIbfOSBHO647N9C-18tLBiqtg'
