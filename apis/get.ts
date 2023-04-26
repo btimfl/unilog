@@ -326,6 +326,7 @@ export type NdrFilter = {
     enable: boolean
     order: number
     placeHolder: string
+    display: string
     option: {
         key: string
         display: string

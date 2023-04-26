@@ -30,7 +30,7 @@ export default function NDR({ children }: { children: ReactNode }) {
                         onChange={setTabIndex}
                         h={'100%'}
                     >
-                        <TabList h={'2.5rem'}>
+                        <TabList h={'2.5rem'} overflow={'auto'}>
                             <Tab
                                 className={styles.ndrTab}
                                 fontSize="sm"
