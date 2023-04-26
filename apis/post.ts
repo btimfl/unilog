@@ -169,11 +169,12 @@ type FetchAuthTokenType = {
 export async function fetchAuthGrant(session_id: string): Promise<FetchAuthTokenType> {
     const headers = new Headers()
     headers.append('Content-Type', 'application/json')
+    headers.append('AUTH-TYPE', 'jwt_only')
     return initAuth(`api/seller/auth_jwt`, {
         method: 'POST',
         headers,
         body: JSON.stringify({
-            session_id,
+            'SESSION-ID': session_id,
         }),
     })
 }
