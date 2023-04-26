@@ -30,7 +30,7 @@ export default function NDR({ children }: { children: ReactNode }) {
                         onChange={setTabIndex}
                         h={'100%'}
                     >
-                        <TabList h={'2.5rem'} overflow={'auto'}>
+                        <TabList h={'auto'} className={styles.ndrTabList}>
                             <Tab
                                 className={styles.ndrTab}
                                 fontSize="sm"
@@ -68,7 +68,7 @@ export default function NDR({ children }: { children: ReactNode }) {
                                 <Link href="/ndr/rto">RTO</Link>
                             </Tab>
 
-                            <Box ml={'auto'}>
+                            <Box ml={'auto'} paddingBottom={2} overflowX={'auto'} overflowY={'hidden'} h={'100%'}>
                                 <FilterBar tabIndex={tabIndex} />
                             </Box>
                         </TabList>
