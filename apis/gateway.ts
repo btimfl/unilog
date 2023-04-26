@@ -21,8 +21,11 @@ export default async function gateway(URL: string, options: RequestInit) {
         Router.push(process.env.NEXT_PUBLIC_HOME_ROUTE!)
         return
     } else {
-        defaultHeaders.append('JWT-TOKEN', Cookies.get('JWT-TOKEN')!)
+        if (!defaultHeaders.has('JWT-TOKEN') && !defaultHeaders.has('jwt-token')) {
+            defaultHeaders.append('JWT-TOKEN', Cookies.get('JWT-TOKEN')!)
+        }
     }
+
     const res = await fetch(`${baseAppURL}/${URL}`, {
         ...options,
         headers: defaultHeaders,

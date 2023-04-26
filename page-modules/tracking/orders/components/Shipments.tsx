@@ -139,7 +139,6 @@ export default function Shipments({ filters }: Props) {
     const [trackingNumber, setTrackingNumber] = useState<string | null>(null)
 
     function showShipmentDetails(row: Row<ShipmentsColumns>) {
-        debugger
         setTrackingNumber(row.original.shippingProvider.awb)
         onOpen()
     }
