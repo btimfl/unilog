@@ -1,5 +1,5 @@
 import { PaginationState } from '@tanstack/react-table'
-import { FetchNonDeliveryReportsType } from 'apis/post'
+import { FetchNonDeliveryReportsType } from 'apis/get'
 import { useEffect, useState } from 'react'
 
 export default function usePagination(data: FetchNonDeliveryReportsType | undefined) {

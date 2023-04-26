@@ -1,7 +1,7 @@
 import { Filters } from 'page-modules/tracking/orders/types/filters'
 import { FieldValue } from 'shared/types/forms'
 
-import gateway from './gateway'
+import gateway, { initAuth } from './gateway'
 
 export type FetchShipmentsType = {
     code: number
@@ -169,7 +169,7 @@ type FetchAuthTokenType = {
 export async function fetchAuthGrant(session_id: string): Promise<FetchAuthTokenType> {
     const headers = new Headers()
     headers.append('Content-Type', 'application/json')
-    return gateway(`api/seller/auth_jwt`, {
+    return initAuth(`api/seller/auth_jwt`, {
         method: 'POST',
         headers,
         body: JSON.stringify({

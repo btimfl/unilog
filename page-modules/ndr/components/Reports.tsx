@@ -1,5 +1,5 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
-import { Box, Button, Center, Text } from '@chakra-ui/react'
+import { Box, Button, Center, Flex, Text } from '@chakra-ui/react'
 import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
 import { useMemo } from 'react'
@@ -131,7 +131,13 @@ export default function Reports() {
     if (isError) return <Center h="400px">{String(error) ?? 'An error occurred, please try again later!'}</Center>
 
     return (
-        <Box maxH={`62dvh`} overflow="scroll" border="1px solid var(--chakra-colors-gray-100)">
+        <Flex
+            flexDir="column"
+            justifyContent="space-between"
+            h={`100%`}
+            overflow="scroll"
+            border="1px solid var(--chakra-colors-gray-100)"
+        >
             <TanstackTable<ReportsColumns>
                 data={memoizedData}
                 columns={memoizedColumns}
@@ -147,6 +153,6 @@ export default function Reports() {
                 pageCount={pageCount}
                 setPagination={setPagination}
             />
-        </Box>
+        </Flex>
     )
 }

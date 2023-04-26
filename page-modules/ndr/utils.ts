@@ -1,4 +1,4 @@
-import { FetchNonDeliveryReportsType } from 'apis/post'
+import { FetchNonDeliveryReportsType } from 'apis/get'
 
 import { ReportsColumns } from './types/reports'
 
