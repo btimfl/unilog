@@ -1,4 +1,4 @@
-import { Box, CardBody, Tab, TabList, Tabs } from '@chakra-ui/react'
+import { Box, CardBody, Tab, TabList, Tabs, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import FilterProvider from 'page-modules/ndr/FilterProvider'
@@ -36,9 +36,12 @@ export default function NDR({ children }: { children: ReactNode }) {
                                 fontSize="sm"
                                 _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
                                 fontWeight="bold"
-                                paddingInline={4}
                             >
-                                <Link href="/ndr/actions-required">Actions Required</Link>
+                                <Link href="/ndr/actions-required">
+                                    <Text paddingBlock={2} paddingInline={4}>
+                                        Actions Required
+                                    </Text>
+                                </Link>
                             </Tab>
                             <Tab
                                 className={styles.ndrTab}
@@ -47,7 +50,11 @@ export default function NDR({ children }: { children: ReactNode }) {
                                 fontWeight="bold"
                                 paddingInline={4}
                             >
-                                <Link href="/ndr/actions-requested">Actions Requested</Link>
+                                <Link href="/ndr/actions-requested">
+                                    <Text paddingBlock={2} paddingInline={4}>
+                                        Actions Requested
+                                    </Text>
+                                </Link>
                             </Tab>
                             <Tab
                                 className={styles.ndrTab}
@@ -56,7 +63,11 @@ export default function NDR({ children }: { children: ReactNode }) {
                                 fontWeight="bold"
                                 paddingInline={4}
                             >
-                                <Link href="/ndr/delivered">Delivered</Link>
+                                <Link href="/ndr/delivered">
+                                    <Text paddingBlock={2} paddingInline={4}>
+                                        Delivered
+                                    </Text>
+                                </Link>
                             </Tab>
                             <Tab
                                 className={styles.ndrTab}
@@ -65,7 +76,11 @@ export default function NDR({ children }: { children: ReactNode }) {
                                 fontWeight="bold"
                                 paddingInline={4}
                             >
-                                <Link href="/ndr/rto">RTO</Link>
+                                <Link href="/ndr/rto">
+                                    <Text paddingBlock={2} paddingInline={4}>
+                                        RTO
+                                    </Text>
+                                </Link>
                             </Tab>
 
                             <Box ml={'auto'} paddingBottom={2} overflowX={'auto'} overflowY={'hidden'} h={'100%'}>
