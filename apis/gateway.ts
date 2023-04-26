@@ -13,6 +13,8 @@ defaultHeaders.append('APP-KEY', '#$%^SK&SNLSH*^%SF')
 defaultHeaders.append('Content-Type', 'application/json')
 defaultHeaders.append('accept', '*/*')
 defaultHeaders.append('Authorization', `Bearer ${access_token}`)
+defaultHeaders.append('AUTH-TYPE', 'jwt_only')
+
 export default async function gateway(URL: string, options: RequestInit) {
     if (!Cookies.get('JWT-TOKEN') && URL.indexOf('api/seller/auth_jwt') === -1) {
         toast.error(String('401: Unauthenticated User'))
