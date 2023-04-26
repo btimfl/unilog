@@ -3,6 +3,8 @@ import { PaginationState } from '@tanstack/react-table'
 import { Dispatch, SetStateAction } from 'react'
 import { AiFillCaretDown, AiOutlineCaretLeft, AiOutlineCaretRight } from 'react-icons/ai'
 
+import styles from './PaginationBar.module.scss'
+
 type Props = {
     pageIndex: number
     pageSize: number
@@ -11,21 +13,11 @@ type Props = {
 }
 export default function PaginationBar({ pageIndex, pageSize, pageCount, setPagination }: Props) {
     return (
-        <Flex
-            alignItems={'center'}
-            gap={2}
-            w={'max-content'}
-            background={'white'}
-            paddingInline={2}
-            borderRadius={'0.25rem'}
-            position={'absolute'}
-            bottom={'30px'}
-            zIndex={2}
-        >
+        <Flex className={styles.PaginationBar}>
             <Flex alignItems={'center'}>
-                <Text fontSize={'sm'}>Items per page:</Text>
+                <Text fontSize={'xs'}>Show:&nbsp;</Text>
                 <Select
-                    size={'sm'}
+                    size={'xs'}
                     fontSize={'small'}
                     background={'white'}
                     borderRadius={'0.3rem'}
@@ -37,7 +29,7 @@ export default function PaginationBar({ pageIndex, pageSize, pageCount, setPagin
                 >
                     {[10, 20, 30, 40, 50].map((_pageSize) => (
                         <option key={_pageSize} value={_pageSize}>
-                            Show {_pageSize}
+                            {_pageSize}
                         </option>
                     ))}
                 </Select>
