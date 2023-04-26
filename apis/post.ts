@@ -163,7 +163,11 @@ export async function fetchNonDeliveryReports({
 }
 
 type FetchAuthTokenType = {
-    jwt: string | null
+    code: string
+    description: string
+    result: {
+        jwt: string
+    }
 }
 
 export async function fetchAuthGrant(session_id: string): Promise<FetchAuthTokenType> {
