@@ -38,18 +38,22 @@ export async function fetchShipments(filters: Filters): Promise<FetchShipmentsTy
         group_search_criteria[key] = customFilters[key].value
     })
 
-    return gateway(`shipper/api/tracking-list`, {
-        method: 'POST',
-        body: JSON.stringify({
-            to: to || null,
-            from: from || null,
-            sort_by: sortBy,
-            time_range_filters: timeline,
-            filters: filterBy,
-            search_text: searchText,
-            group_search_criteria,
-        }),
-    })
+    return gateway(
+        `shipper/api/tracking-list`,
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                to: to || null,
+                from: from || null,
+                sort_by: sortBy,
+                time_range_filters: timeline,
+                filters: filterBy,
+                search_text: searchText,
+                group_search_criteria,
+            }),
+        },
+        'tracking',
+    )
 }
 
 export type FetchNonDeliveryReportsType = {
