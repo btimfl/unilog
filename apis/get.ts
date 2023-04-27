@@ -67,9 +67,13 @@ type FetchShipmentDetails = {
 }
 
 export async function fetchShipmentDetails(trackingNumber: string): Promise<FetchShipmentDetails> {
-    return await gateway(`shipper/api/tracking-details?tr_number=${trackingNumber}`, {
-        method: 'GET',
-    })
+    return await gateway(
+        `shipper/api/tracking-details?tr_number=${trackingNumber}`,
+        {
+            method: 'GET',
+        },
+        'tracking',
+    )
 }
 
 type FetchMetaData = {

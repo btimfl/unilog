@@ -8,6 +8,7 @@ type DomainMapper = {
     dashboard: string
     ndr: string
     default: string
+    tracking: string
 }
 
 export default class DomainHandler {
@@ -21,6 +22,7 @@ export default class DomainHandler {
             dashboard: 'https://unilog.unicommerce.com',
             ndr: 'https://api-unilog.unicommerce.com',
             default: 'https://unilog.unicommerce.com',
+            tracking: 'https://unilog.unicommerce.com',
         }
 
         this.authDomain = process.env.NODE_ENV === 'development' ? 'http://localhost:4005' : this.domains['auth']
@@ -29,6 +31,8 @@ export default class DomainHandler {
 
     public findDomain(domain: string): string {
         switch (domain) {
+            case 'tracking':
+                return this.domains.tracking
             case 'auth':
                 return this.domains.auth
             case 'dashboard':

@@ -17,7 +17,7 @@ defaultHeaders.append('Content-Type', 'application/json')
 defaultHeaders.append('accept', '*/*')
 defaultHeaders.append('AUTH-TYPE', 'jwt_only')
 
-export default async function gateway(URL: string, options: RequestInit) {
+export default async function gateway(URL: string, options: RequestInit, domain?: string) {
     if (!Cookies.get('JWT-TOKEN') && URL.indexOf('api/seller/auth_jwt') === -1) {
         toast.error(String('401: Unauthenticated User'))
         Router.push(process.env.NEXT_PUBLIC_HOME_ROUTE!)
@@ -29,7 +29,9 @@ export default async function gateway(URL: string, options: RequestInit) {
         }
     }
 
-    const res = await fetch(`${baseAppURL}/${URL}`, {
+    const baseUrl = !!domain ? domainResolver.findDomain(domain) : baseAppURL
+
+    const res = await fetch(`${baseUrl}/${URL}`, {
         ...options,
         headers: defaultHeaders,
     })
