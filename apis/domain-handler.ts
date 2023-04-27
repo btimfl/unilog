@@ -25,8 +25,8 @@ export default class DomainHandler {
             tracking: 'https://unilog.unicommerce.com',
         }
 
-        this.authDomain = process.env.NODE_ENV === 'development' ? 'http://localhost:4005' : this.domains['auth']
-        this.appDomain = process.env.NODE_ENV === 'development' ? 'http://localhost:4005' : this.domains['ndr']
+        this.authDomain = this.domains['auth']
+        this.appDomain = this.domains['ndr']
     }
 
     public findDomain(domain: string): string {

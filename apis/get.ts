@@ -304,19 +304,23 @@ export async function fetchNdrShortSummary(startDate: string, endDate: string): 
     })
 }
 
-export interface dateRange {
-    start_date: string
-    end_date: string
-}
-export interface FetchNdrStatusSplitType {
+// export interface dateRangeType {
+//     start_date: string
+//     end_date: string
+// }
+
+export type NdrStatusSplitResult = {
     'Delivered': number
     'RTO': number
     'Pending': number
     'Lost/Damaged': number
-    'date_range': dateRange
+    'date_range': string
 }
-export async function fetchNdrStatusSplit(): Promise<FetchNdrStatusSplitType> {
-    return await gateway(`session/api/v1/ndr/reports/status_split`, {
+
+export type FetchNdrStatusSplitType = NdrStatusSplitResult[]
+
+export async function fetchNdrStatusSplit(startDate: string, endDate: string): Promise<NdrStatusSplitResult[]> {
+    return await gateway(`session/api/v1/ndr/reports/status_split?start_date=${startDate}&end_date=${endDate}`, {
         method: 'GET',
     })
 }

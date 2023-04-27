@@ -193,7 +193,7 @@ export default function DashboardNDR() {
                     </CardBody>
                 </Card>
             </HStack>
-            <HStack gap={2} alignItems={`flex-start`} mt={4}>
+            <HStack gap={2} alignItems={`stretch`} mt={4}>
                 <Card w={`100%`}>
                     <CardHeader py={3} fontWeight="bold">
                         NDR Reason Split

@@ -1,8 +1,9 @@
 import { Flex, Spinner } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import { fetchNdrStatusSplit } from 'apis/get'
+import { NdrStatusSplitResult, fetchNdrStatusSplit } from 'apis/get'
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js'
-import React, { useEffect } from 'react'
+import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
+import React, { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 
@@ -27,48 +28,61 @@ export const options = {
     maintainAspectRatio: false,
 }
 
-const labels = ['January', 'February', 'March', 'April', 'May']
-
-export const graphData = {
-    labels,
-    datasets: [
-        {
-            label: 'Delivered',
-            data: labels.map(() => 200),
-            backgroundColor: 'rgb(255, 99, 132)',
-        },
-        {
-            label: 'RTO',
-            data: labels.map(() => 250),
-            backgroundColor: 'rgb(75, 192, 192)',
-        },
-        {
-            label: 'Pending',
-            data: labels.map(() => 600),
-            backgroundColor: 'rgb(53, 162, 235)',
-        },
-        {
-            label: 'Lost/Damaged',
-            data: labels.map(() => 100),
-        },
-    ],
-}
-
-function prepareDataForGraph() {
-    // const labels = Object.keys(data).filter((el)=> typeof(data[el]) === 'number');
+type chartType = {
+    label: string
+    data: string | number[] | number
+    backgroundColor: string
 }
 
 export function NdrStatusSplitGraph() {
+    const [graphData, setGraphData] = useState<{
+        labels: string[]
+        datasets: chartType[]
+    }>({
+        labels: [],
+        datasets: [],
+    })
+    const { endDate, startDate } = useToolbarContext()
     const { data, isLoading, isError } = useQuery({
-        queryKey: ['fetchNdrStatusSplit'],
-        queryFn: () => fetchNdrStatusSplit(),
+        queryKey: ['fetchNdrStatusSplit', endDate],
+        queryFn: () => fetchNdrStatusSplit(startDate, endDate),
         refetchInterval: false,
         refetchOnWindowFocus: false,
     })
 
-    useEffect(() => {
-        prepareDataForGraph()
-    }, [data])
+    useEffect(() => prepareDataForGraph(data as NdrStatusSplitResult[]), [data, endDate])
+
+    function prepareDataForGraph(apiResponse: NdrStatusSplitResult[]): void {
+        if (!apiResponse) return
+        const newLabels = apiResponse?.map((el: NdrStatusSplitResult) => el.date_range) || []
+        const newDataSets: chartType[] = [
+            {
+                label: 'Delivered',
+                data: apiResponse?.map((el: NdrStatusSplitResult) => el.Delivered) || [],
+                backgroundColor: 'rgb(255, 99, 132)',
+            },
+            {
+                label: 'RTO',
+                data: apiResponse?.map((el: NdrStatusSplitResult) => el.RTO) || [],
+                backgroundColor: 'rgb(75, 192, 192)',
+            },
+            {
+                label: 'Pending',
+                data: apiResponse?.map((el: NdrStatusSplitResult) => el.Pending) || [],
+                backgroundColor: 'rgb(53, 162, 235)',
+            },
+            {
+                label: 'Lost/Damaged',
+                data: apiResponse?.map((el: NdrStatusSplitResult) => el['Lost/Damaged']) || [],
+                backgroundColor: 'rgb(139, 128, 0)',
+            },
+        ]
+
+        setGraphData({
+            labels: newLabels,
+            datasets: newDataSets,
+        })
+    }
 
     if (isLoading) return <Spinner />
 
@@ -76,7 +90,11 @@ export function NdrStatusSplitGraph() {
 
     return (
         <Flex h={`300px`}>
-            <Bar options={options} data={graphData} />
+            {graphData?.labels.length && graphData?.datasets.length ? (
+                <Bar options={options} data={graphData} />
+            ) : (
+                <></>
+            )}
         </Flex>
     )
 }
