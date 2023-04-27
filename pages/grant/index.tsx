@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import queryString from 'query-string'
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { BiErrorAlt } from 'react-icons/bi'
 import { CgSpinner } from 'react-icons/cg'
 
@@ -21,7 +22,7 @@ export default function AuthGrant() {
     const queryParams: AuthParam = queryString.parse(router.asPath.split('?')[1])
 
     const { data: apiResponse } = useQuery({
-        queryKey: ['extendedMetadata'],
+        queryKey: ['fetchAuthGrantKey'],
         queryFn: () => fetchAuthGrant(grantToken),
         refetchOnWindowFocus: false,
         refetchOnMount: false,
@@ -37,11 +38,13 @@ export default function AuthGrant() {
     }, [queryParams, router])
 
     useEffect(() => {
-        if (apiResponse?.jwt) {
-            Cookies.set('JWT-TOKEN', apiResponse?.jwt)
+        if (apiResponse?.result.jwt.length) {
+            Cookies.set('JWT-TOKEN', apiResponse?.result.jwt)
             router.push('/dashboard/overview')
+        } else {
+            toast.error('Unable to authenticate')
         }
-    }, [apiResponse, router])
+    }, [apiResponse])
 
     return (
         <>

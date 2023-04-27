@@ -1,6 +1,7 @@
 import { Box, CardBody, IconButton, Tab, TabList, Tabs, Tooltip } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import ToolbarProvider from 'page-modules/dashboard/ToolbarProvider'
 import Toolbar from 'page-modules/dashboard/ndr/components/Toolbar'
 import React, { ReactNode, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -41,34 +42,35 @@ export default function Dashboard({ children }: { children: ReactNode }) {
     }, [router.pathname])
 
     return (
-        <PageCard
-            title="Dashboard"
-            subtitle="Consolidation of all your data across UniLog."
-            toolbar={TabToolbar(tabIndex)}
-        >
-            <CardBody h={'100%'}>
-                <Tabs
-                    isLazy
-                    className={styles.dashboardTabsContainer}
-                    color="gray.700"
-                    index={tabIndex}
-                    onChange={setTabIndex}
-                    h={'100%'}
-                >
-                    <TabList h={'2.5rem'}>
-                        <Link href={ROUTES.HOME_PAGE}>
-                            <Tab
-                                className={styles.dashboardTab}
-                                fontSize="sm"
-                                _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                                fontWeight="bold"
-                                paddingInline={4}
-                            >
-                                Overview
-                            </Tab>
-                        </Link>
+        <ToolbarProvider>
+            <PageCard
+                title="Dashboard"
+                subtitle="Consolidation of all your data across UniLog."
+                toolbar={TabToolbar(tabIndex)}
+            >
+                <CardBody h={'100%'}>
+                    <Tabs
+                        isLazy
+                        className={styles.dashboardTabsContainer}
+                        color="gray.700"
+                        index={tabIndex}
+                        onChange={setTabIndex}
+                        h={'100%'}
+                    >
+                        <TabList h={'2.5rem'}>
+                            <Link href={ROUTES.HOME_PAGE}>
+                                <Tab
+                                    className={styles.dashboardTab}
+                                    fontSize="sm"
+                                    _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
+                                    fontWeight="bold"
+                                    paddingInline={4}
+                                >
+                                    Overview
+                                </Tab>
+                            </Link>
 
-                        {/* <Tab
+                            {/* <Tab
                             className={styles.dashboardTab}
                             fontSize="sm"
                             _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
@@ -86,18 +88,18 @@ export default function Dashboard({ children }: { children: ReactNode }) {
                         >
                             <Link href="/dashboard/shipments">Shipments</Link>
                         </Tab> */}
-                        <Link href="/dashboard/ndr">
-                            <Tab
-                                className={styles.dashboardTab}
-                                fontSize="sm"
-                                _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                                fontWeight="bold"
-                                paddingInline={4}
-                            >
-                                NDR
-                            </Tab>
-                        </Link>
-                        {/* <Tab
+                            <Link href="/dashboard/ndr">
+                                <Tab
+                                    className={styles.dashboardTab}
+                                    fontSize="sm"
+                                    _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
+                                    fontWeight="bold"
+                                    paddingInline={4}
+                                >
+                                    NDR
+                                </Tab>
+                            </Link>
+                            {/* <Tab
                             className={styles.dashboardTab}
                             fontSize="sm"
                             _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
@@ -121,7 +123,7 @@ export default function Dashboard({ children }: { children: ReactNode }) {
                             _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
                             fontWeight="bold"
                             paddingInline={0}
-                        >
+                            >
                             <Link href="/dashboard/delays">Delays</Link>
                         </Tab>
                         <Tab
@@ -133,15 +135,16 @@ export default function Dashboard({ children }: { children: ReactNode }) {
                         >
                             <Link href="/dashboard/tracking">Tracking</Link>
                         </Tab> */}
-                    </TabList>
+                        </TabList>
 
-                    <Box className={styles.dashboardTabPanel} h={'calc(100% - 2.5rem)'}>
-                        <Box overflow={'auto'} h={'100%'} zIndex={10}>
-                            {children}
+                        <Box className={styles.dashboardTabPanel} h={'calc(100% - 2.5rem)'}>
+                            <Box overflow={'auto'} h={'100%'} zIndex={10}>
+                                {children}
+                            </Box>
                         </Box>
-                    </Box>
-                </Tabs>
-            </CardBody>
-        </PageCard>
+                    </Tabs>
+                </CardBody>
+            </PageCard>
+        </ToolbarProvider>
     )
 }

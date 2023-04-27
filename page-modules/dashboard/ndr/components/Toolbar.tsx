@@ -14,11 +14,12 @@ import { DateRangePicker } from 'react-date-range'
 import { RxCalendar } from 'react-icons/rx'
 
 import { useDateRange } from '../hooks/custom'
+import { useToolbarContext } from './../../ToolbarProvider'
 
 export default function Toolbar() {
     const { onOpen, onClose, isOpen } = useDisclosure()
-
-    const { displayDate, range, setRange } = useDateRange(onClose)
+    const { startDate, endDate, setStartDate, setEndDate } = useToolbarContext()
+    const { displayDate, range, setRange } = useDateRange(onClose, setStartDate, setEndDate, startDate, endDate)
 
     return (
         <Flex align="center" gap={4}>

@@ -23,7 +23,7 @@ import Dashboard from 'layouts/Dashboard/Dashboard'
 import { NdrReasonSplitGraph } from 'page-modules/dashboard/ndr/components/NdrReasonSplitGraph'
 import { NdrStatusSplitGraph } from 'page-modules/dashboard/ndr/components/NdrStatusSplitGraph'
 import { NdrToDeliveryAttemptGraph } from 'page-modules/dashboard/ndr/components/NdrToDeliveryAttemptGraph'
-import { NdrShortSummary } from 'page-modules/ndr/components/ShortSummary/ShortSummary'
+import { NdrShortSummary } from 'page-modules/dashboard/ndr/components/ShortSummary/ShortSummary'
 
 export default function DashboardNDR() {
     return (

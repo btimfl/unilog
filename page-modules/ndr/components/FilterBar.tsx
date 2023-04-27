@@ -25,7 +25,8 @@ import { useFilters } from '../hooks/queries'
 import useDeviations from '../hooks/useDeviations'
 import { CustomFilters as CustomFiltersType } from '../types/filters'
 import CustomFilters from './CustomFilters'
-import PageFilters from './PageFilters'
+
+// import PageFilters from './PageFilters'
 
 type Props = {
     tabIndex: number
@@ -52,7 +53,7 @@ export default function FilterBar({ tabIndex }: Props) {
     return (
         <Flex>
             {/* Page Filters */}
-            <PageFilters filters={data?.filter((filter) => filter.page_key === 'NDR_PAGE_FILTER') ?? []} />
+            {/* <PageFilters filters={data?.filter((filter) => filter.page_key === 'NDR_PAGE_FILTER') ?? []} /> */}
 
             {/* Custom Filters */}
             <Tooltip hasArrow label="Filters">
