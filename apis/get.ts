@@ -294,8 +294,8 @@ interface summary {
 interface FetchNdrShortSummaryType {
     summary_items: summary[]
 }
-export async function fetchNdrShortSummary(): Promise<FetchNdrShortSummaryType> {
-    return await gateway(`session/api/v1/ndr/reports/short_summary`, {
+export async function fetchNdrShortSummary(startDate: string, endDate: string): Promise<FetchNdrShortSummaryType> {
+    return await gateway(`session/api/v1/ndr/reports/short_summary?start_date=${startDate}&end_date=${endDate}`, {
         method: 'GET',
     })
 }
