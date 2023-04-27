@@ -6,6 +6,7 @@ import { useMemo } from 'react'
 import DatatableSkeleton from 'shared/components/Skeletons/Datatable'
 import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
+import { useFilterContext } from '../FilterProvider'
 import { useReports } from '../hooks/queries'
 import usePagination from '../hooks/usePagination'
 import { ReportsColumns } from '../types/reports'
@@ -119,7 +120,8 @@ function createColumns(): ColumnDef<ReportsColumns, any>[] {
 }
 
 export default function Reports() {
-    const { isLoading, isError, data, error } = useReports()
+    const {} = useFilterContext() //customFilters, pageFilters
+    const { isLoading, isError, data, error } = useReports() //customFilters, pageFilters
 
     const memoizedData = useMemo(() => sanitiseData(data), [data])
     const memoizedColumns = useMemo(() => createColumns(), [])

@@ -111,7 +111,7 @@ export default function PageFilters({ filters }: Props) {
                         direction="horizontal"
                     />
                 </PopoverContent>
-                <Menu autoSelect={false} closeOnSelect={false}>
+                <Menu autoSelect={false} closeOnSelect={false} placement="right-start">
                     <MenuButton background="white" fontSize="small" w={'100%'} minW={'10rem'}>
                         <Flex
                             align="center"
