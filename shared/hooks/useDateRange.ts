@@ -1,4 +1,5 @@
-import { format, startOfMonth } from 'date-fns'
+import { format } from 'date-fns'
+import { startOfMonth } from 'date-fns'
 import { useEffect, useState } from 'react'
 import { Range } from 'react-date-range'
 
@@ -6,19 +7,16 @@ export function useDateRange(
     onClose: () => void,
     setStartDate: React.Dispatch<React.SetStateAction<string>>,
     setEndDate: React.Dispatch<React.SetStateAction<string>>,
-    startDate: string,
-    endDate: string,
+    rangeStartDate?: Date,
+    rangeEndDate?: Date,
 ) {
     const [range, setRange] = useState<{ selection: Range }>({
         selection: {
-            startDate: startOfMonth(new Date()),
-            endDate: new Date(),
+            startDate: rangeStartDate ?? startOfMonth(new Date()),
+            endDate: rangeEndDate ?? new Date(),
             key: 'selection',
         },
     })
-    const [displayDate, setDisplayDate] = useState('')
-    // const [startDate, setStartDate] = useState('')
-    // const [endDate, setEndDate] = useState('')
 
     useEffect(() => {
         if (!!range.selection.startDate && !!range.selection.endDate) {
@@ -38,13 +36,5 @@ export function useDateRange(
         }
     }, [range.selection])
 
-    useEffect(() => {
-        if (!!startDate && !!endDate) {
-            setDisplayDate(`${startDate} to ${endDate}`)
-        } else {
-            setDisplayDate(``)
-        }
-    }, [startDate, endDate])
-
-    return { displayDate, range, setRange }
+    return { range, setRange }
 }

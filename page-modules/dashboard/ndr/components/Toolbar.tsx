@@ -10,16 +10,27 @@ import {
     PopoverTrigger,
     useDisclosure,
 } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import { DateRangePicker } from 'react-date-range'
 import { RxCalendar } from 'react-icons/rx'
+import { useDateRange } from 'shared/hooks/useDateRange'
 
-import { useDateRange } from '../hooks/custom'
 import { useToolbarContext } from './../../ToolbarProvider'
 
 export default function Toolbar() {
     const { onOpen, onClose, isOpen } = useDisclosure()
     const { startDate, endDate, setStartDate, setEndDate } = useToolbarContext()
-    const { displayDate, range, setRange } = useDateRange(onClose, setStartDate, setEndDate, startDate, endDate)
+    const { range, setRange } = useDateRange(onClose, setStartDate, setEndDate)
+
+    const [displayDate, setDisplayDate] = useState('')
+
+    useEffect(() => {
+        if (!!startDate && !!endDate) {
+            setDisplayDate(`${startDate} to ${endDate}`)
+        } else {
+            setDisplayDate(``)
+        }
+    }, [startDate, endDate])
 
     return (
         <Flex align="center" gap={4}>
