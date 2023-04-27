@@ -44,7 +44,7 @@ export default function AuthGrant() {
         } else {
             toast.error('Unable to authenticate')
         }
-    }, [apiResponse, router])
+    }, [apiResponse])
 
     return (
         <>
