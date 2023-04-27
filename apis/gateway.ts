@@ -8,14 +8,13 @@ const domainResolver = new DomainHandler()
 const baseAuthURL = domainResolver.authDomain
 const baseAppURL = domainResolver.appDomain
 
-const access_token =
-    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXJhZy52eWFzQHVuaWNvbW1lcmNlLmNvbSIsIlVTRVJfREVUQUlMUyI6eyJ1c2VybmFtZSI6InBhcmFnLnZ5YXNAdW5pY29tbWVyY2UuY29tIiwic2Vzc2lvbklkIjoiMmYzYWQ0Y2ItOWI3OC00NmE1LTliZTMtNzAxZmNmMjA5N2E4IiwidGVuYW50IjoidGVuYW50IiwicHJvZHVjdCI6IlNUQU5EQVJEIiwicm9sZSI6IkFETUlOIn0sImV4cCI6MTY4MjA3Njc2NCwiaWF0IjoxNjgxOTkwMzY0fQ.2XitJFTFNE-eU_-O25mxqEPu0VNJ9hjdHpUziIcLXPRIFtkvdlqXScRd1uwA0FIbfOSBHO647N9C-18tLBiqtg'
+// const access_token =
+//     'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXJhZy52eWFzQHVuaWNvbW1lcmNlLmNvbSIsIlVTRVJfREVUQUlMUyI6eyJ1c2VybmFtZSI6InBhcmFnLnZ5YXNAdW5pY29tbWVyY2UuY29tIiwic2Vzc2lvbklkIjoiMmYzYWQ0Y2ItOWI3OC00NmE1LTliZTMtNzAxZmNmMjA5N2E4IiwidGVuYW50IjoidGVuYW50IiwicHJvZHVjdCI6IlNUQU5EQVJEIiwicm9sZSI6IkFETUlOIn0sImV4cCI6MTY4MjA3Njc2NCwiaWF0IjoxNjgxOTkwMzY0fQ.2XitJFTFNE-eU_-O25mxqEPu0VNJ9hjdHpUziIcLXPRIFtkvdlqXScRd1uwA0FIbfOSBHO647N9C-18tLBiqtg'
 
 const defaultHeaders = new Headers()
 defaultHeaders.append('APP-KEY', '#$%^SK&SNLSH*^%SF')
 defaultHeaders.append('Content-Type', 'application/json')
 defaultHeaders.append('accept', '*/*')
-defaultHeaders.append('Authorization', `Bearer ${access_token}`)
 defaultHeaders.append('AUTH-TYPE', 'jwt_only')
 
 export default async function gateway(URL: string, options: RequestInit) {
@@ -26,6 +25,7 @@ export default async function gateway(URL: string, options: RequestInit) {
     } else {
         if (!defaultHeaders.has('JWT-TOKEN') && !defaultHeaders.has('jwt-token')) {
             defaultHeaders.append('JWT-TOKEN', Cookies.get('JWT-TOKEN')!)
+            defaultHeaders.append('Authorization', `Bearer ${Cookies.get('JWT-TOKEN')!}`)
         }
     }
 
