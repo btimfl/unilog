@@ -4,7 +4,7 @@ import Reports from 'page-modules/ndr/components/Reports'
 export default function ActionsRequired() {
     return (
         <>
-            <Reports />
+            <Reports tabStatus="NDR_RAISED_ACTION_REQUIRED" />
         </>
     )
 }

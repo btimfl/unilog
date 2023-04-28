@@ -2,9 +2,16 @@
     border-bottom-right-radius: var(--chakra-sizes-2);
 }
 
+.dashboardTabList {
+    display: flex;
+    align-items: center;
+}
+
 .dashboardTab {
     color: var(--chakra-colors-red-600);
     color: white;
+    height: 100%;
+    padding: 0 !important;
 
     a {
         width: 100%;

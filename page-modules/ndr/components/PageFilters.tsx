@@ -138,6 +138,7 @@ export default function PageFilters({ filters }: Props) {
                                             <Checkbox
                                                 isChecked={pageFilters.ndrReasons.includes(option.key)}
                                                 onChange={($event) => onCheckboxChange($event, option.key)}
+                                                className={styles.checkbox}
                                             >
                                                 {option.display}
                                             </Checkbox>

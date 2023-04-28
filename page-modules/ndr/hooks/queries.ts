@@ -1,20 +1,32 @@
 import { useQuery } from '@tanstack/react-query'
-import { FetchNdrFilterMetadataType, NdrFilter, fetchNdrFilterMetadata, fetchNonDeliveryReports } from 'apis/get'
+import {
+    FetchNdrFilterMetadataType,
+    NdrFilter,
+    NdrTabStatus,
+    fetchNdrFilterMetadata,
+    fetchNonDeliveryReports,
+} from 'apis/get'
 import { FieldType } from 'shared/types/forms'
 
-export function useReports() {
+import { CustomFilters, PageFilters } from '../types/filters'
+
+export function useReports(tabStatus: NdrTabStatus, customFilters: CustomFilters, pageFilters: PageFilters) {
     return useQuery({
-        queryKey: ['ndr'],
+        queryKey: ['ndr', pageFilters, customFilters, tabStatus],
         queryFn: () =>
             fetchNonDeliveryReports({
                 page: 0,
                 page_size: 10,
                 is_web: true,
-                status: 'DELIVERED',
-                from: '2023-03-01',
-                to: '2023-04-06',
+                status: tabStatus,
+                query_string: pageFilters.searchText,
+                from: pageFilters.startDate,
+                to: pageFilters.endDate,
+                ndr_status: pageFilters.ndrReasons,
+                customFilters,
             }),
         refetchOnWindowFocus: false,
+        enabled: !!pageFilters.startDate && !!pageFilters.endDate && !!tabStatus,
     })
 }
 

@@ -1,6 +1,7 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { Box, Button, Center, Flex, Text } from '@chakra-ui/react'
 import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
+import { NdrTabStatus } from 'apis/get'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
 import { useMemo } from 'react'
 import DatatableSkeleton from 'shared/components/Skeletons/Datatable'
@@ -119,9 +120,12 @@ function createColumns(): ColumnDef<ReportsColumns, any>[] {
     ]
 }
 
-export default function Reports() {
-    const {} = useFilterContext() //customFilters, pageFilters
-    const { isLoading, isError, data, error } = useReports() //customFilters, pageFilters
+type Props = {
+    tabStatus: NdrTabStatus
+}
+export default function Reports({ tabStatus }: Props) {
+    const { pageFilters, customFilters } = useFilterContext()
+    const { isLoading, isError, data, error } = useReports(tabStatus, customFilters, pageFilters)
 
     const memoizedData = useMemo(() => sanitiseData(data), [data])
     const memoizedColumns = useMemo(() => createColumns(), [])

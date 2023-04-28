@@ -1,3 +1,4 @@
+import { CustomFilters } from 'page-modules/ndr/types/filters'
 import { FilterParams, SortParams, TimelineParams } from 'page-modules/tracking/orders/types/filters'
 import { FieldType, FieldValue } from 'shared/types/forms'
 import { INIT_VALUE_MAP } from 'shared/utils/forms'
@@ -250,37 +251,49 @@ export type FetchNonDeliveryReportsType = {
         current_page: number
     }
 }
+
+export type NdrTabStatus =
+    | 'NDR_RAISED_ACTION_REQUIRED'
+    | 'AUTO_REATTEMPT, SELLER_REATTEMPT, SELLER_RTO_ATTEMPTED, AUTO_RTO_ATTEMPTED, LAST_ACTION_FAILED'
+    | 'DELIVERED'
+    | 'RTO_COMPLETED'
 export async function fetchNonDeliveryReports({
     page,
     page_size,
     is_web,
     status,
+    query_string,
     from,
     to,
-    ...payload
+    ndr_status,
+    customFilters,
 }: {
     page: number
     page_size: number
-    aging?: number
-    attempts?: number
     is_web: boolean
-    status:
-        | 'NDR_RAISED_ACTION_REQUIRED'
-        | 'AUTO_REATTEMPT, SELLER_REATTEMPT, SELLER_RTO_ATTEMPTED, AUTO_RTO_ATTEMPTED, LAST_ACTION_FAILED'
-        | 'DELIVERED'
-        | 'RTO_COMPLETED'
+    status: NdrTabStatus
+    query_string: string
     from: string
     to: string
-    action_by?: 'SHIPPING_PROVIDER' | 'SYSTEM' | 'SELLER'
-    shipping_provider_code?: string
-    ndr_status?: string // TODO
-    query_string?: string
-    escalation_status?: number
+    ndr_status: string[]
+    customFilters: CustomFilters
+    // aging?: number
+    // attempts?: number
+    // action_by?: 'SHIPPING_PROVIDER' | 'SYSTEM' | 'SELLER'
+    // shipping_provider_code?: string
+    // escalation_status?: number
 }): Promise<FetchNonDeliveryReportsType> {
     return gateway(
-        `session/api/v1/ndr/data?page=${page}&page_size=${page_size}&aging=${payload.aging || ''}&attempts=${
-            payload.attempts || ''
-        }&is_web=${is_web}&status=${status}&from=${from}&to=${to}`,
+        `session/api/v1/ndr/data?page=${encodeURIComponent(page)}&page_size=${encodeURIComponent(
+            page_size,
+        )}&is_web=${encodeURIComponent(is_web)}&status=${encodeURIComponent(status)}&query_string=${encodeURIComponent(
+            query_string,
+        )}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&ndr_status=${encodeURIComponent(
+            JSON.stringify(ndr_status),
+        )}${Object.keys(customFilters).reduce<string>(
+            (prev, key) => prev + `&${key}=${encodeURIComponent(JSON.stringify(customFilters[key].value))}`,
+            '',
+        )}`,
         {
             method: 'GET',
             headers: {
