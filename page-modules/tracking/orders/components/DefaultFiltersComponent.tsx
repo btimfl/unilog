@@ -17,6 +17,7 @@ import { AiFillCaretDown } from 'react-icons/ai'
 
 import { useMetadata } from '../hooks/queries'
 import { ActionType, Actions, DefaultFilters, FilterParams, SortParams, TimelineParams } from '../types/filters'
+import styles from './DefaultFilters.module.scss'
 
 type Props = {
     filters: DefaultFilters
@@ -127,6 +128,7 @@ export default function DefaultFiltersComponent({ filters, dispatch }: Props) {
                                         <Checkbox
                                             isChecked={filters.filterBy.includes(option.key)}
                                             onChange={(ev) => onCheckboxChange(ev, option.key)}
+                                            className={styles.checkbox}
                                         >
                                             {option.display}
                                         </Checkbox>

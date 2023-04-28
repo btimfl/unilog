@@ -49,6 +49,7 @@ export default function MultiSelect({ field: { options }, fieldKey }: Props) {
                                     <Checkbox
                                         isChecked={values.includes(option.key)}
                                         onChange={($event) => onCheckboxChange($event, option.key)}
+                                        className={styles.checkbox}
                                     >
                                         {option.display}
                                     </Checkbox>
