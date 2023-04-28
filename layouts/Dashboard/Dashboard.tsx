@@ -1,4 +1,4 @@
-import { Box, CardBody, IconButton, Tab, TabList, Tabs, Tooltip } from '@chakra-ui/react'
+import { Box, CardBody, IconButton, Tab, TabList, Tabs, Text, Tooltip } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import ToolbarProvider from 'page-modules/dashboard/ToolbarProvider'
@@ -57,84 +57,31 @@ export default function Dashboard({ children }: { children: ReactNode }) {
                         onChange={setTabIndex}
                         h={'100%'}
                     >
-                        <TabList h={'2.5rem'}>
-                            <Link href={ROUTES.HOME_PAGE}>
-                                <Tab
-                                    className={styles.dashboardTab}
-                                    fontSize="sm"
-                                    _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                                    fontWeight="bold"
-                                    paddingInline={4}
-                                >
-                                    Overview
-                                </Tab>
-                            </Link>
-
-                            {/* <Tab
-                            className={styles.dashboardTab}
-                            fontSize="sm"
-                            _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                            fontWeight="bold"
-                            paddingInline={0}
-                        >
-                            <Link href="/dashboard/orders">Orders</Link>
-                        </Tab>
-                        <Tab
-                            className={styles.dashboardTab}
-                            fontSize="sm"
-                            _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                            fontWeight="bold"
-                            paddingInline={0}
-                        >
-                            <Link href="/dashboard/shipments">Shipments</Link>
-                        </Tab> */}
-                            <Link href="/dashboard/ndr">
-                                <Tab
-                                    className={styles.dashboardTab}
-                                    fontSize="sm"
-                                    _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                                    fontWeight="bold"
-                                    paddingInline={4}
-                                >
-                                    NDR
-                                </Tab>
-                            </Link>
-                            {/* <Tab
-                            className={styles.dashboardTab}
-                            fontSize="sm"
-                            _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                            fontWeight="bold"
-                            paddingInline={0}
-                        >
-                            <Link href="/dashboard/rto">RTO</Link>
-                        </Tab>
-                        <Tab
-                            className={styles.dashboardTab}
-                            fontSize="sm"
-                            _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                            fontWeight="bold"
-                            paddingInline={0}
-                        >
-                            <Link href="/dashboard/courier">Courier</Link>
-                        </Tab>
-                        <Tab
-                            className={styles.dashboardTab}
-                            fontSize="sm"
-                            _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                            fontWeight="bold"
-                            paddingInline={0}
+                        <TabList h={'auto'} className={styles.dashboardTabList}>
+                            <Tab
+                                className={styles.dashboardTab}
+                                fontSize="sm"
+                                _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
+                                fontWeight="bold"
                             >
-                            <Link href="/dashboard/delays">Delays</Link>
-                        </Tab>
-                        <Tab
-                            className={styles.dashboardTab}
-                            fontSize="sm"
-                            _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                            fontWeight="bold"
-                            paddingInline={0}
-                        >
-                            <Link href="/dashboard/tracking">Tracking</Link>
-                        </Tab> */}
+                                <Link href={ROUTES.HOME_PAGE}>
+                                    <Text paddingBlock={2} paddingInline={4}>
+                                        Overview
+                                    </Text>
+                                </Link>
+                            </Tab>
+                            <Tab
+                                className={styles.dashboardTab}
+                                fontSize="sm"
+                                _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
+                                fontWeight="bold"
+                            >
+                                <Link href="/dashboard/ndr">
+                                    <Text paddingBlock={2} paddingInline={4}>
+                                        NDR
+                                    </Text>
+                                </Link>
+                            </Tab>
                         </TabList>
 
                         <Box className={styles.dashboardTabPanel} h={'calc(100% - 2.5rem)'}>
