@@ -20,8 +20,8 @@ export default function FilterProvider({ children }: { children: ReactNode }) {
     const [pageFilters, setPageFilters] = useState<PageFilters>({
         searchText: '',
         ndrReasons: [],
-        startDate: new Date().toISOString().split('T')[0],
-        endDate: new Date().toISOString().split('T')[0],
+        startDate: '',
+        endDate: '',
     })
     const [customFilters, setCustomFilters] = useState<CustomFilters>({})
 
