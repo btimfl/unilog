@@ -10,6 +10,7 @@ type Props<K> = {
 }
 
 export default function VirtualRows<K>({ rows, tableContainerRef, renderSubComponent, dataRowHeight }: Props<K>) {
+    console.log(tableContainerRef)
     const rowVirtualizer = useVirtual({
         parentRef: tableContainerRef,
         size: rows.length,
