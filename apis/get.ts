@@ -94,7 +94,7 @@ type FetchMetaData = {
 }
 
 export async function fetchMetadata(): Promise<FetchMetaData> {
-    return await gateway(`api/system/meta`, { method: 'GET' })
+    return await gateway(`api/system/meta`, { method: 'GET' }, 'tracking')
 }
 
 type ServerFields = {
@@ -161,9 +161,13 @@ function mapToFields(serverFields: ServerFields): Fields {
 }
 
 export async function fetchExtendedMetadata(): Promise<FetchExtendedMetadata> {
-    const data = (await gateway(`api/system/get_extended_meta`, {
-        method: 'GET',
-    })) as FetchExtendedMetadataServer
+    const data = (await gateway(
+        `api/system/get_extended_meta`,
+        {
+            method: 'GET',
+        },
+        'tracking',
+    )) as FetchExtendedMetadataServer
 
     const mappedData: FetchExtendedMetadata = {
         code: data.code,
