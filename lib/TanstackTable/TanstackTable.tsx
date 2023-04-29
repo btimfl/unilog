@@ -10,7 +10,7 @@ import { TableStrategy } from './types'
 type Props<K> = {
     data: K[]
     columns: ColumnDef<K>[]
-    strategy: TableStrategy
+    strategy?: TableStrategy
     headerRowHeight?: number
     dataRowHeight?: number
     getRowCanExpand?: (row: Row<K>) => boolean
