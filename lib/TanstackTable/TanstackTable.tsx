@@ -1,6 +1,6 @@
 import { Center, Text } from '@chakra-ui/react'
 import { ColumnDef, Row, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { ReactNode, useMemo, useRef } from 'react'
+import { ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 
 import Basic from './Basic'
 import styles from './TanstackTable.module.scss'
@@ -28,6 +28,8 @@ export default function TanstackTable<K>({
 }: Props<K>) {
     const memoizedProps = useMemo(() => ({ data, columns }), [data, columns])
 
+    const [refLoaded, setRefLoaded] = useState<boolean>(false)
+
     const table = useReactTable<K>({
         data: memoizedProps.data,
         columns: memoizedProps.columns,
@@ -37,6 +39,10 @@ export default function TanstackTable<K>({
 
     const tableContainerRef = useRef<HTMLDivElement>(null)
     const { rows } = table.getRowModel()
+
+    useEffect(() => {
+        setRefLoaded(true)
+    }, [tableContainerRef])
 
     return (
         <div className={styles.container} ref={tableContainerRef}>
@@ -61,7 +67,7 @@ export default function TanstackTable<K>({
                     ))}
                 </thead>
                 <tbody>
-                    {strategy === 'VirtualRows' && (
+                    {strategy === 'VirtualRows' && refLoaded && (
                         <VirtualRows<K>
                             rows={rows}
                             tableContainerRef={tableContainerRef}
@@ -69,7 +75,7 @@ export default function TanstackTable<K>({
                             renderSubComponent={renderSubComponent}
                         />
                     )}
-                    {strategy === 'Basic' && (
+                    {strategy === 'Basic' && refLoaded && (
                         <Basic<K> dataRowHeight={dataRowHeight} renderSubComponent={renderSubComponent} rows={rows} />
                     )}
                 </tbody>
