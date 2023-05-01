@@ -44,7 +44,7 @@ export default class DomainHandler {
         }
     }
 
-    public enocodeURIparam(value: string | string[] | number | boolean) {
+    public encodeUriParams(value: string | string[] | number | boolean) {
         if (typeof value === 'number' || typeof value === 'boolean') return value
         else if (typeof value === 'string') return encodeURIComponent(value)
         else return value.join(',')

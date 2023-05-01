@@ -291,16 +291,16 @@ export async function fetchNonDeliveryReports({
     // escalation_status?: number
 }): Promise<FetchNonDeliveryReportsType> {
     return gateway(
-        `session/api/v1/ndr/data?page=${domainHandler.enocodeURIparam(page)}&page_size=${domainHandler.enocodeURIparam(
+        `session/api/v1/ndr/data?page=${domainHandler.encodeUriParams(page)}&page_size=${domainHandler.encodeUriParams(
             page_size,
-        )}&is_web=${domainHandler.enocodeURIparam(is_web)}&status=${domainHandler.enocodeURIparam(
+        )}&is_web=${domainHandler.encodeUriParams(is_web)}&status=${domainHandler.encodeUriParams(
             status,
-        )}&query_string=${domainHandler.enocodeURIparam(query_string)}&from=${domainHandler.enocodeURIparam(
+        )}&query_string=${domainHandler.encodeUriParams(query_string)}&from=${domainHandler.encodeUriParams(
             from,
-        )}&to=${domainHandler.enocodeURIparam(to)}&ndr_status=${domainHandler.enocodeURIparam(ndr_status)}${Object.keys(
+        )}&to=${domainHandler.encodeUriParams(to)}&ndr_status=${domainHandler.encodeUriParams(ndr_status)}${Object.keys(
             customFilters,
         ).reduce<string>(
-            (prev, key) => prev + `&${key}=${domainHandler.enocodeURIparam(customFilters[key].value)}`,
+            (prev, key) => prev + `&${key}=${domainHandler.encodeUriParams(customFilters[key].value)}`,
             '',
         )}`,
         {
