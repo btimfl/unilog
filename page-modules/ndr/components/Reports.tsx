@@ -3,17 +3,14 @@ import { Box, Button, Center, Flex, Text } from '@chakra-ui/react'
 import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
 import { NdrTabStatus } from 'apis/get'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import DatatableSkeleton from 'shared/components/Skeletons/Datatable'
 import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
 import { useFilterContext } from '../FilterProvider'
 import { useReports } from '../hooks/queries'
-import usePagination from '../hooks/usePagination'
 import { ReportsColumns } from '../types/reports'
 import { sanitiseData } from '../utils'
-import FilterStatus from './FilterStatus'
-import PaginationBar from './PaginationBar'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createColumns(): ColumnDef<ReportsColumns, any>[] {
@@ -125,13 +122,15 @@ type Props = {
     tabStatus: NdrTabStatus
 }
 export default function Reports({ tabStatus }: Props) {
-    const { pageFilters, customFilters } = useFilterContext()
+    const { pageFilters, customFilters, setItems } = useFilterContext()
     const { isLoading, isError, data, error } = useReports(tabStatus, customFilters, pageFilters)
 
     const memoizedData = useMemo(() => sanitiseData(data), [data])
     const memoizedColumns = useMemo(() => createColumns(), [])
 
-    const { pageIndex, pageSize, pageCount, setPagination } = usePagination(data)
+    useEffect(() => {
+        if (data?.meta.total) setItems(data?.meta.total)
+    }, [data])
 
     if (isLoading)
         return (
@@ -159,13 +158,6 @@ export default function Reports({ tabStatus }: Props) {
                 )}
                 strategy="VirtualRows"
             />
-            <PaginationBar
-                pageIndex={pageIndex}
-                pageSize={pageSize}
-                pageCount={pageCount}
-                setPagination={setPagination}
-            />
-            <FilterStatus />
         </Flex>
     )
 }

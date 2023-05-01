@@ -14,10 +14,10 @@ export default function PageCard({ title, subtitle, toolbar, children }: Props) 
             <CardHeader pb={2} h={'5rem'}>
                 <Flex flexDir="row" align={`center`} justify={`space-between`}>
                     <Box>
-                        <Heading size="md" color="gray.900">
+                        <Heading size="md" color="gray.900" minW={'max-content'}>
                             {title}
                         </Heading>
-                        <Text as="p" fontSize="xs" color="gray.500" mt={2}>
+                        <Text as="p" fontSize="xs" color="gray.500" mt={2} minW={'max-content'}>
                             {subtitle}
                         </Text>
                     </Box>

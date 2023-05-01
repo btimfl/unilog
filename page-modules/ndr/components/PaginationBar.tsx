@@ -1,17 +1,12 @@
 import { Flex, IconButton, Select, Text } from '@chakra-ui/react'
-import { PaginationState } from '@tanstack/react-table'
-import { Dispatch, SetStateAction } from 'react'
 import { AiFillCaretDown, AiOutlineCaretLeft, AiOutlineCaretRight } from 'react-icons/ai'
 
+import { useFilterContext } from '../FilterProvider'
 import styles from './PaginationBar.module.scss'
 
-type Props = {
-    pageIndex: number
-    pageSize: number
-    pageCount: number
-    setPagination: Dispatch<SetStateAction<PaginationState>>
-}
-export default function PaginationBar({ pageIndex, pageSize, pageCount, setPagination }: Props) {
+export default function PaginationBar() {
+    const { pageIndex, pageSize, pageCount, setPagination } = useFilterContext()
+
     return (
         <Flex className={styles.PaginationBar}>
             <Flex alignItems={'center'}>

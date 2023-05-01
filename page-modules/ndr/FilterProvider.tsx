@@ -1,6 +1,8 @@
+import { PaginationState } from '@tanstack/react-table'
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import { ReactNode } from 'react'
 
+import usePagination from './hooks/usePagination'
 import { CustomFilters, PageFilters } from './types/filters'
 
 export type Filters = {
@@ -8,6 +10,11 @@ export type Filters = {
     setPageFilters: Dispatch<SetStateAction<PageFilters>>
     customFilters: CustomFilters
     setCustomFilters: Dispatch<SetStateAction<CustomFilters>>
+    pageIndex: number
+    pageSize: number
+    pageCount: number
+    setItems: React.Dispatch<React.SetStateAction<number>>
+    setPagination: React.Dispatch<React.SetStateAction<PaginationState>>
 }
 
 const FilterContext = React.createContext<Filters>({} as Filters)
@@ -24,6 +31,7 @@ export default function FilterProvider({ children }: { children: ReactNode }) {
         endDate: '',
     })
     const [customFilters, setCustomFilters] = useState<CustomFilters>({})
+    const { pageIndex, pageSize, pageCount, setItems, setPagination } = usePagination()
 
     useEffect(() => {
         console.log('Page Filters >>>', pageFilters)
@@ -40,6 +48,11 @@ export default function FilterProvider({ children }: { children: ReactNode }) {
                 setPageFilters,
                 customFilters,
                 setCustomFilters,
+                pageIndex,
+                pageSize,
+                pageCount,
+                setItems,
+                setPagination,
             }}
         >
             {children}

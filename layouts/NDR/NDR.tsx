@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import FilterProvider from 'page-modules/ndr/FilterProvider'
 import FilterBar from 'page-modules/ndr/components/FilterBar'
+import FilterStatus from 'page-modules/ndr/components/FilterStatus'
+import PaginationBar from 'page-modules/ndr/components/PaginationBar'
 import React, { ReactNode, useEffect, useState } from 'react'
 import PageCard from 'shared/components/PageCard/PageCard'
 
@@ -20,8 +22,17 @@ export default function NDR({ children }: { children: ReactNode }) {
 
     return (
         <FilterProvider>
-            <PageCard title="NDR" subtitle="Non Delivery Reports">
+            <PageCard
+                title="NDR"
+                subtitle="Non Delivery Reports"
+                toolbar={
+                    <Box ml={4} paddingBottom={4} overflowX={'auto'} overflowY={'hidden'} h={'100%'}>
+                        <FilterBar tabIndex={tabIndex} />
+                    </Box>
+                }
+            >
                 <CardBody h={'100%'}>
+                    <FilterStatus />
                     <Tabs
                         isLazy
                         className={styles.ndrTabsContainer}
@@ -83,12 +94,12 @@ export default function NDR({ children }: { children: ReactNode }) {
                                 </Link>
                             </Tab>
 
-                            <Box ml={'auto'} paddingBottom={2} overflowX={'auto'} overflowY={'hidden'} h={'100%'}>
-                                <FilterBar tabIndex={tabIndex} />
+                            <Box ml={'auto'} overflowX={'auto'} overflowY={'hidden'} h={'100%'}>
+                                <PaginationBar />
                             </Box>
                         </TabList>
 
-                        <Box className={styles.ndrTabPanel} h={'calc(100% - 2.5rem)'}>
+                        <Box className={styles.ndrTabPanel} h={'calc(100% - 5rem)'}>
                             <Box overflow={'auto'} h={'100%'} className={styles.scrollShadows} zIndex={10}>
                                 {children}
                             </Box>
