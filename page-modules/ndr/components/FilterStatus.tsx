@@ -1,4 +1,4 @@
-import { Badge, Flex, Text } from '@chakra-ui/react'
+import { Badge, Divider, Flex, Tag, Text } from '@chakra-ui/react'
 
 import { useFilterContext } from '../FilterProvider'
 import { useFilters } from '../hooks/queries'
@@ -16,19 +16,24 @@ export default function FilterStatus() {
             fontSize={'sm'}
             overflow={'auto'}
             height={'2rem'}
-            pb={4}
+            py={4}
             paddingInline={2}
         >
             {/* DATE RANGE */}
             <Flex alignItems={'center'}>
-                <Text minW={'max-content'}>Orders from </Text>
-                <Badge colorScheme={'purple'} marginInline={1}>
-                    {pageFilters.startDate}
-                </Badge>
-                <Text> to </Text>
-                <Badge colorScheme={'purple'} marginInline={1}>
-                    {pageFilters.endDate}
-                </Badge>
+                <Tag fontWeight="normal" fontSize="xs">
+                    <Text minW={'max-content'} fontSize="xs" textTransform="uppercase">
+                        Orders{' '}
+                    </Text>
+                    <Divider orientation="vertical" />
+                    <Badge bgColor="blue.50" color="blue.400" marginInline={1} fontWeight="normal">
+                        {pageFilters.startDate}
+                    </Badge>
+                    <Text> to </Text>
+                    <Badge bgColor="blue.50" color="blue.400" marginInline={1} fontWeight="normal">
+                        {pageFilters.endDate}
+                    </Badge>
+                </Tag>
             </Flex>
 
             {/* SEARCH BOX */}
@@ -44,7 +49,11 @@ export default function FilterStatus() {
             {/* REASONS */}
             {Boolean(pageFilters.ndrReasons.length) && (
                 <Flex alignItems={'center'}>
-                    <Text minW={'max-content'}>NDR Reasons: </Text>
+                    <Tag>
+                        <Text minW={'max-content'} fontSize="xs">
+                            NDR Reasons:{' '}
+                        </Text>
+                    </Tag>
                     {pageFilters.ndrReasons.map((reason, index) => (
                         <Badge colorScheme={'purple'} marginInline={1} key={index}>
                             {data.find((obj) => obj.key === 'ndr_status')?.option.find((opt) => opt.key === reason)
@@ -57,7 +66,12 @@ export default function FilterStatus() {
             {/* CUSTOM FILTERS */}
             {Object.keys(customFilters).map((key) => (
                 <Flex alignItems={'center'} key={key} gap={1}>
-                    <Text minW={'max-content'}>{data.find((obj) => obj.key === key)?.display || key}: </Text>
+                    <Tag>
+                        <Text minW={'max-content'} fontSize="xs">
+                            {data.find((obj) => obj.key === key)?.display || key}:{' '}
+                        </Text>
+                    </Tag>
+
                     {Array.isArray(customFilters[key].value) ? (
                         (customFilters[key].value as []).map((value, index) => (
                             <Badge colorScheme={'purple'} marginInline={1} key={index}>
