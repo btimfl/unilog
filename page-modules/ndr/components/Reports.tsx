@@ -12,6 +12,7 @@ import { useReports } from '../hooks/queries'
 import usePagination from '../hooks/usePagination'
 import { ReportsColumns } from '../types/reports'
 import { sanitiseData } from '../utils'
+import FilterStatus from './FilterStatus'
 import PaginationBar from './PaginationBar'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -164,6 +165,7 @@ export default function Reports({ tabStatus }: Props) {
                 pageCount={pageCount}
                 setPagination={setPagination}
             />
+            <FilterStatus />
         </Flex>
     )
 }
