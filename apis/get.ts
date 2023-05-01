@@ -3,7 +3,10 @@ import { FilterParams, SortParams, TimelineParams } from 'page-modules/tracking/
 import { FieldType, FieldValue } from 'shared/types/forms'
 import { INIT_VALUE_MAP } from 'shared/utils/forms'
 
+import DomainHandler from './domain-handler'
 import gateway from './gateway'
+
+const domainHandler = new DomainHandler()
 
 type TrackingDetails = {
     tracking_number: string
@@ -288,14 +291,16 @@ export async function fetchNonDeliveryReports({
     // escalation_status?: number
 }): Promise<FetchNonDeliveryReportsType> {
     return gateway(
-        `session/api/v1/ndr/data?page=${encodeURIComponent(page)}&page_size=${encodeURIComponent(
+        `session/api/v1/ndr/data?page=${domainHandler.enocodeURIparam(page)}&page_size=${domainHandler.enocodeURIparam(
             page_size,
-        )}&is_web=${encodeURIComponent(is_web)}&status=${encodeURIComponent(status)}&query_string=${encodeURIComponent(
-            query_string,
-        )}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&ndr_status=${encodeURIComponent(
-            JSON.stringify(ndr_status),
-        )}${Object.keys(customFilters).reduce<string>(
-            (prev, key) => prev + `&${key}=${encodeURIComponent(JSON.stringify(customFilters[key].value))}`,
+        )}&is_web=${domainHandler.enocodeURIparam(is_web)}&status=${domainHandler.enocodeURIparam(
+            status,
+        )}&query_string=${domainHandler.enocodeURIparam(query_string)}&from=${domainHandler.enocodeURIparam(
+            from,
+        )}&to=${domainHandler.enocodeURIparam(to)}&ndr_status=${domainHandler.enocodeURIparam(ndr_status)}${Object.keys(
+            customFilters,
+        ).reduce<string>(
+            (prev, key) => prev + `&${key}=${domainHandler.enocodeURIparam(customFilters[key].value)}`,
             '',
         )}`,
         {
