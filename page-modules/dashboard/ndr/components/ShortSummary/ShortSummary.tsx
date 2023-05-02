@@ -1,7 +1,8 @@
-import { HStack, Spinner, Stat, StatGroup, StatLabel, StatNumber } from '@chakra-ui/react'
+import { HStack, Stat, StatGroup, StatLabel, StatNumber } from '@chakra-ui/react'
 import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
 import React from 'react'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
+import Loading from 'shared/components/Loading/Loading'
 
 import { useNdrShortSummary } from '../../hooks/queries'
 
@@ -13,7 +14,7 @@ export function NdrShortSummary() {
     if (isLoading) {
         return (
             <HStack justify={`center`} minH={16}>
-                <Spinner />
+                <Loading />
             </HStack>
         )
     }

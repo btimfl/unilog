@@ -10,13 +10,13 @@ import {
     DrawerHeader,
     DrawerOverlay,
     Flex,
-    Spinner,
     Text,
     useDisclosure,
 } from '@chakra-ui/react'
 import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
 import { useMemo, useState } from 'react'
+import Loading from 'shared/components/Loading/Loading'
 import DatatableSkeleton from 'shared/components/Skeletons/Datatable'
 import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
@@ -171,8 +171,8 @@ export default function Shipments({ filters }: Props) {
                         {trackingNumber ? (
                             <ShipmentDetail trackingNumber={trackingNumber} />
                         ) : (
-                            <Center h="100%">
-                                <Spinner />
+                            <Center h={'100%'}>
+                                <Loading />
                             </Center>
                         )}
                     </DrawerBody>

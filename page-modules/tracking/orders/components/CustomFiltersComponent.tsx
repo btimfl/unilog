@@ -1,6 +1,7 @@
-import { Center, Flex, Grid, Spinner, Text } from '@chakra-ui/react'
+import { Center, Flex, Grid, Text } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import { Dispatch, SetStateAction, useEffect } from 'react'
+import Loading from 'shared/components/Loading/Loading'
 import { FieldValue } from 'shared/types/forms'
 
 import { useExtendedMetadata } from '../hooks/queries'
@@ -37,7 +38,7 @@ export default function CustomFiltersComponent({ filters, setFilters }: Props) {
     if (isLoading) {
         return (
             <Center h={'100%'}>
-                <Spinner></Spinner>
+                <Loading />
             </Center>
         )
     }

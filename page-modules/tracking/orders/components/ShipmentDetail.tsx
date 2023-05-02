@@ -1,4 +1,5 @@
-import { Box, Center, Divider, Flex, Spinner, Text } from '@chakra-ui/react'
+import { Box, Center, Divider, Flex, Text } from '@chakra-ui/react'
+import Loading from 'shared/components/Loading/Loading'
 import { parseDate } from 'shared/utils/functions'
 
 import { useShipmentDetails } from '../hooks/queries'
@@ -14,7 +15,7 @@ export default function ShipmentDetail({ trackingNumber }: Props) {
     if (isLoading)
         return (
             <Center h="100%">
-                <Spinner />
+                <Loading />
             </Center>
         )
     if (isError) return <Center h="100%">{String(error) ?? 'An error occurred, please try again later!'}</Center>

@@ -10,7 +10,6 @@ import {
     DrawerOverlay,
     Flex,
     IconButton,
-    Spinner,
     Text,
     Tooltip,
     useDisclosure,
@@ -18,6 +17,7 @@ import {
 import { NDR_ROUTE_MAP } from 'layouts/NDR/NDR-route-map'
 import { useState } from 'react'
 import { MdFilterAlt } from 'react-icons/md'
+import Loading from 'shared/components/Loading/Loading'
 import { INIT_VALUE_MAP } from 'shared/utils/forms'
 
 import { useFilterContext } from '../FilterProvider'
@@ -85,12 +85,12 @@ export default function FilterBar({ tabIndex }: Props) {
 
                     <DrawerBody>
                         {isLoading && (
-                            <Center h="100%">
-                                <Spinner />
+                            <Center h={'100%'}>
+                                <Loading />
                             </Center>
                         )}
                         {isError && (
-                            <Center h="100%">
+                            <Center h={'100%'}>
                                 <Text>Filters unavailable! Please try again later.</Text>
                             </Center>
                         )}

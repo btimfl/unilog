@@ -9,11 +9,11 @@ import {
     MenuItem,
     MenuList,
     Select,
-    Spinner,
     Text,
 } from '@chakra-ui/react'
 import { ChangeEvent, Dispatch } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
+import Loading from 'shared/components/Loading/Loading'
 
 import { useMetadata } from '../hooks/queries'
 import { ActionType, Actions, DefaultFilters, FilterParams, SortParams, TimelineParams } from '../types/filters'
@@ -43,7 +43,7 @@ export default function DefaultFiltersComponent({ filters, dispatch }: Props) {
     if (isLoading) {
         return (
             <Center h={'100%'}>
-                <Spinner></Spinner>
+                <Loading />
             </Center>
         )
     }

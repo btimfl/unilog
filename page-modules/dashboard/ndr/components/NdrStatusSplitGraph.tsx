@@ -1,10 +1,11 @@
-import { Flex, Spinner } from '@chakra-ui/react'
+import { Center, Flex } from '@chakra-ui/react'
 import { NdrStatusSplitResult } from 'apis/get'
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js'
 import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
 import React, { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
+import Loading from 'shared/components/Loading/Loading'
 
 import { useNdrStatus } from '../hooks/queries'
 
@@ -80,7 +81,12 @@ export function NdrStatusSplitGraph() {
         })
     }
 
-    if (isLoading) return <Spinner />
+    if (isLoading)
+        return (
+            <Center h={'300px'}>
+                <Loading />
+            </Center>
+        )
 
     if (isError) return <ErrorPlaceholder />
 
