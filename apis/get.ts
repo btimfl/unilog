@@ -397,3 +397,7 @@ export async function fetchNdrFunnels(startDate: string, endDate: string): Promi
         method: 'GET',
     })
 }
+
+export async function initLogout(): Promise<object> {
+    return await gateway(`api/seller/logout`, { method: 'GET' })
+}
