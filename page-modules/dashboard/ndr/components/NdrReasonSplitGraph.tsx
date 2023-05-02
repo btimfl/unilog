@@ -1,11 +1,12 @@
 import { Center, Flex, Text } from '@chakra-ui/react'
-import { useQuery } from '@tanstack/react-query'
-import { FetchNdrReasonSplitType, fetchNdrReasonSplit } from 'apis/get'
+import { FetchNdrReasonSplitType } from 'apis/get'
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
 import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
 import React, { useEffect, useState } from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
+
+import { useNdrReason } from '../hooks/queries'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -61,53 +62,34 @@ export function NdrReasonSplitGraph() {
         labels: [],
         datasets: [],
     })
-    const { data, isLoading, isError } = useQuery<FetchNdrReasonSplitType>({
-        queryKey: ['fetchNdrReasonSplit', startDate, endDate],
-        queryFn: () => fetchNdrReasonSplit(startDate, endDate),
-        refetchInterval: false,
-        refetchOnWindowFocus: false,
-    })
+    const { data, isLoading, isError } = useNdrReason(startDate, endDate)
 
-    useEffect(() => sanitizeData(data), [startDate, endDate])
+    useEffect(() => {
+        if (data) prepareGraphData(data)
+    }, [data])
 
-    const sanitizeData = (data: FetchNdrReasonSplitType | undefined) => {
-        delete data?.reason_wise_count_details[0].reason
-        if (startDate && endDate) {
-            prepareGraphData(data)
-        }
-    }
+    const prepareGraphData = (data: FetchNdrReasonSplitType): void => {
+        const newLabels = Object.keys(data.reason_wise_count_details[0] || []).slice(1)
+        const newData = Object.values(data.reason_wise_count_details[0] || []).slice(1)
 
-    const prepareGraphData = (graphData: FetchNdrReasonSplitType | undefined): void => {
-        if (graphData) {
-            const newLabels = Object.keys(graphData!.reason_wise_count_details[0] || []).slice(1)
-            const newData = Object.values(graphData!.reason_wise_count_details[0] || []).slice(1)
+        const newDataSet = [
+            {
+                label: 'Count',
+                data: newData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                ],
+            },
+        ]
 
-            const newDataSet = [
-                {
-                    label: 'Count',
-                    data: newData,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                    ],
-                },
-            ]
-
-            debugger
-
-            setGraphData({
-                labels: newLabels,
-                datasets: newDataSet,
-            })
-
-            console.log({
-                labels: newLabels,
-                datasets: newDataSet,
-            })
-        }
+        setGraphData({
+            labels: newLabels,
+            datasets: newDataSet,
+        })
     }
 
     if (isLoading)

@@ -1,11 +1,12 @@
 import { Flex, Spinner } from '@chakra-ui/react'
-import { useQuery } from '@tanstack/react-query'
-import { NdrStatusSplitResult, fetchNdrStatusSplit } from 'apis/get'
+import { NdrStatusSplitResult } from 'apis/get'
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js'
 import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
 import React, { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
+
+import { useNdrStatus } from '../hooks/queries'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -43,12 +44,7 @@ export function NdrStatusSplitGraph() {
         datasets: [],
     })
     const { endDate, startDate } = useToolbarContext()
-    const { data, isLoading, isError } = useQuery({
-        queryKey: ['fetchNdrStatusSplit', endDate],
-        queryFn: () => fetchNdrStatusSplit(startDate, endDate),
-        refetchInterval: false,
-        refetchOnWindowFocus: false,
-    })
+    const { data, isLoading, isError } = useNdrStatus(startDate, endDate)
 
     useEffect(() => prepareDataForGraph(data as NdrStatusSplitResult[]), [data, endDate])
 

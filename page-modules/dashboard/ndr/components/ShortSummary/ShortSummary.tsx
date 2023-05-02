@@ -1,19 +1,14 @@
 import { HStack, Spinner, Stat, StatGroup, StatLabel, StatNumber } from '@chakra-ui/react'
-import { useQuery } from '@tanstack/react-query'
-import { fetchNdrShortSummary } from 'apis/get'
 import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
 import React from 'react'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 
+import { useNdrShortSummary } from '../../hooks/queries'
+
 export function NdrShortSummary() {
     const { startDate, endDate } = useToolbarContext()
 
-    const { data, isLoading, isError } = useQuery({
-        queryKey: ['fetchNdrShortSummary', startDate, endDate],
-        queryFn: () => fetchNdrShortSummary(startDate, endDate),
-        refetchOnWindowFocus: false,
-        refetchInterval: false,
-    })
+    const { data, isLoading, isError } = useNdrShortSummary(startDate, endDate)
 
     if (isLoading) {
         return (
