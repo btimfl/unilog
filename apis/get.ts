@@ -367,7 +367,25 @@ export type NdrFilter = {
     page_key: 'NDR_PAGE_FILTER' | 'action_required' | 'action_requested' | 'rto' | 'delivered'
 }
 export async function fetchNdrFilterMetadata(filterKey: string): Promise<FetchNdrFilterMetadataType> {
-    return gateway(`api/v1/filter/metadata?filter_key=${filterKey}`, {
+    return await gateway(`api/v1/filter/metadata?filter_key=${filterKey}`, {
         headers: {},
+    })
+}
+
+type NdrReasonResponse = {
+    ['Delivered shipments']: string | number
+    ['Lost/Damaged shipments']: string | number
+    ['Pending shipments']: string | number
+    ['RTO shipments']: string | number
+    ['Total NDRs Raised (1 shipment may have multiple reports)']: string | number
+    ['reason']?: string | number
+}
+export type FetchNdrReasonSplitType = {
+    reason_wise_count_details: NdrReasonResponse[]
+}
+
+export async function fetchNdrReasonSplit(startDate: string, endDate: string): Promise<FetchNdrReasonSplitType> {
+    return await gateway(`session/api/v1/ndr/reports/reason_split?start_date=${startDate}&end_date=${endDate}`, {
+        method: 'GET',
     })
 }

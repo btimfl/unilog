@@ -22,7 +22,7 @@ import {
 import Dashboard from 'layouts/Dashboard/Dashboard'
 import { NdrReasonSplitGraph } from 'page-modules/dashboard/ndr/components/NdrReasonSplitGraph'
 import { NdrStatusSplitGraph } from 'page-modules/dashboard/ndr/components/NdrStatusSplitGraph'
-import { NdrToDeliveryAttemptGraph } from 'page-modules/dashboard/ndr/components/NdrToDeliveryAttemptGraph'
+// import { NdrToDeliveryAttemptGraph } from 'page-modules/dashboard/ndr/components/NdrToDeliveryAttemptGraph'
 import { NdrShortSummary } from 'page-modules/dashboard/ndr/components/ShortSummary/ShortSummary'
 
 export default function DashboardNDR() {
@@ -212,7 +212,7 @@ export default function DashboardNDR() {
                         <NdrStatusSplitGraph />
                     </CardBody>
                 </Card>
-                <Card w={`100%`}>
+                {/* <Card w={`100%`}>
                     <CardHeader py={3} fontWeight="bold">
                         NDR to delivery attempt
                     </CardHeader>
@@ -220,7 +220,7 @@ export default function DashboardNDR() {
                     <CardBody>
                         <NdrToDeliveryAttemptGraph />
                     </CardBody>
-                </Card>
+                </Card> */}
             </HStack>
             <HStack gap={2} alignItems={`flex-start`} mt={4}>
                 <Card w={`100%`}>
