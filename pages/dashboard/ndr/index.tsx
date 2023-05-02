@@ -33,7 +33,7 @@ export default function DashboardNDR() {
                     <NdrShortSummary />
                 </CardBody>
             </Card>
-            <HStack gap={2} alignItems={`flex-start`} mt={4}>
+            <HStack gap={2} alignItems={`stretch`} mt={4}>
                 <Card w={`45%`}>
                     <CardHeader fontWeight="bold" py={3}>
                         NDR response

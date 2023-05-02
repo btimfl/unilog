@@ -11,11 +11,16 @@ export default function NdrFunnels() {
 
     if (isLoading)
         return (
-            <Center h={`300px`}>
+            <Center h={`200px`}>
                 <Text>Loading...</Text>
             </Center>
         )
-    if (isError) return <ErrorPlaceholder />
+    if (isError)
+        return (
+            <Center h={`200px`}>
+                <ErrorPlaceholder />
+            </Center>
+        )
 
     return <>{JSON.stringify(data)}</>
 }
