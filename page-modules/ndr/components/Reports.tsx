@@ -4,6 +4,7 @@ import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
 import { NdrTabStatus } from 'apis/get'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
 import { useEffect, useMemo } from 'react'
+import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import DatatableSkeleton from 'shared/components/Skeletons/Datatable'
 import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
@@ -123,7 +124,7 @@ type Props = {
 }
 export default function Reports({ tabStatus }: Props) {
     const { pageFilters, customFilters, setItems } = useFilterContext()
-    const { isLoading, isError, data, error } = useReports(tabStatus, customFilters, pageFilters)
+    const { isLoading, isError, data } = useReports(tabStatus, customFilters, pageFilters)
 
     const memoizedData = useMemo(() => sanitiseData(data), [data])
     const memoizedColumns = useMemo(() => createColumns(), [])
@@ -139,7 +140,12 @@ export default function Reports({ tabStatus }: Props) {
             </Box>
         )
 
-    if (isError) return <Center h="400px">{String(error) ?? 'An error occurred, please try again later!'}</Center>
+    if (isError)
+        return (
+            <Center h="400px">
+                <ErrorPlaceholder />
+            </Center>
+        )
 
     return (
         <Flex

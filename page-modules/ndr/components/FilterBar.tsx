@@ -17,6 +17,7 @@ import {
 import { NDR_ROUTE_MAP } from 'layouts/NDR/NDR-route-map'
 import { useState } from 'react'
 import { MdFilterAlt } from 'react-icons/md'
+import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 import { INIT_VALUE_MAP } from 'shared/utils/forms'
 
@@ -91,7 +92,7 @@ export default function FilterBar({ tabIndex }: Props) {
                         )}
                         {isError && (
                             <Center h={'100%'}>
-                                <Text>Filters unavailable! Please try again later.</Text>
+                                <ErrorPlaceholder message="Filters unavailable! Please try again later." />
                             </Center>
                         )}
                         {data && (

@@ -16,6 +16,7 @@ import {
 import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
 import { useMemo, useState } from 'react'
+import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 import DatatableSkeleton from 'shared/components/Skeletons/Datatable'
 import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
@@ -131,7 +132,7 @@ function createColumns(callback: (row: Row<ShipmentsColumns>) => void): ColumnDe
 
 export default function Shipments({ filters }: Props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { isLoading, isError, data, error } = useShipments(filters)
+    const { isLoading, isError, data } = useShipments(filters)
 
     const memoizedData = useMemo(() => sanitiseData(data), [data])
     const memoizedColumns = useMemo(() => createColumns(showShipmentDetails), [])
@@ -154,7 +155,12 @@ export default function Shipments({ filters }: Props) {
                 <DatatableSkeleton rows={6} columns={8}></DatatableSkeleton>
             </Box>
         )
-    if (isError) return <Center h="400px">{String(error) ?? 'An error occurred, please try again later!'}</Center>
+    if (isError)
+        return (
+            <Center h="400px">
+                <ErrorPlaceholder />
+            </Center>
+        )
 
     return (
         <Box mt={4} h={'550px'} overflow="scroll" border="1px solid var(--chakra-colors-gray-100)">

@@ -100,7 +100,12 @@ export function NdrReasonSplitGraph() {
             </Center>
         )
 
-    if (isError) return <ErrorPlaceholder />
+    if (isError)
+        return (
+            <Center>
+                <ErrorPlaceholder />
+            </Center>
+        )
 
     return (
         <Flex h={`300px`} justify="center">

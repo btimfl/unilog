@@ -1,4 +1,5 @@
 import { Box, Center, Divider, Flex, Text } from '@chakra-ui/react'
+import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 import { parseDate } from 'shared/utils/functions'
 
@@ -10,7 +11,7 @@ type Props = {
 }
 
 export default function ShipmentDetail({ trackingNumber }: Props) {
-    const { isLoading, isError, data, error } = useShipmentDetails(trackingNumber)
+    const { isLoading, isError, data } = useShipmentDetails(trackingNumber)
 
     if (isLoading)
         return (
@@ -18,7 +19,12 @@ export default function ShipmentDetail({ trackingNumber }: Props) {
                 <Loading />
             </Center>
         )
-    if (isError) return <Center h="100%">{String(error) ?? 'An error occurred, please try again later!'}</Center>
+    if (isError)
+        return (
+            <Center h="100%">
+                <ErrorPlaceholder />
+            </Center>
+        )
 
     const orderItemsColumns = {
         sku: 'SKU',

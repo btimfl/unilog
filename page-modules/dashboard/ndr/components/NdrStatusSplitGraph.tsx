@@ -88,7 +88,12 @@ export function NdrStatusSplitGraph() {
             </Center>
         )
 
-    if (isError) return <ErrorPlaceholder />
+    if (isError)
+        return (
+            <Center>
+                <ErrorPlaceholder />
+            </Center>
+        )
 
     return (
         <Flex h={`300px`}>
