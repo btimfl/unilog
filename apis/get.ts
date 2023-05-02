@@ -389,3 +389,9 @@ export async function fetchNdrReasonSplit(startDate: string, endDate: string): P
         method: 'GET',
     })
 }
+
+export type FetchNdrFunnelType = object
+
+export async function fetchNdrFunnels(): Promise<FetchNdrFunnelType> {
+    return await gateway(`session/api/v1/ndr/reports/funnel`, { method: 'GET' })
+}
