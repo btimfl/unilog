@@ -1,10 +1,11 @@
-import { Box, CardBody, Tab, TabList, Tabs, Text } from '@chakra-ui/react'
+import { Box, CardBody, Flex, Tab, TabList, Tabs, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import FilterProvider from 'page-modules/ndr/FilterProvider'
 import FilterBar from 'page-modules/ndr/components/FilterBar'
 import FilterStatus from 'page-modules/ndr/components/FilterStatus'
 import PaginationBar from 'page-modules/ndr/components/PaginationBar'
+import TableActionsMenu from 'page-modules/ndr/components/TableActionsMenu'
 import React, { ReactNode, useEffect, useState } from 'react'
 import PageCard from 'shared/components/PageCard/PageCard'
 
@@ -26,7 +27,7 @@ export default function NDR({ children }: { children: ReactNode }) {
                 title="NDR"
                 subtitle="Non Delivery Reports"
                 toolbar={
-                    <Box ml={4} paddingBottom={4} overflowX={'auto'} overflowY={'hidden'} h={'100%'}>
+                    <Box ml={4} pt={1} paddingBottom={4} overflowX={'auto'} overflowY={'hidden'} h={'100%'}>
                         <FilterBar tabIndex={tabIndex} />
                     </Box>
                 }
@@ -94,9 +95,17 @@ export default function NDR({ children }: { children: ReactNode }) {
                                 </Link>
                             </Tab>
 
-                            <Box ml={'auto'} overflowX={'auto'} overflowY={'hidden'} h={'100%'}>
+                            <Flex
+                                ml={'auto'}
+                                overflowX={'auto'}
+                                overflowY={'hidden'}
+                                h={'100%'}
+                                alignItems={'center'}
+                                gap={1}
+                            >
                                 <PaginationBar />
-                            </Box>
+                                <TableActionsMenu />
+                            </Flex>
                         </TabList>
 
                         <Box className={styles.ndrTabPanel} h={'calc(100% - 5rem)'}>

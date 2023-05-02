@@ -42,20 +42,27 @@ export default function FilterStatus() {
             )}
 
             {/* CUSTOM FILTERS */}
-            {Object.keys(customFilters).map((key) => (
-                <CustomTag title={data.find((obj) => obj.key === key)?.display || key} key={key}>
-                    {Array.isArray(customFilters[key].value) ? (
-                        (customFilters[key].value as []).map((value, index) => (
-                            <CustomBadge key={index}>
-                                {data.find((obj) => obj.key === key)?.option.find((opt) => opt.key === value)
-                                    ?.display || value}
-                            </CustomBadge>
-                        ))
-                    ) : (
-                        <CustomBadge>{customFilters[key].value}</CustomBadge>
-                    )}
-                </CustomTag>
-            ))}
+            {Object.keys(customFilters).map((key) => {
+                if (Array.isArray(customFilters[key].value)) {
+                    if (!customFilters[key].value.length) return <></>
+
+                    return (
+                        <CustomTag title={data.find((obj) => obj.key === key)?.display || key} key={key}>
+                            {(customFilters[key].value as []).map((value, index) => (
+                                <CustomBadge key={index}>
+                                    {data.find((obj) => obj.key === key)?.option.find((opt) => opt.key === value)
+                                        ?.display || value}
+                                </CustomBadge>
+                            ))}
+                        </CustomTag>
+                    )
+                } else
+                    return (
+                        <CustomTag title={data.find((obj) => obj.key === key)?.display || key} key={key}>
+                            <CustomBadge>{customFilters[key].value}</CustomBadge>
+                        </CustomTag>
+                    )
+            })}
         </Flex>
     )
 }
