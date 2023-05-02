@@ -1,6 +1,6 @@
 import { Center, Flex, Icon, Text } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import { fetchAuthGrant } from 'apis/post'
+import { FetchAuthTokenType, fetchAuthGrant } from 'apis/post'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import queryString from 'query-string'
@@ -38,13 +38,20 @@ export default function AuthGrant() {
     }, [queryParams, router])
 
     useEffect(() => {
+        if (!!apiResponse) {
+            performAuthCheck(apiResponse)
+        }
+    }, [apiResponse])
+
+    function performAuthCheck(apiResponse: FetchAuthTokenType) {
         if (apiResponse?.result.jwt.length) {
             Cookies.set('JWT-TOKEN', apiResponse?.result.jwt)
+            toast.success('Logged in successfully.')
             router.push('/dashboard/overview')
         } else {
             toast.error('Unable to authenticate')
         }
-    }, [apiResponse])
+    }
 
     return (
         <>

@@ -166,7 +166,7 @@ export async function fetchNonDeliveryReports({
     )
 }
 
-type FetchAuthTokenType = {
+export type FetchAuthTokenType = {
     code: string
     description: string
     result: {
