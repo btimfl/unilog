@@ -10,16 +10,12 @@ import {
     StatHelpText,
     StatLabel,
     StatNumber,
-    Tab,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Tabs,
     Text,
     Tooltip,
     Wrap,
 } from '@chakra-ui/react'
 import Dashboard from 'layouts/Dashboard/Dashboard'
+import NdrFunnels from 'page-modules/dashboard/ndr/components/NdrFunnels'
 import { NdrReasonSplitGraph } from 'page-modules/dashboard/ndr/components/NdrReasonSplitGraph'
 import { NdrStatusSplitGraph } from 'page-modules/dashboard/ndr/components/NdrStatusSplitGraph'
 // import { NdrToDeliveryAttemptGraph } from 'page-modules/dashboard/ndr/components/NdrToDeliveryAttemptGraph'
@@ -75,7 +71,7 @@ export default function DashboardNDR() {
                     </CardHeader>
                     <Divider />
                     <CardBody py={4}>
-                        <Tabs isLazy color="gray.700">
+                        {/* <Tabs isLazy color="gray.700">
                             <TabList>
                                 <Tab
                                     fontSize="sm"
@@ -189,7 +185,9 @@ export default function DashboardNDR() {
                                     </StatGroup>
                                 </TabPanel>
                             </TabPanels>
-                        </Tabs>
+                        </Tabs> */}
+
+                        <NdrFunnels />
                     </CardBody>
                 </Card>
             </HStack>

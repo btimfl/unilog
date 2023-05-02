@@ -392,6 +392,8 @@ export async function fetchNdrReasonSplit(startDate: string, endDate: string): P
 
 export type FetchNdrFunnelType = object
 
-export async function fetchNdrFunnels(): Promise<FetchNdrFunnelType> {
-    return await gateway(`session/api/v1/ndr/reports/funnel`, { method: 'GET' })
+export async function fetchNdrFunnels(startDate: string, endDate: string): Promise<FetchNdrFunnelType> {
+    return await gateway(`session/api/v1/ndr/reports/funnel?start_date=${startDate}&end_date=${endDate}`, {
+        method: 'GET',
+    })
 }
