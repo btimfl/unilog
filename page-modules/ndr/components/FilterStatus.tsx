@@ -15,7 +15,7 @@ export default function FilterStatus() {
         <Flex backgroundColor={'white'} gap={2} fontSize="sm" height="2rem" overflowX="auto" align="center">
             <Text fontSize="sm">Filters Applied: </Text>
             {/* DATE RANGE */}
-            <CustomTag title={'Orders'}>
+            <CustomTag title={'DATE'}>
                 <Divider orientation="vertical" borderColor="red" />
                 <CustomBadge>{pageFilters.startDate}</CustomBadge>
                 <Text> to </Text>
@@ -24,8 +24,11 @@ export default function FilterStatus() {
 
             {/* SEARCH BOX */}
             {Boolean(pageFilters.searchText) && (
-                <CustomTag title={'Search'}>
-                    <CustomBadge>{pageFilters.searchText}</CustomBadge>
+                <CustomTag title={'QUERY'}>
+                    <CustomBadge>
+                        <Text></Text>
+                        {pageFilters.searchText}
+                    </CustomBadge>
                 </CustomTag>
             )}
 

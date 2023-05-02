@@ -17,6 +17,7 @@ export default function CustomTag({ title, children }: Props) {
                 lineHeight={`1.5rem`}
                 minW={'max-content'}
                 fontSize="xs"
+                fontWeight="bold"
                 textTransform="uppercase"
                 verticalAlign={`middle`}
             >
