@@ -72,7 +72,9 @@ export function NdrReasonSplitGraph() {
 
     const sanitizeData = (data: FetchNdrReasonSplitType | undefined) => {
         delete data?.reason_wise_count_details[0].reason
-        prepareGraphData(data)
+        if (startDate && endDate) {
+            prepareGraphData(data)
+        }
     }
 
     const prepareGraphData = (graphData: FetchNdrReasonSplitType | undefined): void => {
