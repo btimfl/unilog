@@ -31,7 +31,7 @@ export default function NDR({ children }: { children: ReactNode }) {
                     </Box>
                 }
             >
-                <CardBody h={'100%'}>
+                <CardBody h={'100%'} pt={2}>
                     <FilterStatus />
                     <Tabs
                         isLazy

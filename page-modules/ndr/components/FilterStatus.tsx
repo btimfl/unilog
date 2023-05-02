@@ -12,18 +12,11 @@ export default function FilterStatus() {
     if (isLoading || isError) return <></>
 
     return (
-        <Flex
-            backgroundColor={'white'}
-            gap={2}
-            fontSize={'sm'}
-            height={'2rem'}
-            pb={4}
-            paddingInline={2}
-            overflowX={'auto'}
-        >
+        <Flex backgroundColor={'white'} gap={2} fontSize="sm" height="2rem" overflowX="auto" align="center">
+            <Text fontSize="sm">Filters Applied: </Text>
             {/* DATE RANGE */}
             <CustomTag title={'Orders'}>
-                <Divider orientation="vertical" />
+                <Divider orientation="vertical" borderColor="red" />
                 <CustomBadge>{pageFilters.startDate}</CustomBadge>
                 <Text> to </Text>
                 <CustomBadge>{pageFilters.endDate}</CustomBadge>
@@ -31,7 +24,7 @@ export default function FilterStatus() {
 
             {/* SEARCH BOX */}
             {Boolean(pageFilters.searchText) && (
-                <CustomTag title={'Search Text'}>
+                <CustomTag title={'Search'}>
                     <CustomBadge>{pageFilters.searchText}</CustomBadge>
                 </CustomTag>
             )}
