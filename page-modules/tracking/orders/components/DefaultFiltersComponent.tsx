@@ -9,11 +9,12 @@ import {
     MenuItem,
     MenuList,
     Select,
-    Spinner,
     Text,
 } from '@chakra-ui/react'
 import { ChangeEvent, Dispatch } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
+import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
+import Loading from 'shared/components/Loading/Loading'
 
 import { useMetadata } from '../hooks/queries'
 import { ActionType, Actions, DefaultFilters, FilterParams, SortParams, TimelineParams } from '../types/filters'
@@ -25,7 +26,7 @@ type Props = {
 }
 
 export default function DefaultFiltersComponent({ filters, dispatch }: Props) {
-    const { data, isLoading, isError, error } = useMetadata()
+    const { data, isLoading, isError } = useMetadata()
 
     const onCheckboxChange = (ev: ChangeEvent<HTMLInputElement>, key: FilterParams) => {
         if (ev.target.checked)
@@ -43,12 +44,17 @@ export default function DefaultFiltersComponent({ filters, dispatch }: Props) {
     if (isLoading) {
         return (
             <Center h={'100%'}>
-                <Spinner></Spinner>
+                <Loading />
             </Center>
         )
     }
 
-    if (isError) return <Center h={'400px'}>{String(error) ?? 'An error occurred, please try again later!'}</Center>
+    if (isError)
+        return (
+            <Center h={'400px'}>
+                <ErrorPlaceholder />
+            </Center>
+        )
 
     return (
         <Grid templateColumns={'repeat(2, 1fr)'} columnGap={'1rem'}>

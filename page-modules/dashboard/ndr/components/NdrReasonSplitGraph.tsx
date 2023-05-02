@@ -1,10 +1,11 @@
-import { Center, Flex, Text } from '@chakra-ui/react'
+import { Center, Flex } from '@chakra-ui/react'
 import { FetchNdrReasonSplitType } from 'apis/get'
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
 import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
 import React, { useEffect, useState } from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
+import Loading from 'shared/components/Loading/Loading'
 
 import { useNdrReason } from '../hooks/queries'
 
@@ -95,11 +96,16 @@ export function NdrReasonSplitGraph() {
     if (isLoading)
         return (
             <Center h={`300px`}>
-                <Text> Loading...</Text>
+                <Loading />
             </Center>
         )
 
-    if (isError) return <ErrorPlaceholder />
+    if (isError)
+        return (
+            <Center>
+                <ErrorPlaceholder />
+            </Center>
+        )
 
     return (
         <Flex h={`300px`} justify="center">

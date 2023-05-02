@@ -1,6 +1,8 @@
-import { Center, Flex, Grid, Spinner, Text } from '@chakra-ui/react'
+import { Center, Flex, Grid, Text } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import { Dispatch, SetStateAction, useEffect } from 'react'
+import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
+import Loading from 'shared/components/Loading/Loading'
 import { FieldValue } from 'shared/types/forms'
 
 import { useExtendedMetadata } from '../hooks/queries'
@@ -13,7 +15,7 @@ type Props = {
 }
 
 export default function CustomFiltersComponent({ filters, setFilters }: Props) {
-    const { data, isLoading, isError, error } = useExtendedMetadata()
+    const { data, isLoading, isError } = useExtendedMetadata()
 
     useEffect(() => {
         function generateDefaultFilters(): CustomFilters {
@@ -37,12 +39,17 @@ export default function CustomFiltersComponent({ filters, setFilters }: Props) {
     if (isLoading) {
         return (
             <Center h={'100%'}>
-                <Spinner></Spinner>
+                <Loading />
             </Center>
         )
     }
 
-    if (isError) return <Center h={'400px'}>{String(error) ?? 'An error occurred, please try again later!'}</Center>
+    if (isError)
+        return (
+            <Center h={'400px'}>
+                <ErrorPlaceholder />
+            </Center>
+        )
 
     if (!data?.result?.extended_meta?.group_search_criteria) return <></>
 
