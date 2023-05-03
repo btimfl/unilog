@@ -47,7 +47,12 @@ export function sanitiseData(apiResponse: FetchNonDeliveryReportsType | null | u
             url: '#', // TODO
         },
         lastActionBy: record.action_by,
-        actions: [], // TODO
+        actions: {
+            showContactBuyer: record.properties.cb,
+            showFakeAttempt: record.properties.sfa,
+            showReattempt: record.properties.sr,
+            showRto: record.properties.sr,
+        },
         historyRow: {},
     }))
 }

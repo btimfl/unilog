@@ -1,5 +1,4 @@
-import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
-import { Box, Button, Center, Flex, Text } from '@chakra-ui/react'
+import { Box, Center, Flex, Text } from '@chakra-ui/react'
 import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
 import { NdrTabStatus } from 'apis/get'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
@@ -12,6 +11,7 @@ import { useFilterContext } from '../FilterProvider'
 import { useReports } from '../hooks/queries'
 import { ReportsColumns } from '../types/reports'
 import { sanitiseData } from '../utils'
+import Actions from './TableCells/Actions'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createColumns(): ColumnDef<ReportsColumns, any>[] {
@@ -97,22 +97,7 @@ function createColumns(): ColumnDef<ReportsColumns, any>[] {
             size: 300,
         }),
         columnHelper.accessor('actions', {
-            cell: ({ row }) => (
-                <>
-                    {row.getCanExpand() ? (
-                        <Button
-                            size="xs"
-                            bgColor={'gray.300'}
-                            onClick={row.getToggleExpandedHandler()}
-                            rightIcon={row.getIsExpanded() ? <ChevronDownIcon /> : <ChevronUpIcon />}
-                        >
-                            View History
-                        </Button>
-                    ) : (
-                        <></>
-                    )}
-                </>
-            ),
+            cell: (info) => <Actions info={info} />,
             header: 'Actions',
             size: 300,
         }),
