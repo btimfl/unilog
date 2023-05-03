@@ -2,11 +2,14 @@
     border-bottom-right-radius: var(--chakra-sizes-2);
 }
 
-.ndrTabList {
-    display: flex;
-    align-items: center;
-}
 
+.ndrTabsContainer {
+    .ndrTabList {
+        display: flex;
+        align-items: center;
+        border-bottom:0;
+    }
+}
 .ndrTab {
     color: var(--chakra-colors-red-600);
     color: white;

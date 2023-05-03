@@ -4,6 +4,7 @@ import {
     NdrFilter,
     NdrTabStatus,
     fetchNdrFilterMetadata,
+    fetchNdrHistory,
     fetchNonDeliveryReports,
 } from 'apis/get'
 import { FieldType } from 'shared/types/forms'
@@ -48,5 +49,14 @@ export function useFilters() {
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         select: transformFilterTypes,
+    })
+}
+
+export function useHistory(id: string) {
+    return useQuery({
+        queryKey: ['ndr-history', id],
+        queryFn: () => fetchNdrHistory(id),
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
     })
 }

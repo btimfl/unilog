@@ -41,6 +41,7 @@ export default function NDR({ children }: { children: ReactNode }) {
                         index={tabIndex}
                         onChange={setTabIndex}
                         h={'100%'}
+                        borderBottom={0}
                     >
                         <TabList h={'auto'} className={styles.ndrTabList}>
                             <Tab

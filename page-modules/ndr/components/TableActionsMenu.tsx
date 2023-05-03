@@ -9,14 +9,12 @@ export default function TableActionsMenu() {
                 as={IconButton}
                 aria-label="Options"
                 icon={<HamburgerIcon fontSize={'sm'} />}
-                variant="outline"
+                variant="ghost"
                 minW={'2rem'}
                 h={'2rem'}
             />
             <MenuList zIndex={3}>
-                <MenuItem icon={<BsFiletypeCsv />} command="⌘E">
-                    Export
-                </MenuItem>
+                <MenuItem icon={<BsFiletypeCsv />}>Export</MenuItem>
             </MenuList>
         </Menu>
     )

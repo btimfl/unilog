@@ -383,7 +383,6 @@ type NdrReasonResponse = {
 export type FetchNdrReasonSplitType = {
     reason_wise_count_details: NdrReasonResponse[]
 }
-
 export async function fetchNdrReasonSplit(startDate: string, endDate: string): Promise<FetchNdrReasonSplitType> {
     return await gateway(`session/api/v1/ndr/reports/reason_split?start_date=${startDate}&end_date=${endDate}`, {
         method: 'GET',
@@ -400,4 +399,27 @@ export async function fetchNdrFunnels(startDate: string, endDate: string): Promi
 
 export async function initLogout(): Promise<object> {
     return await gateway(`api/seller/logout`, { method: 'GET' })
+}
+export type FetchNdrHistoryType = {
+    historyData: Record<
+        string,
+        {
+            action: string
+            action_by: string
+            date: string
+            history_id: string
+            ndr_cycle: number
+            ndr_instruction_update: string
+            reason: string
+            remarks: string
+            shipping_provider: string
+            shipping_provider_id: string
+            source: string
+        }[]
+    >
+}
+export async function fetchNdrHistory(id: string): Promise<FetchNdrHistoryType> {
+    return await gateway(`session/api/v1/ndr/history?ndr_id=${id}`, {
+        method: 'GET',
+    })
 }

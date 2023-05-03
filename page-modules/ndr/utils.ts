@@ -10,7 +10,7 @@ export function sanitiseData(apiResponse: FetchNonDeliveryReportsType | null | u
     return data.map<ReportsColumns>((record) => ({
         ndrDetails: {
             date: record.last_ndr_date,
-            attempts: `Attempts: ${record.attempts}`,
+            attempts: `${record.attempts}`,
             reason: record.ndr_reason,
             pending: record.pending_since,
         },
@@ -47,7 +47,12 @@ export function sanitiseData(apiResponse: FetchNonDeliveryReportsType | null | u
             url: '#', // TODO
         },
         lastActionBy: record.action_by,
-        actions: [], // TODO
-        historyRow: {},
+        actions: {
+            showContactBuyer: record.properties.cb,
+            showFakeAttempt: record.properties.sfa,
+            showReattempt: record.properties.sr,
+            showRto: record.properties.sr,
+        },
+        historyRow: record.ndr_id,
     }))
 }

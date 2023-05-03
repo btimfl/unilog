@@ -1,17 +1,24 @@
-import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
-import { Box, Button, Center, Flex, Text } from '@chakra-ui/react'
-import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
+import { Box, Center, Flex } from '@chakra-ui/react'
+import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
 import { NdrTabStatus } from 'apis/get'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
 import { useEffect, useMemo } from 'react'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import DatatableSkeleton from 'shared/components/Skeletons/Datatable'
-import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
 import { useFilterContext } from '../FilterProvider'
 import { useReports } from '../hooks/queries'
 import { ReportsColumns } from '../types/reports'
 import { sanitiseData } from '../utils'
+import Actions from './TableCells/Actions'
+import CustomerDetails from './TableCells/CustomerDetails'
+import DeliveryAddress from './TableCells/DeliveryAddress'
+// import FieldExecutiveInfo from './TableCells/FieldExecutiveInfo'
+import HistoryRow from './TableCells/HistoryRow'
+import LastActionBy from './TableCells/LastActionBy'
+import NdrDetails from './TableCells/NdrDetails'
+import OrderDetails from './TableCells/OrderDetails'
+import ShipmentDetails from './TableCells/ShipmentDetails'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createColumns(): ColumnDef<ReportsColumns, any>[] {
@@ -19,102 +26,44 @@ function createColumns(): ColumnDef<ReportsColumns, any>[] {
 
     return [
         columnHelper.accessor('ndrDetails', {
-            cell: (info) => (
-                <>
-                    <Text>{info.getValue().date}</Text>
-                    <Text>{info.getValue().attempts}</Text>
-                    <Text>{info.getValue().reason}</Text>
-                    <Text>{info.getValue().pending}</Text>
-                </>
-            ),
+            cell: (info) => <NdrDetails info={info} />,
             header: 'NDR Details',
             size: 300,
         }),
         columnHelper.accessor('orderDetails', {
-            cell: (info) => (
-                <>
-                    <Text>ID: {info.getValue().id}</Text>
-                    <Text>₹{info.getValue().amount}</Text>
-                    <Text>{info.getValue().paymentMethod}</Text>
-                </>
-            ),
+            cell: (info) => <OrderDetails info={info} />,
             header: 'Order Details',
-            size: 300,
+            size: 200,
         }),
         columnHelper.accessor('customerDetails', {
-            cell: (info) => (
-                <>
-                    <Text>{info.getValue().name}</Text>
-                    <Text>{info.getValue().phone}</Text>
-                    <Text>{info.getValue().email}</Text>
-                    <Text>
-                        {info.getValue().city}, {info.getValue().state}, {info.getValue().pincode}
-                    </Text>
-                </>
-            ),
+            cell: (info) => <CustomerDetails info={info} />,
             header: 'Customer Details',
             size: 300,
         }),
         columnHelper.accessor('deliveryAddress', {
-            cell: (info) => (
-                <>
-                    <TextWithTooltip text={info.getValue().address} width={'8rem'}></TextWithTooltip>
-                    <Text>
-                        {info.getValue().city}, {info.getValue().state}, {info.getValue().pincode}
-                    </Text>
-                    <Text>{info.getValue().country}</Text>
-                </>
-            ),
+            cell: (info) => <DeliveryAddress info={info} />,
             header: 'Delivery Address',
             size: 300,
         }),
-        columnHelper.accessor('fieldExecutiveInfo', {
-            cell: (info) => (
-                <>
-                    <Text>{info.getValue()}</Text>
-                </>
-            ),
-            header: 'Field Executive Info',
-            size: 300,
-        }),
+        // columnHelper.accessor('fieldExecutiveInfo', {
+        //     cell: (info) => <FieldExecutiveInfo info={info} />,
+        //     header: 'Field Executive Info',
+        //     size: 300,
+        // }),
         columnHelper.accessor('shipmentDetails', {
-            cell: (info) => (
-                <>
-                    <Text>{info.getValue().id}</Text>
-                    <Text>{info.getValue().carrier}</Text>
-                </>
-            ),
+            cell: (info) => <ShipmentDetails info={info} />,
             header: 'Shipment Details',
-            size: 300,
+            size: 200,
         }),
         columnHelper.accessor('lastActionBy', {
-            cell: (info) => (
-                <>
-                    <Text>{info.getValue()}</Text>
-                </>
-            ),
+            cell: (info) => <LastActionBy info={info} />,
             header: 'Last Action By',
-            size: 300,
+            size: 200,
         }),
         columnHelper.accessor('actions', {
-            cell: ({ row }) => (
-                <>
-                    {row.getCanExpand() ? (
-                        <Button
-                            size="xs"
-                            bgColor={'gray.300'}
-                            onClick={row.getToggleExpandedHandler()}
-                            rightIcon={row.getIsExpanded() ? <ChevronDownIcon /> : <ChevronUpIcon />}
-                        >
-                            View History
-                        </Button>
-                    ) : (
-                        <></>
-                    )}
-                </>
-            ),
+            cell: (info) => <Actions info={info} />,
             header: 'Actions',
-            size: 300,
+            size: 100,
         }),
     ]
 }
@@ -159,9 +108,7 @@ export default function Reports({ tabStatus }: Props) {
                 data={memoizedData}
                 columns={memoizedColumns}
                 getRowCanExpand={() => true}
-                renderSubComponent={(row: Row<ReportsColumns>) => (
-                    <span>{JSON.stringify(row.getValue('historyRow') || 'Test')}</span>
-                )}
+                renderSubComponent={(row) => <HistoryRow id={memoizedData.at(row.index)?.historyRow || ''} />}
                 strategy="VirtualRows"
             />
         </Flex>

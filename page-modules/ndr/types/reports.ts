@@ -34,6 +34,11 @@ export type ReportsColumns = {
         url: string
     }
     lastActionBy: string
-    actions: string[]
-    historyRow: Record<string, string>
+    actions: {
+        showFakeAttempt: boolean
+        showRto: boolean
+        showReattempt: boolean
+        showContactBuyer: boolean
+    }
+    historyRow: string
 }
