@@ -1,5 +1,5 @@
 import { Box, Center, Flex, Text } from '@chakra-ui/react'
-import { ColumnDef, Row, createColumnHelper } from '@tanstack/react-table'
+import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
 import { NdrTabStatus } from 'apis/get'
 import TanstackTable from 'lib/TanstackTable/TanstackTable'
 import { useEffect, useMemo } from 'react'
@@ -12,6 +12,7 @@ import { useReports } from '../hooks/queries'
 import { ReportsColumns } from '../types/reports'
 import { sanitiseData } from '../utils'
 import Actions from './TableCells/Actions'
+import HistoryRow from './TableCells/HistoryRow'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createColumns(): ColumnDef<ReportsColumns, any>[] {
@@ -144,9 +145,7 @@ export default function Reports({ tabStatus }: Props) {
                 data={memoizedData}
                 columns={memoizedColumns}
                 getRowCanExpand={() => true}
-                renderSubComponent={(row: Row<ReportsColumns>) => (
-                    <span>{JSON.stringify(row.getValue('historyRow') || 'Test')}</span>
-                )}
+                renderSubComponent={(row) => <HistoryRow id={memoizedData.at(row.index)?.historyRow || ''} />}
                 strategy="VirtualRows"
             />
         </Flex>

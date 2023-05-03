@@ -40,5 +40,5 @@ export type ReportsColumns = {
         showReattempt: boolean
         showContactBuyer: boolean
     }
-    historyRow: Record<string, string>
+    historyRow: string
 }

@@ -53,6 +53,6 @@ export function sanitiseData(apiResponse: FetchNonDeliveryReportsType | null | u
             showReattempt: record.properties.sr,
             showRto: record.properties.sr,
         },
-        historyRow: {},
+        historyRow: record.ndr_id,
     }))
 }

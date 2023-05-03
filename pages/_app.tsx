@@ -1,5 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { theme } from 'chakra-theme'
 import { NextComponentType, NextPageContext } from 'next'
 import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
@@ -7,14 +8,11 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import React, { FC, ReactNode, useEffect } from 'react'
 import 'react-date-range/dist/styles.css'
-// main css file
 import 'react-date-range/dist/theme/default.css'
 import { Toaster } from 'react-hot-toast'
 
 import MainLayout from '../layouts/MainLayout'
 import '../styles/globals.css'
-
-// theme css file
 
 NProgress.configure({ showSpinner: false })
 const queryClient = new QueryClient()
@@ -44,7 +42,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     }, [router.events])
 
     return (
-        <ChakraProvider resetCSS={true}>
+        <ChakraProvider resetCSS={true} theme={theme}>
             <QueryClientProvider client={queryClient}>
                 <Toaster
                     toastOptions={{
