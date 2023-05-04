@@ -36,6 +36,13 @@ export default async function gateway(URL: string, options: RequestInit, domain?
         headers: defaultHeaders,
     })
 
+    if (res.status !== 200) {
+        toast.error(`${res.status} error for path /${URL}.`, {
+            position: 'top-right',
+        })
+        return {}
+    }
+
     if (!res.ok) throw new Error(res.statusText)
     const text = await res.text()
     return text ? JSON.parse(text) : {}
@@ -46,7 +53,10 @@ export async function initAuth(URL: string, options: RequestInit) {
         ...options,
         headers: defaultHeaders,
     })
-
+    if (res.status !== 200) {
+        toast.error(`${res.status} error for path /${URL}.`)
+        return {}
+    }
     if (!res.ok) throw new Error(res.statusText)
     const text = await res.text()
     return text ? JSON.parse(text) : {}

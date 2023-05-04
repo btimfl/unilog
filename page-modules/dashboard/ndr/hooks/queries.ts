@@ -5,6 +5,8 @@ import {
     fetchNdrReasonSplit,
     fetchNdrShortSummary,
     fetchNdrStatusSplit,
+    fetchNdrSuccessByCourier,
+    fetchNdrTotalTerminatedCounts,
 } from 'apis/get'
 
 const sanitiseNdrReason = (data: FetchNdrReasonSplitType) => {
@@ -49,5 +51,25 @@ export function useNdrFunnels(startDate: string, endDate: string) {
         refetchOnWindowFocus: false,
         refetchInterval: false,
         enabled: !!startDate && !!endDate,
+    })
+}
+
+export function useNdrSuccessByCourier(startDate: string, endDate: string) {
+    return useQuery({
+        queryKey: ['fetchNdrSuccessByCourier', startDate, endDate],
+        queryFn: () => fetchNdrSuccessByCourier(startDate, endDate),
+        refetchOnWindowFocus: false,
+        refetchInterval: false,
+        enabled: !!startDate && !!endDate,
+    })
+}
+
+export function useNdrTerminatedCounts(startDate: string, endDate: string) {
+    return useQuery({
+        queryKey: ['fetchNdrTerminalCounts', startDate, endDate],
+        queryFn: () => fetchNdrTotalTerminatedCounts(startDate, endDate),
+        enabled: !!startDate && !!endDate,
+        refetchInterval: false,
+        refetchOnWindowFocus: false,
     })
 }

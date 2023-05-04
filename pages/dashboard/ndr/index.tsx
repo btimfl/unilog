@@ -12,13 +12,13 @@ import {
     StatNumber,
     Text,
     Tooltip,
-    Wrap,
 } from '@chakra-ui/react'
 import Dashboard from 'layouts/Dashboard/Dashboard'
 import NdrFunnels from 'page-modules/dashboard/ndr/components/NdrFunnels'
 import { NdrReasonSplitGraph } from 'page-modules/dashboard/ndr/components/NdrReasonSplitGraph'
 import { NdrStatusSplitGraph } from 'page-modules/dashboard/ndr/components/NdrStatusSplitGraph'
-// import { NdrToDeliveryAttemptGraph } from 'page-modules/dashboard/ndr/components/NdrToDeliveryAttemptGraph'
+import NdrSuccessByCourierGraph from 'page-modules/dashboard/ndr/components/NdrSuccessByCourierGraph'
+import { NdrToDeliveryAttemptGraph } from 'page-modules/dashboard/ndr/components/NdrToDeliveryAttemptGraph'
 import { NdrShortSummary } from 'page-modules/dashboard/ndr/components/ShortSummary/ShortSummary'
 
 export default function DashboardNDR() {
@@ -34,7 +34,7 @@ export default function DashboardNDR() {
                 </CardBody>
             </Card>
             <HStack gap={2} alignItems={`stretch`} mt={4}>
-                <Card w={`45%`}>
+                {/* <Card w={`45%`}>
                     <CardHeader fontWeight="bold" py={3}>
                         NDR response
                     </CardHeader>
@@ -64,129 +64,13 @@ export default function DashboardNDR() {
                             </StatGroup>
                         </Wrap>
                     </CardBody>
-                </Card>
-                <Card w={`55%`}>
+                </Card> */}
+                <Card w={`100%`}>
                     <CardHeader fontWeight="bold" py={3}>
                         NDR funnels
                     </CardHeader>
                     <Divider />
                     <CardBody py={4}>
-                        {/* <Tabs isLazy color="gray.700">
-                            <TabList>
-                                <Tab
-                                    fontSize="sm"
-                                    _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                                    fontWeight="bold"
-                                    paddingInline={4}
-                                >
-                                    First
-                                </Tab>
-
-                                <Tab
-                                    fontSize="sm"
-                                    _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                                    fontWeight="bold"
-                                    paddingInline={4}
-                                >
-                                    Second
-                                </Tab>
-                                <Tab
-                                    fontSize="sm"
-                                    _selected={{ color: 'blue.400', borderColor: 'blue.400' }}
-                                    fontWeight="bold"
-                                    paddingInline={4}
-                                >
-                                    Third
-                                </Tab>
-                            </TabList>
-                            <TabPanels bg={`gray.100`}>
-                                <TabPanel>
-                                    <StatGroup>
-                                        <Stat>
-                                            <StatLabel>Total Shipments</StatLabel>
-                                            <StatNumber>5,670</StatNumber>
-                                            <StatHelpText mb={0}>
-                                                <StatArrow type="increase" />
-                                                2.30%
-                                            </StatHelpText>
-                                        </Stat>
-                                        <Stat>
-                                            <StatLabel>Pending Shipments</StatLabel>
-                                            <StatNumber>5,670</StatNumber>
-                                            <StatHelpText mb={0}>
-                                                <StatArrow type="increase" />
-                                                2.30%
-                                            </StatHelpText>
-                                        </Stat>
-                                        <Stat>
-                                            <StatLabel>Delivered Shipments</StatLabel>
-                                            <StatNumber>5,670</StatNumber>
-                                            <StatHelpText mb={0}>
-                                                <StatArrow type="increase" />
-                                                2.30%
-                                            </StatHelpText>
-                                        </Stat>
-                                    </StatGroup>
-                                </TabPanel>
-                                <TabPanel>
-                                    <StatGroup>
-                                        <Stat>
-                                            <StatLabel>Total Shipments</StatLabel>
-                                            <StatNumber>5,670</StatNumber>
-                                            <StatHelpText mb={0}>
-                                                <StatArrow type="increase" />
-                                                2.30%
-                                            </StatHelpText>
-                                        </Stat>
-                                        <Stat>
-                                            <StatLabel>Pending Shipments</StatLabel>
-                                            <StatNumber>5,670</StatNumber>
-                                            <StatHelpText mb={0}>
-                                                <StatArrow type="increase" />
-                                                2.30%
-                                            </StatHelpText>
-                                        </Stat>
-                                        <Stat>
-                                            <StatLabel>Delivered Shipments</StatLabel>
-                                            <StatNumber>5,670</StatNumber>
-                                            <StatHelpText mb={0}>
-                                                <StatArrow type="increase" />
-                                                2.30%
-                                            </StatHelpText>
-                                        </Stat>
-                                    </StatGroup>
-                                </TabPanel>
-                                <TabPanel>
-                                    <StatGroup>
-                                        <Stat>
-                                            <StatLabel>Total Shipments</StatLabel>
-                                            <StatNumber>5,670</StatNumber>
-                                            <StatHelpText mb={0}>
-                                                <StatArrow type="increase" />
-                                                2.30%
-                                            </StatHelpText>
-                                        </Stat>
-                                        <Stat>
-                                            <StatLabel>Pending Shipments</StatLabel>
-                                            <StatNumber>5,670</StatNumber>
-                                            <StatHelpText mb={0}>
-                                                <StatArrow type="increase" />
-                                                2.30%
-                                            </StatHelpText>
-                                        </Stat>
-                                        <Stat>
-                                            <StatLabel>Delivered Shipments</StatLabel>
-                                            <StatNumber>5,670</StatNumber>
-                                            <StatHelpText mb={0}>
-                                                <StatArrow type="increase" />
-                                                2.30%
-                                            </StatHelpText>
-                                        </Stat>
-                                    </StatGroup>
-                                </TabPanel>
-                            </TabPanels>
-                        </Tabs> */}
-
                         <NdrFunnels />
                     </CardBody>
                 </Card>
@@ -210,7 +94,7 @@ export default function DashboardNDR() {
                         <NdrStatusSplitGraph />
                     </CardBody>
                 </Card>
-                {/* <Card w={`100%`}>
+                <Card w={`100%`}>
                     <CardHeader py={3} fontWeight="bold">
                         NDR to delivery attempt
                     </CardHeader>
@@ -218,7 +102,7 @@ export default function DashboardNDR() {
                     <CardBody>
                         <NdrToDeliveryAttemptGraph />
                     </CardBody>
-                </Card> */}
+                </Card>
             </HStack>
             <HStack gap={2} alignItems={`flex-start`} mt={4}>
                 <Card w={`100%`}>
@@ -278,7 +162,7 @@ export default function DashboardNDR() {
                     </CardHeader>
                     <Divider />
                     <CardBody>
-                        <NdrStatusSplitGraph />
+                        <NdrSuccessByCourierGraph />
                     </CardBody>
                 </Card>
                 <Card w={`100%`}>

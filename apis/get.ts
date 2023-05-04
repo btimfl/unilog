@@ -342,7 +342,7 @@ export type NdrStatusSplitResult = {
 export type FetchNdrStatusSplitType = NdrStatusSplitResult[]
 
 export async function fetchNdrStatusSplit(startDate: string, endDate: string): Promise<NdrStatusSplitResult[]> {
-    return await gateway(`session/api/v1/ndr/reports/status_split?start_date=${startDate}&end_date=${endDate}`, {
+    return await gateway(`session/api/v1/ndr/reports/status-split?start_date=${startDate}&end_date=${endDate}`, {
         method: 'GET',
     })
 }
@@ -384,12 +384,24 @@ export type FetchNdrReasonSplitType = {
     reason_wise_count_details: NdrReasonResponse[]
 }
 export async function fetchNdrReasonSplit(startDate: string, endDate: string): Promise<FetchNdrReasonSplitType> {
-    return await gateway(`session/api/v1/ndr/reports/reason_split?start_date=${startDate}&end_date=${endDate}`, {
+    return await gateway(`session/api/v1/ndr/reports/reason-split?start_date=${startDate}&end_date=${endDate}`, {
         method: 'GET',
     })
 }
 
-export type FetchNdrFunnelType = object
+export type NdrFunnelType = {
+    title: string
+    value: string | number
+}
+
+export type NdrFunnelCountType = {
+    counts: NdrFunnelType[]
+    cycle: string
+}
+
+export type FetchNdrFunnelType = {
+    cycle_wise_counts: NdrFunnelCountType[]
+}
 
 export async function fetchNdrFunnels(startDate: string, endDate: string): Promise<FetchNdrFunnelType> {
     return await gateway(`session/api/v1/ndr/reports/funnel?start_date=${startDate}&end_date=${endDate}`, {
@@ -422,4 +434,21 @@ export async function fetchNdrHistory(id: string): Promise<FetchNdrHistoryType> 
     return await gateway(`session/api/v1/ndr/history?ndr_id=${id}`, {
         method: 'GET',
     })
+}
+
+export async function fetchNdrSuccessByCourier(startDate: string, endDate: string): Promise<FetchNdrHistoryType> {
+    return await gateway(`session/api/v1/ndr/reports/courier-success?start_date=${startDate}&end_date=${endDate}`, {
+        method: 'GET',
+    })
+}
+
+export type FetchNdrTerminatedCountsType = object
+export async function fetchNdrTotalTerminatedCounts(
+    startDate: string,
+    endDate: string,
+): Promise<FetchNdrTerminatedCountsType> {
+    return await gateway(
+        `session/api/v1/ndr/reports/total-terminated-counts?start_date=${startDate}&end_date=${endDate}`,
+        { method: 'GET' },
+    )
 }

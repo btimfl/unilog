@@ -23,7 +23,7 @@ export default function Actions({ info: { row, getValue } }: Props) {
                 <Flex alignItems={'center'} gap={2}>
                     <Button
                         size="xs"
-                        colorScheme={'facebook'}
+                        bgColor={'gray.200'}
                         onClick={row.getToggleExpandedHandler()}
                         rightIcon={row.getIsExpanded() ? <ChevronUpIcon /> : <ChevronDownIcon />}
                     >
