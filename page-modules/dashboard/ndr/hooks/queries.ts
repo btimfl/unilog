@@ -10,7 +10,7 @@ import {
 } from 'apis/get'
 
 const sanitiseNdrReason = (data: FetchNdrReasonSplitType) => {
-    delete data.reason_wise_count_details[0].reason
+    if (data.reason_wise_count_details.length) delete data.reason_wise_count_details[0].reason
     return data
 }
 export function useNdrReason(startDate: string, endDate: string) {

@@ -36,14 +36,12 @@ export default async function gateway(URL: string, options: RequestInit, domain?
         headers: defaultHeaders,
     })
 
-    if (res.status !== 200) {
+    if (!res.ok) {
         toast.error(`${res.status} error for path /${URL}.`, {
             position: 'top-right',
         })
-        return {}
+        throw new Error(res.statusText)
     }
-
-    if (!res.ok) throw new Error(res.statusText)
     const text = await res.text()
     return text ? JSON.parse(text) : {}
 }

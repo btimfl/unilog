@@ -35,6 +35,14 @@ export default function NdrFunnels() {
             </Center>
         )
 
+    if (!data.cycle_wise_counts.length)
+        return (
+            <Center h={'200px'}>
+                <Text textAlign={`center`} fontSize="xs" color="gray.500">
+                    No records found.
+                </Text>
+            </Center>
+        )
     return (
         <>
             <Tabs isLazy color="gray.700">

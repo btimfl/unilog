@@ -1,4 +1,4 @@
-import { Center, Flex } from '@chakra-ui/react'
+import { Center, Flex, Text } from '@chakra-ui/react'
 import { FetchNdrReasonSplitType } from 'apis/get'
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
 import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
@@ -104,6 +104,15 @@ export function NdrReasonSplitGraph() {
         return (
             <Center>
                 <ErrorPlaceholder />
+            </Center>
+        )
+
+    if (!data.reason_wise_count_details.length)
+        return (
+            <Center h={'300px'}>
+                <Text textAlign={`center`} fontSize="xs" color="gray.500">
+                    No records found.
+                </Text>
             </Center>
         )
 

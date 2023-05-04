@@ -29,7 +29,7 @@ export function NdrShortSummary() {
 
     return (
         <StatGroup>
-            {data?.summary_items.map((item, i) => {
+            {data.summary_items.map((item, i) => {
                 return (
                     <Stat key={i} textAlign={`center`}>
                         <StatLabel>{item.title}</StatLabel>
