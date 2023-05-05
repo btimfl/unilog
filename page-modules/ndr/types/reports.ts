@@ -1,45 +1,53 @@
+export type NDR_DETAILS = {
+    date: string
+    attempts: string
+    reason: string
+    pending: string
+    severity: 'LOW' | 'HIGH'
+}
+
+export type ORDER_DETAILS = {
+    id: string
+    url: string
+    amount: number
+    paymentMethod: string
+    products: { id: string; sku: string; qty: number }[]
+}
+export type CUSTOMER_DETAILS = {
+    name: string
+    phone: string
+    email: string
+    city: string
+    pincode: string
+    state: string
+}
+export type DELIVERY_ADDRESS = {
+    city: string
+    state: string
+    address: string
+    pincode: string
+    country: string
+}
+export type SHIPMENT_DETAILS = {
+    id: string
+    carrier: string
+    url: string
+}
+export type ACTIONS = {
+    showFakeAttempt: boolean
+    showRto: boolean
+    showReattempt: boolean
+    showContactBuyer: boolean
+}
+
 export type ReportsColumns = {
-    ndrDetails: {
-        date: string
-        attempts: string
-        reason: string
-        pending: string
-        severity: 'LOW' | 'HIGH'
-    }
-    orderDetails: {
-        id: string
-        url: string
-        amount: number
-        paymentMethod: string
-        products: { id: string; sku: string; qty: number }[]
-    }
-    customerDetails: {
-        name: string
-        phone: string
-        email: string
-        city: string
-        pincode: string
-        state: string
-    }
-    deliveryAddress: {
-        city: string
-        state: string
-        address: string
-        pincode: string
-        country: string
-    }
+    ndrDetails: NDR_DETAILS
+    orderDetails: ORDER_DETAILS
+    customerDetails: CUSTOMER_DETAILS
+    deliveryAddress: DELIVERY_ADDRESS
     fieldExecutiveInfo: string
-    shipmentDetails: {
-        id: string
-        carrier: string
-        url: string
-    }
+    shipmentDetails: SHIPMENT_DETAILS
     lastActionBy: string
-    actions: {
-        showFakeAttempt: boolean
-        showRto: boolean
-        showReattempt: boolean
-        showContactBuyer: boolean
-    }
+    actions: ACTIONS
     historyRow: string
 }

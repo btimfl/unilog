@@ -11,22 +11,13 @@ import {
     Text,
 } from '@chakra-ui/react'
 import { CellContext } from '@tanstack/react-table'
-import { ReportsColumns } from 'page-modules/ndr/types/reports'
+import { ORDER_DETAILS, ReportsColumns } from 'page-modules/ndr/types/reports'
 import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
 import styles from './cell-styles.module.scss'
 
 type Props = {
-    info: CellContext<
-        ReportsColumns,
-        {
-            id: string
-            url: string
-            amount: number
-            paymentMethod: string
-            products: { id: string; sku: string; qty: number }[]
-        }
-    >
+    info: CellContext<ReportsColumns, ORDER_DETAILS>
 }
 
 export default function OrderDetails({ info: { getValue } }: Props) {

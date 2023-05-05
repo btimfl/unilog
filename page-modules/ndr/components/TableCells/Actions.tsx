@@ -1,22 +1,18 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { Button, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { CellContext } from '@tanstack/react-table'
-import { ReportsColumns } from 'page-modules/ndr/types/reports'
+import { ACTIONS, DELIVERY_ADDRESS, NDR_DETAILS, ReportsColumns } from 'page-modules/ndr/types/reports'
 import { GoKebabVertical } from 'react-icons/go'
 
+import RTO from './RTO'
+import Reattempt from './Reattempt'
+
 type Props = {
-    info: CellContext<
-        ReportsColumns,
-        {
-            showFakeAttempt: boolean
-            showRto: boolean
-            showReattempt: boolean
-            showContactBuyer: boolean
-        }
-    >
+    info: CellContext<ReportsColumns, ACTIONS>
 }
 
 export default function Actions({ info: { row, getValue } }: Props) {
+    debugger
     return (
         <>
             {row.getCanExpand() ? (
@@ -29,7 +25,7 @@ export default function Actions({ info: { row, getValue } }: Props) {
                     >
                         History
                     </Button>
-                    <Menu>
+                    <Menu autoSelect={false}>
                         <MenuButton
                             as={IconButton}
                             aria-label="Options"
@@ -41,8 +37,16 @@ export default function Actions({ info: { row, getValue } }: Props) {
                             _hover={{ backgroundColor: 'var(--chakra-colors-gray-200)' }}
                         />
                         <MenuList>
-                            {getValue().showReattempt && <MenuItem>Reattempt</MenuItem>}
-                            {getValue().showRto && <MenuItem>RTO</MenuItem>}
+                            {getValue().showReattempt && (
+                                <Reattempt
+                                    ndrReason={(row.getValue('ndrDetails') as NDR_DETAILS).reason}
+                                    address={(row.getValue('deliveryAddress') as DELIVERY_ADDRESS).address}
+                                    city={(row.getValue('deliveryAddress') as DELIVERY_ADDRESS).city}
+                                    state={(row.getValue('deliveryAddress') as DELIVERY_ADDRESS).state}
+                                    pincode={(row.getValue('deliveryAddress') as DELIVERY_ADDRESS).pincode}
+                                />
+                            )}
+                            {getValue().showRto && <RTO />}
 
                             {!getValue().showContactBuyer &&
                                 !getValue().showFakeAttempt &&

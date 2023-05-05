@@ -17,7 +17,7 @@ export default function SingleSelect({ fieldKey, field }: Props) {
             fontSize={'small'}
             background={'white'}
             borderRadius={'0.3rem'}
-            placeholder={'Select Sort By'}
+            placeholder={'Select Option'}
             icon={<AiFillCaretDown fontSize={'14px'} />}
             defaultValue={formik.values?.[fieldKey as keyof typeof formik.values]}
             onChange={(ev) => formik.setFieldValue(fieldKey, ev.target.value)}

@@ -1,20 +1,11 @@
 import { Badge, HStack, Text } from '@chakra-ui/react'
 import { CellContext } from '@tanstack/react-table'
-import { ReportsColumns } from 'page-modules/ndr/types/reports'
+import { NDR_DETAILS, ReportsColumns } from 'page-modules/ndr/types/reports'
 
 import styles from './cell-styles.module.scss'
 
 type Props = {
-    info: CellContext<
-        ReportsColumns,
-        {
-            date: string
-            attempts: string
-            reason: string
-            pending: string
-            severity: 'LOW' | 'HIGH'
-        }
-    >
+    info: CellContext<ReportsColumns, NDR_DETAILS>
 }
 
 export default function NdrDetails({ info: { getValue } }: Props) {

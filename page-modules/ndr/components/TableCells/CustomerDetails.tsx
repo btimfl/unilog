@@ -1,22 +1,12 @@
 import { HStack, Text } from '@chakra-ui/react'
 import { CellContext } from '@tanstack/react-table'
-import { ReportsColumns } from 'page-modules/ndr/types/reports'
+import { CUSTOMER_DETAILS, ReportsColumns } from 'page-modules/ndr/types/reports'
 import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
 import styles from './cell-styles.module.scss'
 
 type Props = {
-    info: CellContext<
-        ReportsColumns,
-        {
-            name: string
-            phone: string
-            email: string
-            city: string
-            pincode: string
-            state: string
-        }
-    >
+    info: CellContext<ReportsColumns, CUSTOMER_DETAILS>
 }
 
 export default function CustomerDetails({ info: { getValue } }: Props) {
