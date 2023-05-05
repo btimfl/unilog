@@ -13,8 +13,10 @@ import {
     useDisclosure,
 } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
+import { useMutateReattempt } from 'page-modules/ndr/hooks/mutations'
 import { useRemarks } from 'page-modules/ndr/hooks/queries'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import FormField from 'shared/components/FormField/FormField'
 import { FieldType, FieldValue } from 'shared/types/forms'
 import { INIT_VALUE_MAP } from 'shared/utils/forms'
@@ -87,7 +89,7 @@ export default function Reattempt({ ndrReason, city, state, address, pincode, tr
             initValue: '',
             placeHolder: 'Select Re-attempt date',
             type: 'date',
-            validation: Yup.string().required(),
+            validation: Yup.string().required('Required'),
         },
         {
             key: 'phone_number',
@@ -156,6 +158,8 @@ export default function Reattempt({ ndrReason, city, state, address, pincode, tr
         }
     }, [data])
 
+    const mutation = useMutateReattempt()
+
     return (
         <>
             <MenuItem onClick={onOpen}>Reattempt</MenuItem>
@@ -187,19 +191,29 @@ export default function Reattempt({ ndrReason, city, state, address, pincode, tr
                                 FILTERS.reduce((prev, filter) => ({ ...prev, [filter.key]: filter.validation }), {}),
                             )}
                             onSubmit={(values) => {
-                                console.log({
-                                    trackingNumber,
-                                    address: values.address,
-                                    landmark: values.landmark,
-                                    pincode: values.pincode,
-                                    comments: values.remark,
-                                    sub_remark: values.sub_remark,
-                                    preferred_date: values.preferred_date,
-                                    phone_number: values.phone_number,
-                                    is_customer_picked_call: values.is_customer_picked_call === 'yes' ? true : false,
-                                    city: values.city,
-                                    state: values.state,
-                                })
+                                mutation.mutate(
+                                    {
+                                        trackingNumber,
+                                        address: values.address,
+                                        landmark: values.landmark,
+                                        pincode: values.pincode,
+                                        comments: values.remark,
+                                        sub_remark: values.sub_remark,
+                                        preferred_date: values.preferred_date,
+                                        phone_number: values.phone_number,
+                                        is_customer_picked_call:
+                                            values.is_customer_picked_call === 'yes' ? true : false,
+                                        city: values.city,
+                                        state: values.state,
+                                    },
+                                    {
+                                        onError: () => toast.error('An Error occurred'),
+                                        onSuccess: () => {
+                                            toast.success('NDR reattempted')
+                                            onClose()
+                                        },
+                                    },
+                                )
                             }}
                             enableReinitialize={true}
                             validateOnMount={true}
