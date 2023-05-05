@@ -13,6 +13,7 @@ export default function usePagination() {
 
     useEffect(() => {
         setPageCount(Math.ceil(items / pageSize))
+        setPagination((prev) => ({ ...prev, pageIndex: 0 }))
     }, [items, pageSize])
 
     return { pageIndex, pageSize, pageCount, setItems, setPagination }

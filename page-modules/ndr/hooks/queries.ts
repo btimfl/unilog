@@ -10,15 +10,18 @@ import {
 } from 'apis/get'
 import { FieldType } from 'shared/types/forms'
 
+import { useFilterContext } from '../FilterProvider'
 import { CustomFilters, PageFilters } from '../types/filters'
 
 export function useReports(tabStatus: NdrTabStatus, customFilters: CustomFilters, pageFilters: PageFilters) {
+    const { pageIndex, pageSize } = useFilterContext()
+
     return useQuery({
-        queryKey: ['ndr', pageFilters, customFilters, tabStatus],
+        queryKey: ['ndr', pageFilters, customFilters, tabStatus, pageIndex, pageSize],
         queryFn: () =>
             fetchNonDeliveryReports({
-                page: 0,
-                page_size: 10,
+                page: pageIndex,
+                page_size: pageSize,
                 is_web: true,
                 status: tabStatus,
                 query_string: pageFilters.searchText,

@@ -1,4 +1,4 @@
-import { HStack, Text } from '@chakra-ui/react'
+import { Badge, HStack, Text } from '@chakra-ui/react'
 import { CellContext } from '@tanstack/react-table'
 import { ReportsColumns } from 'page-modules/ndr/types/reports'
 
@@ -12,6 +12,7 @@ type Props = {
             attempts: string
             reason: string
             pending: string
+            severity: 'LOW' | 'HIGH'
         }
     >
 }
@@ -33,7 +34,9 @@ export default function NdrDetails({ info: { getValue } }: Props) {
             </HStack>
             <HStack justifyContent="space-between">
                 {/* <Text className={styles.key}>Status: </Text> */}
-                <Text className={styles.value}>{getValue().pending}</Text>
+                <Badge colorScheme={getValue().severity === 'LOW' ? 'orange' : 'red'} className={styles.value}>
+                    {getValue().pending}
+                </Badge>
             </HStack>
             {/* <Text>{getValue().date}</Text>
             <Text>{getValue().attempts}</Text>

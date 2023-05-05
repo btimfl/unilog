@@ -4,6 +4,7 @@ export type ReportsColumns = {
         attempts: string
         reason: string
         pending: string
+        severity: 'LOW' | 'HIGH'
     }
     orderDetails: {
         id: string
