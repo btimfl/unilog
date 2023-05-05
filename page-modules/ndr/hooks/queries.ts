@@ -56,6 +56,16 @@ export function useFilters() {
     })
 }
 
+export function useRemarks() {
+    return useQuery({
+        queryKey: ['ndr-remarks'],
+        queryFn: () => fetchNdrFilterMetadata('NDR_REATTEMPT_REMARK'),
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        select: transformFilterTypes,
+    })
+}
+
 const addConsolidatedData = (data: FetchNdrHistoryType): FetchNdrHistoryType => {
     if (!data.historyData.hasOwnProperty('All attempts'))
         Object.assign(data.historyData, {

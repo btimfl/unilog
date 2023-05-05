@@ -14,9 +14,10 @@ import {
     useDisclosure,
 } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
+import { useRemarks } from 'page-modules/ndr/hooks/queries'
 import { CustomFilters } from 'page-modules/ndr/types/filters'
 import FieldWrapper from 'page-modules/tracking/orders/components/FieldWrapper'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FieldType, FieldValue } from 'shared/types/forms'
 import { INIT_VALUE_MAP } from 'shared/utils/forms'
 import { Schema } from 'yup'
@@ -59,7 +60,8 @@ type Props = {
 export default function Reattempt({ ndrReason, city, state, address, pincode }: Props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const FILTERS: Filter[] = [
+    const { data } = useRemarks()
+    const [FILTERS, setFILTERS] = useState<Filter[]>([
         {
             key: 'address',
             display: 'Address',
@@ -147,8 +149,27 @@ export default function Reattempt({ ndrReason, city, state, address, pincode }: 
             type: 'text_input',
             validation: Yup.string().required(),
         },
-    ]
+    ])
+
     const [fields, setFields] = useState<CustomFilters>({})
+
+    useEffect(() => {
+        if (data && data[0].option) {
+            setFILTERS((FILTERS) =>
+                FILTERS.map((filter) => {
+                    if (filter.key !== 'remark') return filter
+
+                    return {
+                        ...filter,
+                        options: data[0].option.map((opt) => ({
+                            key: opt.key,
+                            display: opt.display,
+                        })),
+                    }
+                }),
+            )
+        }
+    }, [data])
 
     const handleReattempt = () => {
         console.log('Reattempt fields >>>', fields)
