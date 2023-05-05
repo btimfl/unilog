@@ -17,10 +17,14 @@ export default function TextInput({ fieldKey, field }: Props) {
             fontSize={'small'}
             background={'white'}
             borderRadius={'0.3rem'}
-            defaultValue={formik.values?.[fieldKey as keyof typeof formik.values]}
-            onChange={(ev) => formik.setFieldValue(fieldKey, ev.target.value)}
             placeholder={field.placeholder ?? 'Enter input'}
             isDisabled={field.editable === false}
+            isInvalid={
+                !!(formik.touched as Record<string, boolean>)[fieldKey] &&
+                !!(formik.errors as Record<string, string>)[fieldKey]
+            }
+            errorBorderColor={'crimson'}
+            {...formik.getFieldProps(fieldKey)}
         />
     )
 }

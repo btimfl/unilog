@@ -7,7 +7,6 @@ import {
     ModalBody,
     ModalCloseButton,
     ModalContent,
-    ModalFooter,
     ModalHeader,
     ModalOverlay,
     Text,
@@ -15,9 +14,8 @@ import {
 } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import { useRemarks } from 'page-modules/ndr/hooks/queries'
-import { CustomFilters } from 'page-modules/ndr/types/filters'
-import FieldWrapper from 'page-modules/tracking/orders/components/FieldWrapper'
 import { useEffect, useState } from 'react'
+import FormField from 'shared/components/FormField/FormField'
 import { FieldType, FieldValue } from 'shared/types/forms'
 import { INIT_VALUE_MAP } from 'shared/utils/forms'
 import { Schema } from 'yup'
@@ -43,21 +41,10 @@ type Props = {
     state: string
     address: string
     pincode: string
+    trackingNumber: string
 }
 
-/*
-"trackingNumber": "20884810115544",
-    "address": "new address for user",
-    "landmark": "no new landmark",
-    "pincode": "122001",
-    "comments": "",
-    "sub_remark": "text dummy sub sub_remark",
-    "preferred_date": "01-04-2023",
-    "phone_number": "47382938473",
-    "is_customer_picked_call": true 
-*/
-
-export default function Reattempt({ ndrReason, city, state, address, pincode }: Props) {
+export default function Reattempt({ ndrReason, city, state, address, pincode, trackingNumber }: Props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const { data } = useRemarks()
@@ -151,8 +138,6 @@ export default function Reattempt({ ndrReason, city, state, address, pincode }: 
         },
     ])
 
-    const [fields, setFields] = useState<CustomFilters>({})
-
     useEffect(() => {
         if (data && data[0].option) {
             setFILTERS((FILTERS) =>
@@ -171,12 +156,6 @@ export default function Reattempt({ ndrReason, city, state, address, pincode }: 
         }
     }, [data])
 
-    const handleReattempt = () => {
-        console.log('Reattempt fields >>>', fields)
-
-        // TODO: ADD TRACKING NUMBER, REMOVE OTHER FIELDS
-    }
-
     return (
         <>
             <MenuItem onClick={onOpen}>Reattempt</MenuItem>
@@ -192,67 +171,105 @@ export default function Reattempt({ ndrReason, city, state, address, pincode }: 
                             <Text color={'red'}>{ndrReason}</Text>
                         </Flex>
                         <Formik
-                            initialValues={FILTERS.reduce(
-                                (prev, filter) => ({ ...prev, [filter.key]: filter.initValue }),
-                                {},
+                            initialValues={{
+                                address: address,
+                                landmark: '',
+                                remark: '',
+                                sub_remark: '',
+                                preferred_date: '',
+                                phone_number: '',
+                                is_customer_picked_call: 'yes',
+                                city: city,
+                                state: state,
+                                pincode: pincode,
+                            }}
+                            validationSchema={Yup.object().shape(
+                                FILTERS.reduce((prev, filter) => ({ ...prev, [filter.key]: filter.validation }), {}),
                             )}
-                            onSubmit={(values) => console.log(values)}
+                            onSubmit={(values) => {
+                                console.log({
+                                    trackingNumber,
+                                    address: values.address,
+                                    landmark: values.landmark,
+                                    pincode: values.pincode,
+                                    comments: values.remark,
+                                    sub_remark: values.sub_remark,
+                                    preferred_date: values.preferred_date,
+                                    phone_number: values.phone_number,
+                                    is_customer_picked_call: values.is_customer_picked_call === 'yes' ? true : false,
+                                    city: values.city,
+                                    state: values.state,
+                                })
+                            }}
                             enableReinitialize={true}
+                            validateOnMount={true}
                         >
-                            <Form>
-                                <Grid templateColumns={'repeat(2, 1fr)'} columnGap={'1rem'} mt={4}>
-                                    {FILTERS.map((filter) => {
-                                        return (
-                                            <Flex
-                                                gap={1}
-                                                flexDir={'column'}
-                                                alignItems={'flex-start'}
-                                                mb={4}
-                                                key={filter.key}
-                                            >
-                                                <Text
-                                                    as={'p'}
-                                                    fontSize={'x-small'}
-                                                    color={'gray.500'}
-                                                    textTransform={'capitalize'}
+                            {({ isValid }) => (
+                                <Form>
+                                    <Grid templateColumns={'repeat(2, 1fr)'} columnGap={'1rem'} mt={4}>
+                                        {FILTERS.map((filter) => {
+                                            return (
+                                                <Flex
+                                                    gap={1}
+                                                    flexDir={'column'}
+                                                    alignItems={'flex-start'}
+                                                    mb={4}
+                                                    key={filter.key}
                                                 >
-                                                    {filter.display}:
-                                                </Text>
-                                                <FieldWrapper
-                                                    fieldKey={filter.key}
-                                                    field={{
-                                                        display: filter.display,
-                                                        hidden: false,
-                                                        type: filter.type,
-                                                        init_value: INIT_VALUE_MAP[filter.type],
-                                                        placeholder: filter.placeHolder,
-                                                        options: filter.options?.map((opt) => ({
-                                                            key: opt.key,
-                                                            display: opt.display,
+                                                    <Text
+                                                        as={'p'}
+                                                        fontSize={'x-small'}
+                                                        color={'gray.500'}
+                                                        textTransform={'capitalize'}
+                                                    >
+                                                        {filter.display}:
+                                                    </Text>
+                                                    <FormField
+                                                        fieldKey={filter.key}
+                                                        field={{
+                                                            display: filter.display,
                                                             hidden: false,
-                                                        })),
-                                                        editable: filter.editable,
-                                                    }}
-                                                    persistFilters={setFields}
-                                                />
-                                            </Flex>
-                                        )
-                                    })}
-                                </Grid>
-                            </Form>
+                                                            type: filter.type,
+                                                            init_value: INIT_VALUE_MAP[filter.type],
+                                                            placeholder: filter.placeHolder,
+                                                            options: filter.options?.map((opt) => ({
+                                                                key: opt.key,
+                                                                display: opt.display,
+                                                                hidden: false,
+                                                            })),
+                                                            editable: filter.editable,
+                                                        }}
+                                                    />
+                                                </Flex>
+                                            )
+                                        })}
+                                    </Grid>
+
+                                    <Flex justify="flex-end" mt={4}>
+                                        <Button
+                                            mr={4}
+                                            colorScheme={'teal'}
+                                            size={'xs'}
+                                            h={`28px`}
+                                            type={'submit'}
+                                            isDisabled={!isValid}
+                                        >
+                                            Request Re-attempt
+                                        </Button>
+                                        <Button
+                                            bg={`white`}
+                                            variant={'outline'}
+                                            onClick={onClose}
+                                            size={'xs'}
+                                            h={`28px`}
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </Flex>
+                                </Form>
+                            )}
                         </Formik>
                     </ModalBody>
-
-                    <ModalFooter>
-                        <Flex justify="flex-end">
-                            <Button mr={4} colorScheme={'teal'} onClick={handleReattempt} size={'xs'} h={`28px`}>
-                                Request Re-attempt
-                            </Button>
-                            <Button bg={`white`} variant={'outline'} onClick={onClose} size={'xs'} h={`28px`}>
-                                Cancel
-                            </Button>
-                        </Flex>
-                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </>

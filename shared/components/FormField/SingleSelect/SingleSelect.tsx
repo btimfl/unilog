@@ -19,8 +19,12 @@ export default function SingleSelect({ fieldKey, field }: Props) {
             borderRadius={'0.3rem'}
             placeholder={'Select Option'}
             icon={<AiFillCaretDown fontSize={'14px'} />}
-            defaultValue={formik.values?.[fieldKey as keyof typeof formik.values]}
-            onChange={(ev) => formik.setFieldValue(fieldKey, ev.target.value)}
+            isInvalid={
+                !!(formik.touched as Record<string, boolean>)[fieldKey] &&
+                !!(formik.errors as Record<string, string>)[fieldKey]
+            }
+            errorBorderColor={'crimson'}
+            {...formik.getFieldProps(fieldKey)}
         >
             {field.options?.filter((option) => !option.hidden)?.length ? (
                 field.options

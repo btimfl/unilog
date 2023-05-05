@@ -1,7 +1,13 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { Button, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { CellContext } from '@tanstack/react-table'
-import { ACTIONS, DELIVERY_ADDRESS, NDR_DETAILS, ReportsColumns } from 'page-modules/ndr/types/reports'
+import {
+    ACTIONS,
+    DELIVERY_ADDRESS,
+    NDR_DETAILS,
+    ReportsColumns,
+    SHIPMENT_DETAILS,
+} from 'page-modules/ndr/types/reports'
 import { GoKebabVertical } from 'react-icons/go'
 
 import RTO from './RTO'
@@ -12,7 +18,6 @@ type Props = {
 }
 
 export default function Actions({ info: { row, getValue } }: Props) {
-    debugger
     return (
         <>
             {row.getCanExpand() ? (
@@ -44,6 +49,7 @@ export default function Actions({ info: { row, getValue } }: Props) {
                                     city={(row.getValue('deliveryAddress') as DELIVERY_ADDRESS).city}
                                     state={(row.getValue('deliveryAddress') as DELIVERY_ADDRESS).state}
                                     pincode={(row.getValue('deliveryAddress') as DELIVERY_ADDRESS).pincode}
+                                    trackingNumber={(row.getValue('shipmentDetails') as SHIPMENT_DETAILS).id}
                                 />
                             )}
                             {getValue().showRto && <RTO />}
