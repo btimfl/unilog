@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import {
     FetchNdrFilterMetadataType,
+    FetchNdrHistoryType,
     NdrFilter,
     NdrTabStatus,
     fetchNdrFilterMetadata,
@@ -52,11 +53,19 @@ export function useFilters() {
     })
 }
 
+const addConsolidatedData = (data: FetchNdrHistoryType): FetchNdrHistoryType => {
+    if (!data.historyData.hasOwnProperty('All attempts'))
+        Object.assign(data.historyData, {
+            'All attempts': Object.values(data.historyData).reduce((prev, steps) => [...prev, ...steps], []),
+        })
+    return data
+}
 export function useHistory(id: string) {
     return useQuery({
         queryKey: ['ndr-history', id],
         queryFn: () => fetchNdrHistory(id),
         refetchOnWindowFocus: false,
         refetchOnMount: false,
+        select: addConsolidatedData,
     })
 }

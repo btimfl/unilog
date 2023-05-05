@@ -23,9 +23,7 @@ export default function DeliveryAddress({ info: { getValue } }: Props) {
         <>
             <HStack justifyContent="space-between">
                 {/* <Text className={styles.key}>Address: </Text> */}
-                <Text className={styles.value}>
-                    <TextWithTooltip text={getValue().address} width={'8rem'}></TextWithTooltip>
-                </Text>
+                <TextWithTooltip text={getValue().address} width={'8rem'}></TextWithTooltip>
             </HStack>
             <HStack justifyContent="space-between">
                 {/* <Text className={styles.key}>City: </Text> */}
