@@ -41,10 +41,13 @@ export default function Actions({ info: { row, getValue } }: Props) {
                             _hover={{ backgroundColor: 'var(--chakra-colors-gray-200)' }}
                         />
                         <MenuList>
-                            {getValue().showFakeAttempt && <MenuItem>Fake Attempt</MenuItem>}
                             {getValue().showReattempt && <MenuItem>Reattempt</MenuItem>}
                             {getValue().showRto && <MenuItem>RTO</MenuItem>}
-                            {getValue().showContactBuyer && <MenuItem>Contact Buyer</MenuItem>}
+
+                            {!getValue().showContactBuyer &&
+                                !getValue().showFakeAttempt &&
+                                !getValue().showReattempt &&
+                                !getValue().showRto && <MenuItem isDisabled={true}>No Options Available</MenuItem>}
                         </MenuList>
                     </Menu>
                 </Flex>
