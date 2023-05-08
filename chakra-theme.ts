@@ -1,4 +1,6 @@
+import { inputAnatomy } from '@chakra-ui/anatomy'
 import { StyleFunctionProps, extendTheme } from '@chakra-ui/react'
+import { createMultiStyleConfigHelpers } from '@chakra-ui/react'
 import { StepsTheme as StepsStyleConfig } from 'chakra-ui-steps'
 
 const CustomSteps = {
@@ -35,8 +37,22 @@ const CustomSteps = {
     },
 }
 
+const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(inputAnatomy.keys)
+
+const baseStyle = definePartsStyle({
+    // define the part you're going to style
+    field: {
+        _disabled: {
+            backgroundColor: `rgba(0,0,0,0.1)`,
+        },
+    },
+})
+
+export const inputTheme = defineMultiStyleConfig({ baseStyle })
+
 export const theme = extendTheme({
     components: {
         Steps: CustomSteps,
+        Input: inputTheme,
     },
 })

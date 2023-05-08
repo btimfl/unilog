@@ -1,14 +1,14 @@
 import {
     Button,
+    Drawer,
+    DrawerBody,
+    DrawerCloseButton,
+    DrawerContent,
+    DrawerHeader,
+    DrawerOverlay,
     Flex,
     Grid,
     MenuItem,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalHeader,
-    ModalOverlay,
     Text,
     useDisclosure,
 } from '@chakra-ui/react'
@@ -164,12 +164,12 @@ export default function Reattempt({ ndrReason, city, state, address, pincode, tr
         <>
             <MenuItem onClick={onOpen}>Reattempt</MenuItem>
 
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent fontSize={'xs'}>
-                    <ModalHeader>Reattempt Request</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
+            <Drawer isOpen={isOpen} onClose={onClose} placement="right" size="md">
+                <DrawerOverlay />
+                <DrawerContent fontSize={'xs'}>
+                    <DrawerHeader>Reattempt Request</DrawerHeader>
+                    <DrawerCloseButton />
+                    <DrawerBody>
                         <Flex gap={2} padding={'1rem'} borderRadius={'0.25rem'} backgroundColor={'ivory'}>
                             <Text>Reason for NDR failure: </Text>
                             <Text color={'red'}>{ndrReason}</Text>
@@ -259,33 +259,34 @@ export default function Reattempt({ ndrReason, city, state, address, pincode, tr
                                         })}
                                     </Grid>
 
-                                    <Flex justify="flex-end" mt={4}>
-                                        <Button
-                                            mr={4}
-                                            colorScheme={'teal'}
-                                            size={'xs'}
-                                            h={`28px`}
-                                            type={'submit'}
-                                            isDisabled={!isValid}
-                                        >
-                                            Request Re-attempt
-                                        </Button>
+                                    <Flex justify="flex-end" mt={4} w={`100%`} justifyContent="space-between" gap={4}>
                                         <Button
                                             bg={`white`}
                                             variant={'outline'}
                                             onClick={onClose}
                                             size={'xs'}
                                             h={`28px`}
+                                            w={`100%`}
                                         >
                                             Cancel
+                                        </Button>
+                                        <Button
+                                            colorScheme={'teal'}
+                                            size={'xs'}
+                                            h={`28px`}
+                                            type={'submit'}
+                                            isDisabled={!isValid}
+                                            w={`100%`}
+                                        >
+                                            Request Re-attempt
                                         </Button>
                                     </Flex>
                                 </Form>
                             )}
                         </Formik>
-                    </ModalBody>
-                </ModalContent>
-            </Modal>
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
         </>
     )
 }
