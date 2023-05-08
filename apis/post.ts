@@ -98,3 +98,19 @@ export async function reattemptNDR(payload: ReattemptNDRType) {
         body: JSON.stringify(payload),
     })
 }
+
+export type RtoNDRType = {
+    trackingNumber: string
+    remark: string
+    subRemark: string
+    is_customer_picked_call: boolean
+}
+export async function rtoNDR(payload: RtoNDRType) {
+    const headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    return gateway(`session/api/v1/ndr/rto`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(payload),
+    })
+}

@@ -52,7 +52,9 @@ export default function Actions({ info: { row, getValue } }: Props) {
                                     trackingNumber={(row.getValue('shipmentDetails') as SHIPMENT_DETAILS).id}
                                 />
                             )}
-                            {getValue().showRto && <RTO />}
+                            {getValue().showRto && (
+                                <RTO trackingNumber={(row.getValue('shipmentDetails') as SHIPMENT_DETAILS).id} />
+                            )}
 
                             {!getValue().showContactBuyer &&
                                 !getValue().showFakeAttempt &&
