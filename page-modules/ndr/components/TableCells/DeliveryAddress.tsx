@@ -1,21 +1,12 @@
 import { HStack, Text } from '@chakra-ui/react'
 import { CellContext } from '@tanstack/react-table'
-import { ReportsColumns } from 'page-modules/ndr/types/reports'
+import { DELIVERY_ADDRESS, ReportsColumns } from 'page-modules/ndr/types/reports'
 import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
 import styles from './cell-styles.module.scss'
 
 type Props = {
-    info: CellContext<
-        ReportsColumns,
-        {
-            city: string
-            state: string
-            address: string
-            pincode: string
-            country: string
-        }
-    >
+    info: CellContext<ReportsColumns, DELIVERY_ADDRESS>
 }
 
 export default function DeliveryAddress({ info: { getValue } }: Props) {
@@ -23,9 +14,7 @@ export default function DeliveryAddress({ info: { getValue } }: Props) {
         <>
             <HStack justifyContent="space-between">
                 {/* <Text className={styles.key}>Address: </Text> */}
-                <Text className={styles.value}>
-                    <TextWithTooltip text={getValue().address} width={'8rem'}></TextWithTooltip>
-                </Text>
+                <TextWithTooltip text={getValue().address} width={'8rem'}></TextWithTooltip>
             </HStack>
             <HStack justifyContent="space-between">
                 {/* <Text className={styles.key}>City: </Text> */}

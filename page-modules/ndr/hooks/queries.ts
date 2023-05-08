@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import {
     FetchNdrFilterMetadataType,
+    FetchNdrHistoryType,
     NdrFilter,
     NdrTabStatus,
     fetchNdrFilterMetadata,
@@ -9,15 +10,18 @@ import {
 } from 'apis/get'
 import { FieldType } from 'shared/types/forms'
 
+import { useFilterContext } from '../FilterProvider'
 import { CustomFilters, PageFilters } from '../types/filters'
 
 export function useReports(tabStatus: NdrTabStatus, customFilters: CustomFilters, pageFilters: PageFilters) {
+    const { pageIndex, pageSize } = useFilterContext()
+
     return useQuery({
-        queryKey: ['ndr', pageFilters, customFilters, tabStatus],
+        queryKey: ['ndr', pageFilters, customFilters, tabStatus, pageIndex, pageSize],
         queryFn: () =>
             fetchNonDeliveryReports({
-                page: 0,
-                page_size: 10,
+                page: pageIndex,
+                page_size: pageSize,
                 is_web: true,
                 status: tabStatus,
                 query_string: pageFilters.searchText,
@@ -52,11 +56,29 @@ export function useFilters() {
     })
 }
 
+export function useRemarks() {
+    return useQuery({
+        queryKey: ['ndr-remarks'],
+        queryFn: () => fetchNdrFilterMetadata('NDR_REATTEMPT_REMARK'),
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        select: transformFilterTypes,
+    })
+}
+
+const addConsolidatedData = (data: FetchNdrHistoryType): FetchNdrHistoryType => {
+    if (!data.historyData.hasOwnProperty('All attempts'))
+        Object.assign(data.historyData, {
+            'All attempts': Object.values(data.historyData).reduce((prev, steps) => [...prev, ...steps], []),
+        })
+    return data
+}
 export function useHistory(id: string) {
     return useQuery({
         queryKey: ['ndr-history', id],
         queryFn: () => fetchNdrHistory(id),
         refetchOnWindowFocus: false,
         refetchOnMount: false,
+        select: addConsolidatedData,
     })
 }

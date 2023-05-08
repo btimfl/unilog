@@ -13,6 +13,7 @@ export function sanitiseData(apiResponse: FetchNonDeliveryReportsType | null | u
             attempts: `${record.attempts}`,
             reason: record.ndr_reason,
             pending: record.pending_since,
+            severity: record.severity,
         },
         orderDetails: {
             id: record.channel_order_id,

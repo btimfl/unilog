@@ -4,20 +4,21 @@ import { Field } from 'shared/types/forms'
 
 type Props = {
     fieldKey: string
-    field: Field<'text_input'>
+    field: Field<'date'>
 }
 
-export default function TextInput({ fieldKey, field }: Props) {
+export default function Date({ fieldKey, field }: Props) {
     const formik = useFormikContext()
 
     return (
         <Input
+            type={'date'}
             w={`100%`}
             size={'sm'}
             fontSize={'small'}
             background={'white'}
             borderRadius={'0.3rem'}
-            placeholder={field.placeholder ?? 'Enter input'}
+            placeholder={field.placeholder ?? 'Select Date'}
             isDisabled={field.editable === false}
             isInvalid={
                 !!(formik.touched as Record<string, boolean>)[fieldKey] &&

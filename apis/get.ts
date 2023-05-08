@@ -248,6 +248,7 @@ export type FetchNonDeliveryReportsType = {
                 sra: boolean
                 cb: boolean
             }
+            severity: 'LOW' | 'HIGH'
             bd_escalate_btn: 0
         },
     ]
