@@ -1,14 +1,14 @@
 import {
     Button,
+    Drawer,
+    DrawerBody,
+    DrawerCloseButton,
+    DrawerContent,
+    DrawerHeader,
+    DrawerOverlay,
     Flex,
     Grid,
     MenuItem,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalHeader,
-    ModalOverlay,
     Text,
     useDisclosure,
 } from '@chakra-ui/react'
@@ -100,12 +100,12 @@ export default function RTO({ trackingNumber }: Props) {
         <>
             <MenuItem onClick={onOpen}>RTO</MenuItem>
 
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent fontSize={'xs'}>
-                    <ModalHeader>Return to Origin</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
+            <Drawer isOpen={isOpen} onClose={onClose} size="md" placement="right">
+                <DrawerOverlay />
+                <DrawerContent fontSize={'xs'}>
+                    <DrawerHeader>Return to Origin</DrawerHeader>
+                    <DrawerCloseButton />
+                    <DrawerBody>
                         <Formik
                             initialValues={{
                                 remark: '',
@@ -177,33 +177,34 @@ export default function RTO({ trackingNumber }: Props) {
                                         })}
                                     </Grid>
 
-                                    <Flex justify="flex-end" mt={4}>
-                                        <Button
-                                            mr={4}
-                                            colorScheme={'teal'}
-                                            size={'xs'}
-                                            h={`28px`}
-                                            type={'submit'}
-                                            isDisabled={!isValid}
-                                        >
-                                            RTO
-                                        </Button>
+                                    <Flex mt={4} w={`100%`} justifyContent="space-between" gap={4}>
                                         <Button
                                             bg={`white`}
                                             variant={'outline'}
                                             onClick={onClose}
                                             size={'xs'}
                                             h={`28px`}
+                                            w={`100%`}
                                         >
                                             Cancel
+                                        </Button>
+                                        <Button
+                                            colorScheme={'teal'}
+                                            size={'xs'}
+                                            h={`28px`}
+                                            type={'submit'}
+                                            isDisabled={!isValid}
+                                            w={`100%`}
+                                        >
+                                            RTO
                                         </Button>
                                     </Flex>
                                 </Form>
                             )}
                         </Formik>
-                    </ModalBody>
-                </ModalContent>
-            </Modal>
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
         </>
     )
 }

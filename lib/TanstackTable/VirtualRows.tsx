@@ -31,7 +31,7 @@ export default function VirtualRows<K>({ rows, tableContainerRef, renderSubCompo
                 const row = rows[virtualRow.index]
                 return (
                     <Fragment key={row.id}>
-                        <tr style={{ height: `${dataRowHeight}rem` }}>
+                        <tr style={{ height: `${dataRowHeight}rem`, backgroundColor: `white` }}>
                             {row.getVisibleCells().map((cell) => {
                                 return (
                                     <td
@@ -47,7 +47,12 @@ export default function VirtualRows<K>({ rows, tableContainerRef, renderSubCompo
                         </tr>
                         {row.getIsExpanded() ? (
                             <tr>
-                                <td colSpan={row.getVisibleCells().length}>{renderSubComponent?.(row)}</td>
+                                <td
+                                    colSpan={row.getVisibleCells().length}
+                                    style={{ paddingTop: `0`, boxShadow: `0 0 4px inset rgba(0,0,0,0.1)` }}
+                                >
+                                    {renderSubComponent?.(row)}
+                                </td>
                             </tr>
                         ) : (
                             <></>

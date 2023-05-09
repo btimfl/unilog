@@ -42,7 +42,7 @@ export default function HistoryRow({ id }: Props) {
 
                         return (
                             <TabPanel key={index} backgroundColor={'white'}>
-                                <Steps orientation="vertical" activeStep={1} size="small" variant="simple">
+                                <Steps orientation="vertical" activeStep={9} size="small" variant="simple">
                                     {steps.map((step, index) => (
                                         <Step
                                             key={index}
