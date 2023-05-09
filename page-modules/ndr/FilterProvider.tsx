@@ -29,6 +29,7 @@ export default function FilterProvider({ children }: { children: ReactNode }) {
         ndrReasons: [],
         startDate: '',
         endDate: '',
+        shippingProviders: [],
     })
     const [customFilters, setCustomFilters] = useState<CustomFilters>({})
     const { pageIndex, pageSize, pageCount, setItems, setPagination } = usePagination()

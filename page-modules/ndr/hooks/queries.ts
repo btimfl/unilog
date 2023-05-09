@@ -7,6 +7,7 @@ import {
     fetchNdrFilterMetadata,
     fetchNdrHistory,
     fetchNonDeliveryReports,
+    fetchShippingProviders,
 } from 'apis/get'
 import { FieldType } from 'shared/types/forms'
 
@@ -28,6 +29,7 @@ export function useReports(tabStatus: NdrTabStatus, customFilters: CustomFilters
                 from: pageFilters.startDate,
                 to: pageFilters.endDate,
                 ndr_status: pageFilters.ndrReasons,
+                shipping_provider_code: pageFilters.shippingProviders,
                 customFilters,
             }),
         refetchOnWindowFocus: false,
@@ -80,5 +82,14 @@ export function useHistory(id: string) {
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         select: addConsolidatedData,
+    })
+}
+
+export function useShippingProviders() {
+    return useQuery({
+        queryKey: ['shipping-providers'],
+        queryFn: fetchShippingProviders,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
     })
 }

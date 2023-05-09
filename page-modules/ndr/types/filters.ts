@@ -5,6 +5,7 @@ export type PageFilters = {
     startDate: string
     endDate: string
     ndrReasons: string[]
+    shippingProviders: string[]
 }
 
 export type CustomFilters = {

@@ -274,6 +274,7 @@ export async function fetchNonDeliveryReports({
     from,
     to,
     ndr_status,
+    shipping_provider_code,
     customFilters,
 }: {
     page: number
@@ -284,6 +285,7 @@ export async function fetchNonDeliveryReports({
     from: string
     to: string
     ndr_status: string[]
+    shipping_provider_code: string[]
     customFilters: CustomFilters
     // aging?: number
     // attempts?: number
@@ -294,13 +296,13 @@ export async function fetchNonDeliveryReports({
     return gateway(
         `session/api/v1/ndr/data?page=${domainHandler.encodeUriParams(page)}&page_size=${domainHandler.encodeUriParams(
             page_size,
-        )}&is_web=${domainHandler.encodeUriParams(is_web)}&status=${domainHandler.encodeUriParams(
-            status,
-        )}&query_string=${domainHandler.encodeUriParams(query_string)}&from=${domainHandler.encodeUriParams(
-            from,
-        )}&to=${domainHandler.encodeUriParams(to)}&ndr_status=${domainHandler.encodeUriParams(ndr_status)}${Object.keys(
-            customFilters,
-        ).reduce<string>(
+        )}&is_web=${domainHandler.encodeUriParams(is_web)}&shipping_provider_code=${domainHandler.encodeUriParams(
+            shipping_provider_code,
+        )}&status=${domainHandler.encodeUriParams(status)}&query_string=${domainHandler.encodeUriParams(
+            query_string,
+        )}&from=${domainHandler.encodeUriParams(from)}&to=${domainHandler.encodeUriParams(
+            to,
+        )}&ndr_status=${domainHandler.encodeUriParams(ndr_status)}${Object.keys(customFilters).reduce<string>(
             (prev, key) => prev + `&${key}=${domainHandler.encodeUriParams(customFilters[key].value)}`,
             '',
         )}`,
@@ -452,4 +454,17 @@ export async function fetchNdrTotalTerminatedCounts(
         `session/api/v1/ndr/reports/total-terminated-counts?start_date=${startDate}&end_date=${endDate}`,
         { method: 'GET' },
     )
+}
+
+export type FetchShippingProvidersType = {
+    data: {
+        id: string
+        sourceCode: string
+        code: string
+        key: string
+        name: string
+    }[]
+}
+export async function fetchShippingProviders(): Promise<FetchShippingProvidersType> {
+    return await gateway(`api/v1/filter/shipping-provider`, { method: 'GET' })
 }

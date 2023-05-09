@@ -25,6 +25,7 @@ import { RxCalendar } from 'react-icons/rx'
 import { useDateRange } from 'shared/hooks/useDateRange'
 
 import { useFilterContext } from '../FilterProvider'
+import { useShippingProviders } from '../hooks/queries'
 import styles from './PageFilters.module.scss'
 
 type Props = {
@@ -39,6 +40,8 @@ export default function PageFilters({ filters }: Props) {
     const [endDate, setEndDate] = useState<string>('')
     const [displayDate, setDisplayDate] = useState<string>('')
 
+    const { data } = useShippingProviders()
+
     useEffect(() => {
         if (!!startDate && !!endDate) {
             setDisplayDate(`${startDate} to ${endDate}`)
@@ -51,12 +54,16 @@ export default function PageFilters({ filters }: Props) {
 
     const ndrReasons = filters.find((filter) => filter.key === 'ndr_status')
 
-    const onCheckboxChange = (ev: ChangeEvent<HTMLInputElement>, key: string) => {
-        if (ev.target.checked) setPageFilters((filters) => ({ ...filters, ndrReasons: [...filters.ndrReasons, key] }))
+    const onCheckboxChange = (
+        ev: ChangeEvent<HTMLInputElement>,
+        field: 'ndrReasons' | 'shippingProviders',
+        key: string,
+    ) => {
+        if (ev.target.checked) setPageFilters((filters) => ({ ...filters, [field]: [...filters[field], key] }))
         else
             setPageFilters((filters) => ({
                 ...filters,
-                ndrReasons: filters.ndrReasons.filter((value) => value !== key),
+                [field]: filters[field].filter((value) => value !== key),
             }))
     }
 
@@ -128,7 +135,7 @@ export default function PageFilters({ filters }: Props) {
                             <AiFillCaretDown fontSize="14px" />
                         </Flex>
                     </MenuButton>
-                    <MenuList zIndex={3} h={'300px'} overflow={'auto'}>
+                    <MenuList zIndex={3} maxH={'300px'} overflow={'auto'}>
                         {ndrReasons?.option?.filter((option) => option.enable)?.length ? (
                             <>
                                 {ndrReasons.option
@@ -137,13 +144,55 @@ export default function PageFilters({ filters }: Props) {
                                         <MenuItem key={option.key}>
                                             <Checkbox
                                                 isChecked={pageFilters.ndrReasons.includes(option.key)}
-                                                onChange={($event) => onCheckboxChange($event, option.key)}
+                                                onChange={($event) =>
+                                                    onCheckboxChange($event, 'ndrReasons', option.key)
+                                                }
                                                 className={styles.checkbox}
                                             >
                                                 {option.display}
                                             </Checkbox>
                                         </MenuItem>
                                     ))}
+                            </>
+                        ) : (
+                            <MenuItem isDisabled={true}>No Options Available</MenuItem>
+                        )}
+                    </MenuList>
+                </Menu>
+
+                <Menu autoSelect={false} closeOnSelect={false} placement="bottom-end">
+                    <MenuButton background="white" fontSize="small" w={'100%'} minW={'13rem'}>
+                        <Flex
+                            align="center"
+                            justifyContent="space-between"
+                            fontWeight="normal"
+                            borderRadius={'0.3rem'}
+                            className={styles.filterByButton}
+                        >
+                            {!!pageFilters.shippingProviders.length ? (
+                                `${pageFilters.shippingProviders.length} Selected`
+                            ) : (
+                                <Text as="span">Select Shipping Providers</Text>
+                            )}
+                            <AiFillCaretDown fontSize="14px" />
+                        </Flex>
+                    </MenuButton>
+                    <MenuList zIndex={3} maxH={'300px'} overflow={'auto'}>
+                        {data ? (
+                            <>
+                                {data?.data.map((option) => (
+                                    <MenuItem key={option.key}>
+                                        <Checkbox
+                                            isChecked={pageFilters.shippingProviders.includes(option.key)}
+                                            onChange={($event) =>
+                                                onCheckboxChange($event, 'shippingProviders', option.key)
+                                            }
+                                            className={styles.checkbox}
+                                        >
+                                            {option.name}
+                                        </Checkbox>
+                                    </MenuItem>
+                                ))}
                             </>
                         ) : (
                             <MenuItem isDisabled={true}>No Options Available</MenuItem>
