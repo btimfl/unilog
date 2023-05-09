@@ -468,3 +468,14 @@ export type FetchShippingProvidersType = {
 export async function fetchShippingProviders(): Promise<FetchShippingProvidersType> {
     return await gateway(`api/v1/filter/shipping-provider`, { method: 'GET' })
 }
+
+export type FetchStateSplitType = {
+    category: string
+    state_wise_count: {
+        title: string
+        value: number
+    }[]
+}[]
+export async function fetchStateSplit(): Promise<FetchStateSplitType> {
+    return await gateway(`session/api/v1/overview-dashboard/categorical-state-split`, { method: 'GET' })
+}
