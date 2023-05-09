@@ -47,8 +47,8 @@ export default function HistoryRow({ id }: Props) {
                                         <Step
                                             key={index}
                                             label={
-                                                <Flex alignItems={'center'} gap={8}>
-                                                    <Flex flexDir={'column'} alignItems={'flex-start'}>
+                                                <Flex alignItems={'center'}>
+                                                    <Flex flexDir={'column'} alignItems={'flex-start'} w={'250px'}>
                                                         <Text fontSize="xs" fontWeight={'bold'} color="gray.800">
                                                             {step.action}
                                                         </Text>
@@ -56,7 +56,7 @@ export default function HistoryRow({ id }: Props) {
                                                             {step.date}
                                                         </Text>
                                                     </Flex>
-                                                    <Flex flexDir={'column'} alignItems={'flex-start'}>
+                                                    <Flex flexDir={'column'} alignItems={'flex-start'} w={'250px'}>
                                                         <Text fontSize="xs" fontWeight={'bold'} color="gray.800">
                                                             Action By
                                                         </Text>
@@ -64,7 +64,7 @@ export default function HistoryRow({ id }: Props) {
                                                             {step.action_by}
                                                         </Text>
                                                     </Flex>
-                                                    <Flex flexDir={'column'} alignItems={'flex-start'}>
+                                                    <Flex flexDir={'column'} alignItems={'flex-start'} w={'250px'}>
                                                         <Text fontSize="xs" fontWeight={'bold'} color="gray.800">
                                                             Details
                                                         </Text>
@@ -72,7 +72,7 @@ export default function HistoryRow({ id }: Props) {
                                                             Reason: {step.reason}
                                                         </Text>
                                                     </Flex>
-                                                    <Flex flexDir={'column'} alignItems={'flex-start'}>
+                                                    <Flex flexDir={'column'} alignItems={'flex-start'} w={'250px'}>
                                                         <Text fontSize="xs" fontWeight={'bold'} color="gray.800">
                                                             Source
                                                         </Text>
