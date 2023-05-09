@@ -36,14 +36,17 @@ export default async function gateway(URL: string, options: RequestInit, domain?
         headers: defaultHeaders,
     })
 
+    const text = await res.text()
+    const json = text ? JSON.parse(text) : {}
+
     if (!res.ok) {
-        toast.error(`${res.status} error for path /${URL}.`, {
+        toast.error(`${json['errorMessage']}`, {
             position: 'top-right',
         })
         throw new Error(res.statusText)
     }
-    const text = await res.text()
-    return text ? JSON.parse(text) : {}
+
+    return json
 }
 
 export async function initAuth(URL: string, options: RequestInit) {

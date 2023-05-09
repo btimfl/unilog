@@ -207,7 +207,6 @@ export default function Reattempt({ ndrReason, city, state, address, pincode, tr
                                         state: values.state,
                                     },
                                     {
-                                        onError: () => toast.error('An Error occurred'),
                                         onSuccess: () => {
                                             toast.success('NDR reattempted')
                                             onClose()

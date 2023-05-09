@@ -125,7 +125,6 @@ export default function RTO({ trackingNumber }: Props) {
                                             values.is_customer_picked_call === 'yes' ? true : false,
                                     },
                                     {
-                                        onError: () => toast.error('An Error occurred'),
                                         onSuccess: () => {
                                             toast.success('RTO successful')
                                             onClose()
