@@ -58,8 +58,9 @@ export default function OrderDetails({ info: { getValue } }: Props) {
                         {getValue().products.map((product, index) => {
                             return (
                                 <Box key={index}>
-                                    <TextWithTooltip text={product.sku} maxWidth={'10rem'} />
-                                    <Text>Quantity: {product.qty}</Text>
+                                    <TextWithTooltip text={`Name: ` + product.name} maxWidth={'13rem'} />
+                                    <TextWithTooltip text={`SKU: ` + product.sku} maxWidth={'13rem'} />
+                                    <TextWithTooltip text={`Price: ` + product.price} maxWidth={'13rem'} />
                                 </Box>
                             )
                         })}

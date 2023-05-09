@@ -128,7 +128,7 @@ export default function PageFilters({ filters }: Props) {
                             <AiFillCaretDown fontSize="14px" />
                         </Flex>
                     </MenuButton>
-                    <MenuList zIndex={3}>
+                    <MenuList zIndex={3} h={'300px'} overflow={'auto'}>
                         {ndrReasons?.option?.filter((option) => option.enable)?.length ? (
                             <>
                                 {ndrReasons.option

@@ -11,7 +11,7 @@ export type ORDER_DETAILS = {
     url: string
     amount: number
     paymentMethod: string
-    products: { id: string; sku: string; qty: number }[]
+    products: { sku: string; name: string; price: string }[]
 }
 export type CUSTOMER_DETAILS = {
     name: string

@@ -21,10 +21,10 @@ export function sanitiseData(apiResponse: FetchNonDeliveryReportsType | null | u
             amount: record.total_price,
             paymentMethod: record.payment_method,
             products: record.product_details.line_items.map((item) => ({
-                id: 'Unavailable',
-                qty: 0,
                 sku: item.seller_sku_code,
-            })), // TODO
+                name: item.channel_product_name,
+                price: item.total_price,
+            })),
         },
         customerDetails: {
             name: record.customer_info.name,
