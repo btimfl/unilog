@@ -1,3 +1,4 @@
+import { STATE_CODE_MAP } from 'page-modules/dashboard/overview/utils'
 import { CustomFilters } from 'page-modules/ndr/types/filters'
 import { FilterParams, SortParams, TimelineParams } from 'page-modules/tracking/orders/types/filters'
 import { FieldType, FieldValue } from 'shared/types/forms'
@@ -472,7 +473,7 @@ export async function fetchShippingProviders(): Promise<FetchShippingProvidersTy
 export type FetchStateSplitType = {
     category: string
     state_wise_count: {
-        title: string
+        title: keyof typeof STATE_CODE_MAP
         value: number
     }[]
 }[]
