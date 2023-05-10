@@ -10,6 +10,7 @@ import {
 } from 'page-modules/ndr/types/reports'
 import { GoKebabVertical } from 'react-icons/go'
 
+import FakeAttempt from './FakeAttempt'
 import RTO from './RTO'
 import Reattempt from './Reattempt'
 
@@ -54,6 +55,9 @@ export default function Actions({ info: { row, getValue } }: Props) {
                             )}
                             {getValue().showRto && (
                                 <RTO trackingNumber={(row.getValue('shipmentDetails') as SHIPMENT_DETAILS).id} />
+                            )}
+                            {getValue().showFakeAttempt && (
+                                <FakeAttempt id={(row.getValue('ndrDetails') as NDR_DETAILS).id} />
                             )}
 
                             {!getValue().showContactBuyer &&

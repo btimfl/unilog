@@ -40,7 +40,7 @@ export default async function gateway(URL: string, options: RequestInit, domain?
     const json = text ? JSON.parse(text) : {}
 
     if (!res.ok) {
-        toast.error(`${json['errorMessage']}`, {
+        toast.error(`${json['errorMessage'] || 'An unidentified error occurred. Please try again later'}`, {
             position: 'top-right',
         })
         throw new Error(res.statusText)

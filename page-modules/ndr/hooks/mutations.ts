@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { ReattemptNDRType, RtoNDRType, reattemptNDR, rtoNDR } from 'apis/post'
+import { FakeAttemptNDRType, ReattemptNDRType, RtoNDRType, fakeAttemptNDR, reattemptNDR, rtoNDR } from 'apis/post'
 
 export function useMutateReattempt() {
     return useMutation({
@@ -12,5 +12,12 @@ export function useMutateRTO() {
     return useMutation({
         mutationKey: ['mutate-rto'],
         mutationFn: (payload: RtoNDRType) => rtoNDR(payload),
+    })
+}
+
+export function useMutateFakeAttempt() {
+    return useMutation({
+        mutationKey: ['mutate-fake-attempt'],
+        mutationFn: (payload: FakeAttemptNDRType) => fakeAttemptNDR(payload),
     })
 }

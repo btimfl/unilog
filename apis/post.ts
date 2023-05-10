@@ -114,3 +114,18 @@ export async function rtoNDR(payload: RtoNDRType) {
         body: JSON.stringify(payload),
     })
 }
+
+export type FakeAttemptNDRType = {
+    ndrId: string
+    subRemark: string
+    is_customer_picked_call: boolean
+}
+export async function fakeAttemptNDR(payload: FakeAttemptNDRType) {
+    const headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    return gateway(`session/api/v1/ndr/mark-fake-attempt`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(payload),
+    })
+}
