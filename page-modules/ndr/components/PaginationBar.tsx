@@ -12,6 +12,7 @@ export default function PaginationBar() {
             <Flex alignItems={'center'}>
                 <Text fontSize={'xs'}>Show:&nbsp;</Text>
                 <Select
+                    minW={'max-content'}
                     size={'xs'}
                     fontSize={'small'}
                     background={'white'}
@@ -41,7 +42,7 @@ export default function PaginationBar() {
                 <Flex alignItems={'center'} gap={1} fontSize={'sm'}>
                     <Text>Page</Text>
                     <Text fontWeight={'bold'}>
-                        <Text as={'span'}>
+                        <Text as={'span'} display={'inline-block'} minW={'max-content'}>
                             {pageIndex + 1} of {pageCount}
                         </Text>
                     </Text>

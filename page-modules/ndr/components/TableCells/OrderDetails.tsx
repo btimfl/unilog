@@ -39,11 +39,12 @@ export default function OrderDetails({ info: { getValue } }: Props) {
                 <PopoverTrigger>
                     <Text
                         textDecorationLine={'underline'}
-                        textDecorationStyle={'dashed'}
+                        textDecorationStyle={'solid'}
                         textDecorationColor={'purple'}
                         color={'purple'}
                         cursor={'pointer'}
                         className={styles.value}
+                        fontSize={'xs'}
                     >
                         View Products
                     </Text>
