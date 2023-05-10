@@ -9,6 +9,7 @@ export function sanitiseData(apiResponse: FetchNonDeliveryReportsType | null | u
 
     return data.map<ReportsColumns>((record) => ({
         ndrDetails: {
+            id: record.ndr_id,
             date: record.last_ndr_date,
             attempts: `${record.attempts}`,
             reason: record.ndr_reason,

@@ -1,3 +1,4 @@
+import { STATE_CODE_MAP } from 'page-modules/dashboard/overview/utils'
 import { CustomFilters } from 'page-modules/ndr/types/filters'
 import { FilterParams, SortParams, TimelineParams } from 'page-modules/tracking/orders/types/filters'
 import { FieldType, FieldValue } from 'shared/types/forms'
@@ -505,4 +506,15 @@ export async function initiateDatatableExport({
         )}`,
         { method: 'GET' },
     )
+}
+
+export type FetchStateSplitType = {
+    category: string
+    state_wise_count: {
+        title: keyof typeof STATE_CODE_MAP
+        value: number
+    }[]
+}[]
+export async function fetchStateSplit(): Promise<FetchStateSplitType> {
+    return await gateway(`session/api/v1/overview-dashboard/categorical-state-split`, { method: 'GET' })
 }

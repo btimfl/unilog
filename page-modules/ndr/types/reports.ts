@@ -1,4 +1,5 @@
 export type NDR_DETAILS = {
+    id: string
     date: string
     attempts: string
     reason: string

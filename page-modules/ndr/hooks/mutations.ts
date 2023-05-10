@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { NdrTabStatus, initiateDatatableExport } from 'apis/get'
-import { ReattemptNDRType, RtoNDRType, reattemptNDR, rtoNDR } from 'apis/post'
+import { FakeAttemptNDRType, ReattemptNDRType, RtoNDRType, fakeAttemptNDR, reattemptNDR, rtoNDR } from 'apis/post'
 
 import { useFilterContext } from '../FilterProvider'
 
@@ -33,5 +33,12 @@ export function useMutateNdrExport() {
                 shipping_provider_code: pageFilters.shippingProviders,
                 customFilters,
             }),
+    })
+}
+
+export function useMutateFakeAttempt() {
+    return useMutation({
+        mutationKey: ['mutate-fake-attempt'],
+        mutationFn: (payload: FakeAttemptNDRType) => fakeAttemptNDR(payload),
     })
 }

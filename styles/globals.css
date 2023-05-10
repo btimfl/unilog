@@ -20,3 +20,7 @@ a {
 .default-toast {
     font-size: var(--chakra-fontSizes-sm);
 }
+
+.HoverInfo {
+    pointer-events: none !important;
+}
