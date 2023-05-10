@@ -16,8 +16,36 @@ export default function StateMap() {
     return (
         <>
             <Card>
-                <CardHeader py={3} fontWeight="bold">
-                    Courier Split By State
+                <CardHeader
+                    py={3}
+                    fontWeight="bold"
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                    alignItems={'center'}
+                >
+                    <Text fontSize={'sm'}>Courier Split By State</Text>
+                    <Select
+                        width={'auto'}
+                        size={'sm'}
+                        fontSize={'small'}
+                        background={'white'}
+                        borderRadius={'0.3rem'}
+                        placeholder={'Select Option'}
+                        icon={<AiFillCaretDown fontSize={'14px'} />}
+                        onChange={(e) => setCategory(e.target.value)}
+                        defaultValue={category}
+                        value={category}
+                    >
+                        {data?.length ? (
+                            data.map((type) => (
+                                <option key={type.category} value={type.category}>
+                                    {type.category}
+                                </option>
+                            ))
+                        ) : (
+                            <option disabled>No Options Available</option>
+                        )}
+                    </Select>
                 </CardHeader>
                 <Divider />
                 {isLoading && (
@@ -33,27 +61,6 @@ export default function StateMap() {
                 <CardBody className={styles.map}>
                     {data && (
                         <>
-                            <Select
-                                w={`100%`}
-                                size={'sm'}
-                                fontSize={'small'}
-                                background={'white'}
-                                borderRadius={'0.3rem'}
-                                placeholder={'Select Option'}
-                                icon={<AiFillCaretDown fontSize={'14px'} />}
-                                onChange={(e) => setCategory(e.target.value)}
-                                defaultValue={category}
-                            >
-                                {data.length ? (
-                                    data.map((type) => (
-                                        <option key={type.category} value={type.category}>
-                                            {type.category}
-                                        </option>
-                                    ))
-                                ) : (
-                                    <option disabled>No Options Available</option>
-                                )}
-                            </Select>
                             {category && (
                                 <DatamapsIndia
                                     regionData={data
