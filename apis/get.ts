@@ -468,3 +468,41 @@ export type FetchShippingProvidersType = {
 export async function fetchShippingProviders(): Promise<FetchShippingProvidersType> {
     return await gateway(`api/v1/filter/shipping-provider`, { method: 'GET' })
 }
+
+export type NdrExportMutationType = {
+    is_web: boolean
+    status: NdrTabStatus
+    query_string: string
+    from: string
+    to: string
+    ndr_status: string[]
+    shipping_provider_code: string[]
+    customFilters: CustomFilters
+}
+
+export async function initiateDatatableExport({
+    is_web,
+    status,
+    query_string,
+    from,
+    to,
+    ndr_status,
+    shipping_provider_code,
+    customFilters,
+}: NdrExportMutationType): Promise<NdrExportMutationType> {
+    return await gateway(
+        `session/api/v1/exports/ndr-data?is_web=${domainHandler.encodeUriParams(
+            is_web,
+        )}&shipping_provider_code=${domainHandler.encodeUriParams(
+            shipping_provider_code,
+        )}&status=${domainHandler.encodeUriParams(status)}&query_string=${domainHandler.encodeUriParams(
+            query_string,
+        )}&from=${domainHandler.encodeUriParams(from)}&to=${domainHandler.encodeUriParams(
+            to,
+        )}&ndr_status=${domainHandler.encodeUriParams(ndr_status)}${Object.keys(customFilters).reduce<string>(
+            (prev, key) => prev + `&${key}=${domainHandler.encodeUriParams(customFilters[key].value)}`,
+            '',
+        )}`,
+        { method: 'GET' },
+    )
+}

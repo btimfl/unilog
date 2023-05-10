@@ -1,4 +1,4 @@
-import { FetchNonDeliveryReportsType } from 'apis/get'
+import { FetchNonDeliveryReportsType, NdrTabStatus } from 'apis/get'
 
 import { ReportsColumns } from './types/reports'
 
@@ -57,3 +57,10 @@ export function sanitiseData(apiResponse: FetchNonDeliveryReportsType | null | u
         historyRow: record.ndr_id,
     }))
 }
+
+export const TAB_STATUS: NdrTabStatus[] = [
+    'NDR_RAISED_ACTION_REQUIRED',
+    'AUTO_REATTEMPT, SELLER_REATTEMPT, SELLER_RTO_ATTEMPTED, AUTO_RTO_ATTEMPTED, LAST_ACTION_FAILED, SHIPPING_PROVIDER_REATTEMPT, SHIPPING_PROVIDER_RTO_ATTEMPTED',
+    'DELIVERED',
+    'RTO_COMPLETED',
+]

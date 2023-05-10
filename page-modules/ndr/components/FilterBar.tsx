@@ -16,15 +16,18 @@ import {
 } from '@chakra-ui/react'
 import { NDR_ROUTE_MAP } from 'layouts/NDR/NDR-route-map'
 import { useState } from 'react'
+import { FiDownload } from 'react-icons/fi'
 import { MdFilterAlt } from 'react-icons/md'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 import { INIT_VALUE_MAP } from 'shared/utils/forms'
 
 import { useFilterContext } from '../FilterProvider'
+import { useMutateNdrExport } from '../hooks/mutations'
 import { useFilters } from '../hooks/queries'
 import useDeviations from '../hooks/useDeviations'
 import { CustomFilters as CustomFiltersType } from '../types/filters'
+import { TAB_STATUS } from '../utils'
 import CustomFilters from './CustomFilters'
 import PageFilters from './PageFilters'
 
@@ -45,10 +48,17 @@ export default function FilterBar({ tabIndex }: Props) {
 
     const [localCustomFilters, setLocalCustomFilters] = useState<CustomFiltersType>({})
     const { customFilters, setCustomFilters } = useFilterContext()
+
+    const exportNdrMutation = useMutateNdrExport()
+
     const deviations = useDeviations(
         customFilters,
         data?.filter((filter) => filter.page_key === findTabKey(tabIndex)),
     )
+
+    const handleExport = () => {
+        exportNdrMutation.mutate(TAB_STATUS[tabIndex])
+    }
 
     return (
         <Flex>
@@ -73,6 +83,20 @@ export default function FilterBar({ tabIndex }: Props) {
                     }
                     size="sm"
                     onClick={onOpen}
+                ></IconButton>
+            </Tooltip>
+
+            <Tooltip hasArrow label="Export">
+                <IconButton
+                    aria-label="export"
+                    ms={2}
+                    icon={
+                        <>
+                            <FiDownload />
+                        </>
+                    }
+                    size="sm"
+                    onClick={handleExport}
                 ></IconButton>
             </Tooltip>
 
