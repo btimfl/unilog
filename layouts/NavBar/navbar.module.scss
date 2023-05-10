@@ -4,3 +4,13 @@
     border-bottom: 1px solid var(--chakra-colors-gray-300);
     box-shadow: 0 0 3px var(--chakra-colors-gray-200);
 }
+
+.circularProgress {
+    width: 1rem;
+    height: 1rem;
+
+    svg {
+        width: 1rem;
+        height: 1rem;
+    }
+}

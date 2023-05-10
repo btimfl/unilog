@@ -518,3 +518,12 @@ export type FetchStateSplitType = {
 export async function fetchStateSplit(): Promise<FetchStateSplitType> {
     return await gateway(`session/api/v1/overview-dashboard/categorical-state-split`, { method: 'GET' })
 }
+
+export type FetchExportProgressType = {
+    display_name: string
+    completed: boolean
+    file_url: string
+}[]
+export async function fetchExportProgress(): Promise<FetchExportProgressType> {
+    return await gateway(`session/api/v1/exports/progress`, { method: 'GET' })
+}
