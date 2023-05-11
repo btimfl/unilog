@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchExtendedMetadata, fetchMetadata, fetchShipmentDetails } from 'apis/get'
+import { fetchExtendedMetadata, fetchShipmentDetails } from 'apis/get'
 import { fetchShipments } from 'apis/post'
 import sub from 'date-fns/sub'
 
@@ -41,15 +41,6 @@ export function useShipmentDetails(trackingNumber: string) {
     return useQuery({
         queryKey: ['shipmentDetails', trackingNumber],
         queryFn: () => fetchShipmentDetails(trackingNumber),
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-    })
-}
-
-export function useMetadata() {
-    return useQuery({
-        queryKey: ['metadata'],
-        queryFn: fetchMetadata,
         refetchOnWindowFocus: false,
         refetchOnMount: false,
     })

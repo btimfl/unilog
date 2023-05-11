@@ -85,6 +85,7 @@ type FetchMetaData = {
     code: number
     description: string
     result: {
+        allowed_urls: string[]
         tenant_profile: {
             tenant_name: string
             user_name: string

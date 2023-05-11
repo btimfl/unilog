@@ -15,8 +15,8 @@ import { ChangeEvent, Dispatch } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
+import { useMetadata } from 'shared/queries'
 
-import { useMetadata } from '../hooks/queries'
 import { ActionType, Actions, DefaultFilters, FilterParams, SortParams, TimelineParams } from '../types/filters'
 import styles from './DefaultFilters.module.scss'
 
