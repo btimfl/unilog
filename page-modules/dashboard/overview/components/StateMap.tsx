@@ -23,7 +23,7 @@ export default function StateMap() {
                     justifyContent={'space-between'}
                     alignItems={'center'}
                 >
-                    <Text fontSize={'sm'}>Courier Split By State</Text>
+                    <Text>Courier Split By State</Text>
                     <Select
                         width={'auto'}
                         size={'sm'}
