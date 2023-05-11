@@ -18,9 +18,7 @@ import {
     Text,
     useDisclosure,
 } from '@chakra-ui/react'
-import Cookies from 'js-cookie'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { FiDownload } from 'react-icons/fi'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
@@ -31,15 +29,14 @@ import styles from './navbar.module.scss'
 import useExportProgress from './queries'
 
 export default function NavBar() {
-    const router = useRouter()
     const { data, isLoading, isError, refetch } = useExportProgress()
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const handleLogoutClick = () => {
-        Cookies.remove('JWT-TOKEN')
-        router.push('https://unilog.unicommerce.com/')
-    }
+    // const handleLogoutClick = () => {
+    //     Cookies.remove('JWT-TOKEN')
+    //     router.push('https://unilog.unicommerce.com/')
+    // }
     return (
         <Flex
             className={styles.NavBar}
@@ -129,8 +126,8 @@ export default function NavBar() {
                             </Link>
                         </MenuItem>
                         <MenuItem fontSize="sm">User Info</MenuItem>
-                        <MenuItem fontSize="sm" onClick={handleLogoutClick}>
-                            Logout
+                        <MenuItem fontSize="sm">
+                            <Link href="/logout">Logout</Link>
                         </MenuItem>
                     </MenuList>
                 </Menu>
