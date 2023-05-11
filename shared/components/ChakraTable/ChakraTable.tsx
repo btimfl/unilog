@@ -36,7 +36,7 @@ export default function ChakraTable<T extends Columns>({ columns, data }: Props<
                                         py={2}
                                         minW={`100px`}
                                         // borderLeft="1px solid var(--chakra-colors-gray-200)"
-                                        textAlign={data[0]?.columnKey?.align}
+                                        textAlign={data?.length ? data[0][columnKey]?.align : 'left'}
                                     >
                                         {columns[columnKey]}
                                     </Th>
