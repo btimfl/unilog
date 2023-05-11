@@ -420,6 +420,7 @@ export async function fetchNdrFunnels(startDate: string, endDate: string): Promi
 export async function initLogout(): Promise<object> {
     return await gateway(`api/seller/logout`, { method: 'GET' })
 }
+
 export type FetchNdrHistoryType = {
     historyData: Record<
         string,
@@ -444,7 +445,27 @@ export async function fetchNdrHistory(id: string): Promise<FetchNdrHistoryType> 
     })
 }
 
-export async function fetchNdrSuccessByCourier(startDate: string, endDate: string): Promise<FetchNdrHistoryType> {
+export type FetchNdrSuccessByCourierType = {
+    courier_wise_ndr_success: {
+        counts: {
+            title: 'Raised & Delivered' | 'Raised'
+            value: string
+        }[]
+        courier: string
+        delivered_percentage: number
+    }[]
+    overall: {
+        counts: {
+            title: 'Total NDR Raised shipments' | 'Total NDR Raised & Delivered shipments'
+            value: string
+        }[]
+        delivered_percentage: number
+    }
+}
+export async function fetchNdrSuccessByCourier(
+    startDate: string,
+    endDate: string,
+): Promise<FetchNdrSuccessByCourierType> {
     return await gateway(`session/api/v1/ndr/reports/courier-success?start_date=${startDate}&end_date=${endDate}`, {
         method: 'GET',
     })

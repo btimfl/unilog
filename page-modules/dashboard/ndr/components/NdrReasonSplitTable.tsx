@@ -45,7 +45,7 @@ export default function NdrReasonSplitTable() {
         })) || []
 
     return (
-        <Flex h={`300px`} justify="center" overflow={'auto'} border={`1px solid var(--chakra-colors-gray-200)`}>
+        <Flex h={`300px`} justify="center" overflow={'auto'}>
             <ChakraTable<typeof tableColumns> columns={tableColumns} data={tableData} />
         </Flex>
     )

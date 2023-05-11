@@ -61,7 +61,7 @@ export default function DashboardNDR() {
                 </Card>
                 <Card w={`100%`}>
                     <CardHeader py={3} fontWeight="bold">
-                        Total To Terminated
+                        Total to Terminated
                     </CardHeader>
                     <Divider />
                     <CardBody>
