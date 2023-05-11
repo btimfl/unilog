@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import {
-    FetchNdrReasonSplitType,
     fetchNdrFunnels,
     fetchNdrReasonSplit,
     fetchNdrShortSummary,
@@ -9,10 +8,6 @@ import {
     fetchNdrTotalTerminatedCounts,
 } from 'apis/get'
 
-const sanitiseNdrReason = (data: FetchNdrReasonSplitType) => {
-    if (data.reason_wise_count_details.length) delete data.reason_wise_count_details[0].reason
-    return data
-}
 export function useNdrReason(startDate: string, endDate: string) {
     return useQuery({
         queryKey: ['fetchNdrReasonSplit', startDate, endDate],
@@ -20,7 +15,6 @@ export function useNdrReason(startDate: string, endDate: string) {
         refetchInterval: false,
         refetchOnWindowFocus: false,
         enabled: !!startDate && !!endDate,
-        select: sanitiseNdrReason,
     })
 }
 

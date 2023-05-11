@@ -16,6 +16,7 @@ import {
 import Dashboard from 'layouts/Dashboard/Dashboard'
 import NdrFunnels from 'page-modules/dashboard/ndr/components/NdrFunnels'
 import { NdrReasonSplitGraph } from 'page-modules/dashboard/ndr/components/NdrReasonSplitGraph'
+import NdrReasonSplitTable from 'page-modules/dashboard/ndr/components/NdrReasonSplitTable'
 import { NdrStatusSplitGraph } from 'page-modules/dashboard/ndr/components/NdrStatusSplitGraph'
 import NdrSuccessByCourierGraph from 'page-modules/dashboard/ndr/components/NdrSuccessByCourierGraph'
 import { NdrToDeliveryAttemptGraph } from 'page-modules/dashboard/ndr/components/NdrToDeliveryAttemptGraph'
@@ -75,16 +76,27 @@ export default function DashboardNDR() {
                     </CardBody>
                 </Card>
             </HStack>
-            <HStack gap={2} alignItems={`stretch`} mt={4}>
+            <HStack gap={2} alignItems={'stretch'} mt={4}>
                 <Card w={`100%`}>
                     <CardHeader py={3} fontWeight="bold">
-                        NDR Reason Split
+                        NDR Reason Split Graph
                     </CardHeader>
                     <Divider />
-                    <CardBody h={`150px`}>
+                    <CardBody>
                         <NdrReasonSplitGraph />
                     </CardBody>
                 </Card>
+                <Card w={`100%`}>
+                    <CardHeader py={3} fontWeight="bold">
+                        NDR Reason Split Table
+                    </CardHeader>
+                    <Divider />
+                    <CardBody>
+                        <NdrReasonSplitTable />
+                    </CardBody>
+                </Card>
+            </HStack>
+            <HStack gap={2} alignItems={`stretch`} mt={4}>
                 <Card w={`100%`}>
                     <CardHeader py={3} fontWeight="bold">
                         NDR status split
@@ -96,7 +108,7 @@ export default function DashboardNDR() {
                 </Card>
                 <Card w={`100%`}>
                     <CardHeader py={3} fontWeight="bold">
-                        NDR to delivery attempt
+                        Total To Terminated
                     </CardHeader>
                     <Divider />
                     <CardBody>

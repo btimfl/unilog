@@ -8,12 +8,11 @@ import { useNdrSuccessByCourier } from '../hooks/queries'
 
 export default function NdrSuccessByCourierGraph() {
     const { startDate, endDate } = useToolbarContext()
-    const { data, isLoading, isError } = useNdrSuccessByCourier(startDate, endDate)
+    const { isLoading, isError } = useNdrSuccessByCourier(startDate, endDate)
 
     if (isLoading) return <Loading />
     if (isError) return <ErrorPlaceholder />
 
-    console.log(data)
     return (
         <>
             <Text>Success by courier graph comes here.</Text>

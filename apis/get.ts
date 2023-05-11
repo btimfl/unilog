@@ -377,14 +377,18 @@ export async function fetchNdrFilterMetadata(filterKey: string): Promise<FetchNd
 }
 
 type NdrReasonResponse = {
-    ['Delivered shipments']: string | number
-    ['Lost/Damaged shipments']: string | number
-    ['Pending shipments']: string | number
-    ['RTO shipments']: string | number
-    ['Total NDRs Raised (1 shipment may have multiple reports)']: string | number
-    ['reason']?: string | number
+    'Delivered shipments': string | number
+    'Lost/Damaged shipments': string | number
+    'Pending shipments': string | number
+    'RTO shipments': string | number
+    'Total NDRs Raised (1 shipment may have multiple reports)': string | number
+    'reason': string
 }
 export type FetchNdrReasonSplitType = {
+    pie_chart: {
+        title: string
+        value: number
+    }[]
     reason_wise_count_details: NdrReasonResponse[]
 }
 export async function fetchNdrReasonSplit(startDate: string, endDate: string): Promise<FetchNdrReasonSplitType> {

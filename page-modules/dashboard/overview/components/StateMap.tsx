@@ -33,7 +33,6 @@ export default function StateMap() {
                         placeholder={'Select Option'}
                         icon={<AiFillCaretDown fontSize={'14px'} />}
                         onChange={(e) => setCategory(e.target.value)}
-                        defaultValue={category}
                         value={category}
                     >
                         {data?.length ? (
