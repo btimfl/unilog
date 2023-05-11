@@ -34,7 +34,7 @@ export default function NdrSuccessByCourierGraph() {
     let tableData: { [key in keyof typeof tableColumns]: { value: string; align: 'left' | 'right' } }[] = [
         {
             courier: { value: 'Overall', align: 'left' },
-            deliveredPercentage: { value: String(data.overall.delivered_percentage), align: 'right' },
+            deliveredPercentage: { value: `${String(data.overall.delivered_percentage)} %`, align: 'right' },
             raisedAndDelivered: {
                 value: String(
                     data.overall.counts.find((count) => count.title === 'Total NDR Raised & Delivered shipments')
@@ -52,7 +52,7 @@ export default function NdrSuccessByCourierGraph() {
     tableData = tableData.concat(
         data.courier_wise_ndr_success.map((courier) => ({
             courier: { value: courier.courier, align: 'left' },
-            deliveredPercentage: { value: String(courier.delivered_percentage), align: 'right' },
+            deliveredPercentage: { value: `${String(courier.delivered_percentage)} %`, align: 'right' },
             raisedAndDelivered: {
                 value: String(courier.counts.find((count) => count.title === 'Raised & Delivered')?.value),
                 align: 'right',
