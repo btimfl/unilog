@@ -81,7 +81,7 @@ export type ReattemptNDRType = {
     address: string
     landmark: string | undefined
     pincode: string
-    comments: string
+    remark: string
     sub_remark: string | undefined
     preferred_date: string
     phone_number: string
