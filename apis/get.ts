@@ -577,3 +577,11 @@ export type FetchDeliveryPerformanceSplitType = {
 export async function fetchDeliveryPerformanceSplit(): Promise<FetchDeliveryPerformanceSplitType> {
     return await gateway(`session/api/v1/overview-dashboard/delivery-performance-split`, { method: 'GET' })
 }
+
+export type FetchCourierSplitType = {
+    title: string
+    value: number
+}[]
+export async function fetchCourierSplitType(): Promise<FetchCourierSplitType> {
+    return await gateway(`session/api/v1/overview-dashboard/courier-split`, { method: 'GET' })
+}

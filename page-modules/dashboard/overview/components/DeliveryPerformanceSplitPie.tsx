@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 
-import { useDeliveryPerformanceSplit } from '../hooks/queries'
+import { useOverviewDeliveryPerformanceSplit } from '../hooks/queries'
 import { usePie } from '../hooks/usePie'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
@@ -22,7 +22,7 @@ const options: {
 }
 
 export default function DeliveryPerformanceSplitPie() {
-    const { data, isLoading, isError } = useDeliveryPerformanceSplit()
+    const { data, isLoading, isError } = useOverviewDeliveryPerformanceSplit()
 
     const graphData = usePie(data)
 
