@@ -1,6 +1,6 @@
 import { Center, Flex } from '@chakra-ui/react'
 import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
-import ChakraTable from 'page-modules/tracking/orders/components/ChakraTable'
+import ChakraTable from 'shared/components/ChakraTable/ChakraTable'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 

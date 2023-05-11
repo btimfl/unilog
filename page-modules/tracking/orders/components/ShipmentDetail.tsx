@@ -1,10 +1,10 @@
 import { Box, Center, Divider, Flex, Text } from '@chakra-ui/react'
+import ChakraTable from 'shared/components/ChakraTable/ChakraTable'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 import { parseDate } from 'shared/utils/functions'
 
 import { useShipmentDetails } from '../hooks/queries'
-import ChakraTable from './ChakraTable'
 
 type Props = {
     trackingNumber: string
