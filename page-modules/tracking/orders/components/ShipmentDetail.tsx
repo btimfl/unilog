@@ -38,21 +38,23 @@ export default function ShipmentDetail({ trackingNumber }: Props) {
         location: 'Location',
     }
 
-    const orderItemsData: { [key in keyof typeof orderItemsColumns]: string }[] =
+    const orderItemsData: { [key in keyof typeof orderItemsColumns]: { value: string; align: 'left' | 'right' } }[] =
         data.result?.tracking_details?.line_items?.map((lineItem) => {
             return {
-                sku: lineItem.seller_sku_code,
-                channelProduct: lineItem.channel_product_name,
-                totalCost: lineItem.total_price,
+                sku: { value: lineItem.seller_sku_code, align: 'left' },
+                channelProduct: { value: lineItem.channel_product_name, align: 'left' },
+                totalCost: { value: lineItem.total_price, align: 'left' },
             }
         }) || []
 
-    const trackingEventsData: { [key in keyof typeof trackingEventsColumns]: string }[] =
+    const trackingEventsData: {
+        [key in keyof typeof trackingEventsColumns]: { value: string; align: 'left' | 'right' }
+    }[] =
         data.result?.tracking_details?.tracking_events?.map((trackingEvent) => {
             return {
-                date: trackingEvent.tracking_datetime || '-',
-                status: trackingEvent.tracking_status || '-',
-                location: trackingEvent.tracking_location || '-',
+                date: { value: trackingEvent.tracking_datetime || '-', align: 'left' },
+                status: { value: trackingEvent.tracking_status || '-', align: 'left' },
+                location: { value: trackingEvent.tracking_location || '-', align: 'left' },
             }
         }) || []
 

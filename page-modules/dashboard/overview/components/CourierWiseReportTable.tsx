@@ -34,17 +34,17 @@ export default function CourierWiseReportTable() {
         totalShipments: 'Total Shipments',
     }
 
-    const tableData: { [key in keyof typeof tableColumns]: string }[] =
+    const tableData: { [key in keyof typeof tableColumns]: { value: string; align: 'left' | 'right' } }[] =
         data.map((report) => ({
-            courier: String(report.Courier),
-            inTransit: String(report['In Transit']),
-            delivered: String(report['Delivered']),
-            ndrRaised: String(report['NDR Raised']),
-            ndrDelivered: String(report['NDR Delivered']),
-            ndrPending: String(report['NDR Pending']),
-            rto: String(report['RTO']),
-            outForDelivery: String(report['Out For Delivery']),
-            totalShipments: String(report['Total Shipments']),
+            courier: { value: String(report.Courier), align: 'left' },
+            inTransit: { value: String(report['In Transit']), align: 'right' },
+            delivered: { value: String(report['Delivered']), align: 'right' },
+            ndrRaised: { value: String(report['NDR Raised']), align: 'right' },
+            ndrDelivered: { value: String(report['NDR Delivered']), align: 'right' },
+            ndrPending: { value: String(report['NDR Pending']), align: 'right' },
+            rto: { value: String(report['RTO']), align: 'right' },
+            outForDelivery: { value: String(report['Out For Delivery']), align: 'right' },
+            totalShipments: { value: String(report['Total Shipments']), align: 'right' },
         })) || []
 
     return (
