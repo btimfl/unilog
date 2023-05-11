@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { NDR_ROUTE_MAP } from 'layouts/NDR/NDR-route-map'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 import { FiDownload } from 'react-icons/fi'
 import { MdFilterAlt } from 'react-icons/md'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
@@ -57,6 +58,9 @@ export default function FilterBar({ tabIndex }: Props) {
     )
 
     const handleExport = () => {
+        toast.success('Export generated successfully.', {
+            position: 'top-right',
+        })
         exportNdrMutation.mutate(TAB_STATUS[tabIndex])
     }
 
