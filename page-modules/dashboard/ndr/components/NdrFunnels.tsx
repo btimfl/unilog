@@ -14,6 +14,7 @@ import {
 import { NdrFunnelCountType, NdrFunnelType } from 'apis/get'
 import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
+import Loading from 'shared/components/Loading/Loading'
 
 import { useNdrFunnels } from '../hooks/queries'
 
@@ -25,7 +26,7 @@ export default function NdrFunnels() {
     if (isLoading)
         return (
             <Center h={`200px`}>
-                <Text>Loading...</Text>
+                <Loading />
             </Center>
         )
     if (isError)

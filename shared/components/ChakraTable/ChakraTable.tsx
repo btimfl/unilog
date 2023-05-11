@@ -15,7 +15,7 @@ type Props<T extends Columns> = {
 
 export default function ChakraTable<T extends Columns>({ columns, data }: Props<T>) {
     return (
-        <TableContainer overflowY={'auto'}>
+        <TableContainer overflowY={'auto'} className={styles.tableContainer}>
             <Table variant="simple" className={styles.table}>
                 <Thead>
                     <Tr>

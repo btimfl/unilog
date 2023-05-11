@@ -20,7 +20,7 @@ export default function NdrReasonSplitTable() {
 
     if (isError)
         return (
-            <Center>
+            <Center h={'300px'}>
                 <ErrorPlaceholder />
             </Center>
         )

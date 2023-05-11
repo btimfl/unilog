@@ -570,18 +570,33 @@ export async function fetchOverviewStatusSplit(): Promise<FetchOverviewStatusSpl
     return await gateway(`session/api/v1/overview-dashboard/status-split`, { method: 'GET' })
 }
 
-export type FetchDeliveryPerformanceSplitType = {
+export type FetchOverviewDeliveryPerformanceSplitType = {
     title: string
     value: number
 }[]
-export async function fetchDeliveryPerformanceSplit(): Promise<FetchDeliveryPerformanceSplitType> {
+export async function fetchOverviewDeliveryPerformanceSplit(): Promise<FetchOverviewDeliveryPerformanceSplitType> {
     return await gateway(`session/api/v1/overview-dashboard/delivery-performance-split`, { method: 'GET' })
 }
 
-export type FetchCourierSplitType = {
+export type FetchOverviewCourierSplitType = {
     title: string
     value: number
 }[]
-export async function fetchCourierSplitType(): Promise<FetchCourierSplitType> {
+export async function fetchOverviewCourierSplitType(): Promise<FetchOverviewCourierSplitType> {
     return await gateway(`session/api/v1/overview-dashboard/courier-split`, { method: 'GET' })
+}
+
+export type FetchOverviewCourierWiseReportType = {
+    'Courier': string
+    'In Transit': number
+    'Delivered': number
+    'NDR Raised': number
+    'NDR Delivered': number
+    'NDR Pending': number
+    'RTO': number
+    'Out For Delivery': number
+    'Total Shipments': number
+}[]
+export async function fetchOverviewCourierWiseReport(): Promise<FetchOverviewCourierWiseReportType> {
+    return await gateway(`session/api/v1/overview-dashboard/courier-wise-report`, { method: 'GET' })
 }
