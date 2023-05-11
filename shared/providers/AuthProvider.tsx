@@ -3,12 +3,12 @@ import { ReactNode } from 'react'
 import { useMetadata } from 'shared/queries'
 
 type AuthContextType = {
-    allowedURLs: string[]
+    allowedURLs: string[] | null
 }
 const AuthContext = React.createContext<AuthContextType>({} as AuthContextType)
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
-    const [allowedURLs, setAllowedURLs] = useState<string[]>([])
+    const [allowedURLs, setAllowedURLs] = useState<string[] | null>(null)
 
     const { data } = useMetadata()
 
