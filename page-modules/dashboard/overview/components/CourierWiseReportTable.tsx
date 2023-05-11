@@ -48,7 +48,7 @@ export default function CourierWiseReportTable() {
         })) || []
 
     return (
-        <Flex justify="center" overflow={'auto'} w={'100%'} h={'300px'}>
+        <Flex justify="center" overflow={'auto'} w={'100%'} h={'250px'}>
             <ChakraTable<typeof tableColumns> columns={tableColumns} data={tableData} />
         </Flex>
     )
