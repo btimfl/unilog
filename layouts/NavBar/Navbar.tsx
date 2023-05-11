@@ -16,13 +16,15 @@ import {
     PopoverHeader,
     PopoverTrigger,
     Text,
+    Tooltip,
     useDisclosure,
 } from '@chakra-ui/react'
+import { formatDistanceToNow } from 'date-fns'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { FiDownload } from 'react-icons/fi'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
-import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
 import BreadcrumbComp from '../Breadcrumb/Breadcrumb'
 import styles from './navbar.module.scss'
@@ -30,13 +32,16 @@ import useExportProgress from './queries'
 
 export default function NavBar() {
     const { data, isLoading, isError, refetch } = useExportProgress()
+    const router = useRouter()
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    // const handleLogoutClick = () => {
-    //     Cookies.remove('JWT-TOKEN')
-    //     router.push('https://unilog.unicommerce.com/')
-    // }
+    const handleDownloadExport = (completed: boolean, fileUrl: string) => {
+        if (completed) {
+            console.log(fileUrl)
+            router.push(fileUrl, undefined, { shallow: false })
+        }
+    }
     return (
         <Flex
             className={styles.NavBar}
@@ -78,7 +83,7 @@ export default function NavBar() {
                                 <CloseIcon onClick={onClose} fontSize="xs" />
                             </Flex>
                         </PopoverHeader>
-                        <PopoverBody>
+                        <PopoverBody p={0}>
                             {isLoading && (
                                 <Center h={'100px'}>
                                     <Loading />
@@ -92,16 +97,41 @@ export default function NavBar() {
                             {data &&
                                 data?.map((file, index) => (
                                     <Flex mt={1} justify={`space-between`} align="center" fontSize={'xs'} key={index}>
-                                        <TextWithTooltip text={file.display_name} width="10rem" />
-                                        {file.completed ? (
-                                            <CheckCircleIcon fontSize={'0.8rem'} color={'green.400'} />
-                                        ) : (
-                                            <CircularProgress
-                                                className={styles.circularProgress}
-                                                isIndeterminate
-                                                color="#63b3ed"
-                                            />
-                                        )}
+                                        <Flex
+                                            borderBottom="1px solid var(--chakra-colors-gray-200)"
+                                            w={`100%`}
+                                            px={4}
+                                            py={2}
+                                            justify={`space-between`}
+                                            align="center"
+                                            onClick={() => handleDownloadExport(file.completed, file.file_url)}
+                                        >
+                                            <Flex flexDir="column">
+                                                <Text fontSize="sm">{file.display_name}</Text>
+                                                <Text fontSize="xs" color="gray.500">
+                                                    Processed:{' '}
+                                                    <Tooltip hasArrow={true} label={file.timestamp}>
+                                                        {formatDistanceToNow(new Date(file.timestamp), {
+                                                            addSuffix: true,
+                                                        })}
+                                                    </Tooltip>
+                                                </Text>
+                                            </Flex>
+
+                                            <Flex justify={`flex-end`}>
+                                                {file.completed ? (
+                                                    <Tooltip label="Download" hasArrow={true}>
+                                                        <CheckCircleIcon fontSize={'1rem'} color={'green.400'} />
+                                                    </Tooltip>
+                                                ) : (
+                                                    <CircularProgress
+                                                        className={styles.circularProgress}
+                                                        isIndeterminate
+                                                        color="#63b3ed"
+                                                    />
+                                                )}
+                                            </Flex>
+                                        </Flex>
                                     </Flex>
                                 ))}
                             {!isError && data && !data.length && (

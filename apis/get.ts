@@ -559,6 +559,7 @@ export type FetchExportProgressType = {
     display_name: string
     completed: boolean
     file_url: string
+    timestamp: string
 }[]
 export async function fetchExportProgress(): Promise<FetchExportProgressType> {
     return await gateway(`session/api/v1/exports/progress`, { method: 'GET' })
