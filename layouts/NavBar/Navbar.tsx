@@ -32,7 +32,7 @@ import useExportProgress from './queries'
 
 export default function NavBar() {
     const router = useRouter()
-    const { data, isLoading, isError } = useExportProgress()
+    const { data, isLoading, isError, refetch } = useExportProgress()
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -61,7 +61,14 @@ export default function NavBar() {
                             icon={<FiDownload />}
                             size="sm"
                             variant="ghost"
-                            onClick={isOpen ? onClose : onOpen}
+                            onClick={
+                                isOpen
+                                    ? onClose
+                                    : () => {
+                                          refetch()
+                                          onOpen()
+                                      }
+                            }
                         ></IconButton>
                     </PopoverTrigger>
                     <PopoverContent>
@@ -88,7 +95,7 @@ export default function NavBar() {
                             {data &&
                                 data.map((file, index) => (
                                     <Flex mt={1} justify={`space-between`} align="center" fontSize={'xs'} key={index}>
-                                        <TextWithTooltip text="File.txt" width="10rem" />
+                                        <TextWithTooltip text={file.display_name} width="10rem" />
                                         {file.completed ? (
                                             <CheckCircleIcon fontSize={'0.8rem'} color={'green.400'} />
                                         ) : (

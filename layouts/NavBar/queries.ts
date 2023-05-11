@@ -5,5 +5,6 @@ export default function useExportProgress() {
     return useQuery({
         queryKey: ['export-progress'],
         queryFn: fetchExportProgress,
+        enabled: false,
     })
 }
