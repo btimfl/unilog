@@ -6,7 +6,7 @@ import NdrReasonSplitTable from 'page-modules/dashboard/ndr/components/NdrReason
 import { NdrStatusSplitGraph } from 'page-modules/dashboard/ndr/components/NdrStatusSplitGraph'
 import NdrSuccessByCourierGraph from 'page-modules/dashboard/ndr/components/NdrSuccessByCourierGraph'
 import { NdrTotalToTerminatedBar } from 'page-modules/dashboard/ndr/components/NdrTotalTerminatedCounts'
-import { NdrShortSummary } from 'page-modules/dashboard/ndr/components/ShortSummary/ShortSummary'
+import { NdrShortSummary } from 'page-modules/dashboard/ndr/components/ShortSummary'
 
 export default function DashboardNDR() {
     return (

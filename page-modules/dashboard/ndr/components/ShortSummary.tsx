@@ -4,7 +4,7 @@ import React from 'react'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 
-import { useNdrShortSummary } from '../../hooks/queries'
+import { useNdrShortSummary } from '../hooks/queries'
 
 export function NdrShortSummary() {
     const { startDate, endDate } = useToolbarContext()

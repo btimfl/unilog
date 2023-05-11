@@ -556,3 +556,11 @@ export type FetchExportProgressType = {
 export async function fetchExportProgress(): Promise<FetchExportProgressType> {
     return await gateway(`session/api/v1/exports/progress`, { method: 'GET' })
 }
+
+export type FetchOverviewShipmentsSummaryType = Record<
+    'shipment_details' | 'ndr_details',
+    { title: string; value: number }[]
+>
+export async function fetchOverviewShipmentsSummary(): Promise<FetchOverviewShipmentsSummaryType> {
+    return await gateway(`session/api/v1/overview-dashboard/short-summary`, { method: 'GET' })
+}
