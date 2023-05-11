@@ -1,7 +1,7 @@
 import { FetchOverviewStatusSplitType } from 'apis/get'
 import { useEffect, useState } from 'react'
 
-export function useStatusSplitPie(data: FetchOverviewStatusSplitType | undefined) {
+export function usePie(data: FetchOverviewStatusSplitType | undefined) {
     const [graphData, setGraphData] = useState<{
         labels: string[]
         datasets: {

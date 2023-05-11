@@ -5,7 +5,7 @@ import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholde
 import Loading from 'shared/components/Loading/Loading'
 
 import { useOverviewStatusSplit } from '../hooks/queries'
-import { useStatusSplitPie } from '../hooks/useStatusSplitPie'
+import { usePie } from '../hooks/usePie'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -24,7 +24,7 @@ const options: {
 export default function StatusSplitPie() {
     const { data, isLoading, isError } = useOverviewStatusSplit()
 
-    const graphData = useStatusSplitPie(data)
+    const graphData = usePie(data)
 
     if (isLoading)
         return (

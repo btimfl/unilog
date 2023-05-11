@@ -1,5 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchOverviewStatusSplit, fetchOverviewSummary, fetchStateSplit } from 'apis/get'
+import {
+    fetchDeliveryPerformanceSplit,
+    fetchOverviewStatusSplit,
+    fetchOverviewSummary,
+    fetchStateSplit,
+} from 'apis/get'
 
 export function useOverviewStateSplit() {
     return useQuery({
@@ -23,6 +28,15 @@ export function useOverviewStatusSplit() {
     return useQuery({
         queryKey: ['overview-status-split'],
         queryFn: fetchOverviewStatusSplit,
+        refetchInterval: false,
+        refetchOnWindowFocus: false,
+    })
+}
+
+export function useDeliveryPerformanceSplit() {
+    return useQuery({
+        queryKey: ['overview-delivery-performance-split'],
+        queryFn: fetchDeliveryPerformanceSplit,
         refetchInterval: false,
         refetchOnWindowFocus: false,
     })

@@ -569,3 +569,11 @@ export type FetchOverviewStatusSplitType = {
 export async function fetchOverviewStatusSplit(): Promise<FetchOverviewStatusSplitType> {
     return await gateway(`session/api/v1/overview-dashboard/status-split`, { method: 'GET' })
 }
+
+export type FetchDeliveryPerformanceSplitType = {
+    title: string
+    value: number
+}[]
+export async function fetchDeliveryPerformanceSplit(): Promise<FetchDeliveryPerformanceSplitType> {
+    return await gateway(`session/api/v1/overview-dashboard/delivery-performance-split`, { method: 'GET' })
+}
