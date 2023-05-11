@@ -90,7 +90,7 @@ export default function NavBar() {
                                 </Center>
                             )}
                             {data &&
-                                data.map((file, index) => (
+                                data?.map((file, index) => (
                                     <Flex mt={1} justify={`space-between`} align="center" fontSize={'xs'} key={index}>
                                         <TextWithTooltip text={file.display_name} width="10rem" />
                                         {file.completed ? (
