@@ -1,5 +1,7 @@
 import { Center, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 
+import styles from './ChakraTable.module.scss'
+
 type Columns = {
     [key: string]: string
 }
@@ -13,8 +15,8 @@ type Props<T extends Columns> = {
 
 export default function ChakraTable<T extends Columns>({ columns, data }: Props<T>) {
     return (
-        <TableContainer>
-            <Table variant="simple" border={`1px solid var(--chakra-colors-gray-200)`}>
+        <TableContainer overflowY={'auto'} className={styles.tableContainer}>
+            <Table variant="simple" className={styles.table}>
                 <Thead>
                     <Tr>
                         {Object.keys(columns).map((columnKey) => {
@@ -26,7 +28,7 @@ export default function ChakraTable<T extends Columns>({ columns, data }: Props<
                                     fontWeight="normal"
                                     px={2}
                                     py={2}
-                                    borderLeft="1px solid var(--chakra-colors-gray-200)"
+                                    // borderLeft="1px solid var(--chakra-colors-gray-200)"
                                 >
                                     {columns[columnKey]}
                                 </Th>
@@ -45,7 +47,7 @@ export default function ChakraTable<T extends Columns>({ columns, data }: Props<
                                             px={2}
                                             py={2}
                                             fontSize="sm"
-                                            borderLeft="1px solid var(--chakra-colors-gray-200)"
+                                            // borderLeft="1px solid var(--chakra-colors-gray-200)"
                                         >
                                             {rowData[columnKey]}
                                         </Td>

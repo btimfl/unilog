@@ -85,6 +85,7 @@ type FetchMetaData = {
     code: number
     description: string
     result: {
+        allowed_urls: string[]
         tenant_profile: {
             tenant_name: string
             user_name: string
@@ -377,14 +378,18 @@ export async function fetchNdrFilterMetadata(filterKey: string): Promise<FetchNd
 }
 
 type NdrReasonResponse = {
-    ['Delivered shipments']: string | number
-    ['Lost/Damaged shipments']: string | number
-    ['Pending shipments']: string | number
-    ['RTO shipments']: string | number
-    ['Total NDRs Raised (1 shipment may have multiple reports)']: string | number
-    ['reason']?: string | number
+    'Delivered shipments': string | number
+    'Lost/Damaged shipments': string | number
+    'Pending shipments': string | number
+    'RTO shipments': string | number
+    'Total NDRs Raised (1 shipment may have multiple reports)': string | number
+    'reason': string
 }
 export type FetchNdrReasonSplitType = {
+    pie_chart: {
+        title: string
+        value: number
+    }[]
     reason_wise_count_details: NdrReasonResponse[]
 }
 export async function fetchNdrReasonSplit(startDate: string, endDate: string): Promise<FetchNdrReasonSplitType> {
@@ -422,6 +427,7 @@ export type LogoutResponseType = {
 export async function initLogout(): Promise<LogoutResponseType> {
     return await gateway(`api/seller/logout`, { method: 'GET' }, 'auth')
 }
+
 export type FetchNdrHistoryType = {
     historyData: Record<
         string,
@@ -446,13 +452,37 @@ export async function fetchNdrHistory(id: string): Promise<FetchNdrHistoryType> 
     })
 }
 
-export async function fetchNdrSuccessByCourier(startDate: string, endDate: string): Promise<FetchNdrHistoryType> {
+export type FetchNdrSuccessByCourierType = {
+    courier_wise_ndr_success: {
+        counts: {
+            title: 'Raised & Delivered' | 'Raised'
+            value: string
+        }[]
+        courier: string
+        delivered_percentage: number
+    }[]
+    overall: {
+        counts: {
+            title: 'Total NDR Raised shipments' | 'Total NDR Raised & Delivered shipments'
+            value: string
+        }[]
+        delivered_percentage: number
+    }
+}
+export async function fetchNdrSuccessByCourier(
+    startDate: string,
+    endDate: string,
+): Promise<FetchNdrSuccessByCourierType> {
     return await gateway(`session/api/v1/ndr/reports/courier-success?start_date=${startDate}&end_date=${endDate}`, {
         method: 'GET',
     })
 }
 
-export type FetchNdrTerminatedCountsType = object
+export type FetchNdrTerminatedCountsType = {
+    'date_range': string
+    'Total NDR shipments': number
+    'Terminated': number
+}[]
 export async function fetchNdrTotalTerminatedCounts(
     startDate: string,
     endDate: string,
@@ -532,4 +562,48 @@ export type FetchExportProgressType = {
 }[]
 export async function fetchExportProgress(): Promise<FetchExportProgressType> {
     return await gateway(`session/api/v1/exports/progress`, { method: 'GET' })
+}
+
+export type FetchOverviewSummaryType = Record<'shipment_details' | 'ndr_details', { title: string; value: number }[]>
+export async function fetchOverviewSummary(): Promise<FetchOverviewSummaryType> {
+    return await gateway(`session/api/v1/overview-dashboard/short-summary`, { method: 'GET' })
+}
+
+export type FetchOverviewStatusSplitType = {
+    title: string
+    value: number
+}[]
+export async function fetchOverviewStatusSplit(): Promise<FetchOverviewStatusSplitType> {
+    return await gateway(`session/api/v1/overview-dashboard/status-split`, { method: 'GET' })
+}
+
+export type FetchOverviewDeliveryPerformanceSplitType = {
+    title: string
+    value: number
+}[]
+export async function fetchOverviewDeliveryPerformanceSplit(): Promise<FetchOverviewDeliveryPerformanceSplitType> {
+    return await gateway(`session/api/v1/overview-dashboard/delivery-performance-split`, { method: 'GET' })
+}
+
+export type FetchOverviewCourierSplitType = {
+    title: string
+    value: number
+}[]
+export async function fetchOverviewCourierSplitType(): Promise<FetchOverviewCourierSplitType> {
+    return await gateway(`session/api/v1/overview-dashboard/courier-split`, { method: 'GET' })
+}
+
+export type FetchOverviewCourierWiseReportType = {
+    'Courier': string
+    'In Transit': number
+    'Delivered': number
+    'NDR Raised': number
+    'NDR Delivered': number
+    'NDR Pending': number
+    'RTO': number
+    'Out For Delivery': number
+    'Total Shipments': number
+}[]
+export async function fetchOverviewCourierWiseReport(): Promise<FetchOverviewCourierWiseReportType> {
+    return await gateway(`session/api/v1/overview-dashboard/courier-wise-report`, { method: 'GET' })
 }

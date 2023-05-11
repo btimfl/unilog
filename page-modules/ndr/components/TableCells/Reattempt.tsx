@@ -197,7 +197,7 @@ export default function Reattempt({ ndrReason, city, state, address, pincode, tr
                                         address: values.address,
                                         landmark: values.landmark,
                                         pincode: values.pincode,
-                                        comments: values.remark,
+                                        remark: values.remark,
                                         sub_remark: values.sub_remark,
                                         preferred_date: values.preferred_date,
                                         phone_number: values.phone_number,

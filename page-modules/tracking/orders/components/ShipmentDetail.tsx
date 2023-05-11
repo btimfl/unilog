@@ -1,10 +1,10 @@
 import { Box, Center, Divider, Flex, Text } from '@chakra-ui/react'
+import ChakraTable from 'shared/components/ChakraTable/ChakraTable'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 import { parseDate } from 'shared/utils/functions'
 
 import { useShipmentDetails } from '../hooks/queries'
-import ChakraTable from './ChakraTable'
 
 type Props = {
     trackingNumber: string
@@ -225,14 +225,18 @@ export default function ShipmentDetail({ trackingNumber }: Props) {
             <Text fontSize="md" mb={4}>
                 Order Items{' '}
             </Text>
-            <ChakraTable<typeof orderItemsColumns> columns={orderItemsColumns} data={orderItemsData} />
+            <Box border={`1px solid var(--chakra-colors-gray-200)`}>
+                <ChakraTable<typeof orderItemsColumns> columns={orderItemsColumns} data={orderItemsData} />
+            </Box>
 
             <Divider my={4} />
 
             <Text fontSize="md" mb={4}>
                 Tracking Events
             </Text>
-            <ChakraTable<typeof trackingEventsColumns> columns={trackingEventsColumns} data={trackingEventsData} />
+            <Box border={`1px solid var(--chakra-colors-gray-200)`}>
+                <ChakraTable<typeof trackingEventsColumns> columns={trackingEventsColumns} data={trackingEventsData} />
+            </Box>
         </>
     )
 }

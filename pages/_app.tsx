@@ -10,6 +10,8 @@ import React, { FC, ReactNode, useEffect } from 'react'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import { Toaster } from 'react-hot-toast'
+import AuthGuard from 'shared/components/AuthGuard'
+import AuthProvider from 'shared/providers/AuthProvider'
 
 import MainLayout from '../layouts/MainLayout'
 import '../styles/globals.css'
@@ -44,24 +46,28 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     return (
         <ChakraProvider resetCSS={true} theme={theme}>
             <QueryClientProvider client={queryClient}>
-                <Toaster
-                    toastOptions={{
-                        className: 'default-toast',
-                    }}
-                />
-                {router.route === '/404' || router.route === '/_error' || router.route === '/grant' ? (
-                    <Component {...pageProps} />
-                ) : (
-                    <MainLayout>
-                        {Component.layout ? (
-                            <Component.layout>
-                                <Component {...pageProps} />
-                            </Component.layout>
-                        ) : (
-                            <Component {...pageProps} />
-                        )}
-                    </MainLayout>
-                )}
+                <AuthProvider>
+                    <Toaster
+                        toastOptions={{
+                            className: 'default-toast',
+                        }}
+                    />
+                    {router.route === '/404' || router.route === '/_error' || router.route === '/grant' ? (
+                        <Component {...pageProps} />
+                    ) : (
+                        <MainLayout>
+                            <AuthGuard>
+                                {Component.layout ? (
+                                    <Component.layout>
+                                        <Component {...pageProps} />
+                                    </Component.layout>
+                                ) : (
+                                    <Component {...pageProps} />
+                                )}
+                            </AuthGuard>
+                        </MainLayout>
+                    )}
+                </AuthProvider>
             </QueryClientProvider>
         </ChakraProvider>
     )

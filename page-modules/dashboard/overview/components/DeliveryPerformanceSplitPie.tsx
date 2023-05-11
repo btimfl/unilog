@@ -1,12 +1,11 @@
 import { Center, Flex, Text } from '@chakra-ui/react'
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
-import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
 import { Doughnut } from 'react-chartjs-2'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 
-import { useNdrReason } from '../hooks/queries'
-import { useReasonSplitGraph } from '../hooks/useReasonSplitGraph'
+import { useOverviewDeliveryPerformanceSplit } from '../hooks/queries'
+import { usePie } from '../hooks/usePie'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -22,12 +21,10 @@ const options: {
     maintainAspectRatio: false,
 }
 
-export function NdrReasonSplitGraph() {
-    const { startDate, endDate } = useToolbarContext()
+export default function DeliveryPerformanceSplitPie() {
+    const { data, isLoading, isError } = useOverviewDeliveryPerformanceSplit()
 
-    const { data, isLoading, isError } = useNdrReason(startDate, endDate)
-
-    const graphData = useReasonSplitGraph(data)
+    const graphData = usePie(data)
 
     if (isLoading)
         return (
@@ -43,7 +40,7 @@ export function NdrReasonSplitGraph() {
             </Center>
         )
 
-    if (!data.pie_chart.length)
+    if (!data.length)
         return (
             <Center h={'300px'}>
                 <Text textAlign={`center`} fontSize="xs" color="gray.500">
