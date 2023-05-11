@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchOverviewShipmentsSummary, fetchStateSplit } from 'apis/get'
+import { fetchOverviewStatusSplit, fetchOverviewSummary, fetchStateSplit } from 'apis/get'
 
 export function useOverviewStateSplit() {
     return useQuery({
@@ -10,10 +10,19 @@ export function useOverviewStateSplit() {
     })
 }
 
-export function useOverviewShipmentsSummary() {
+export function useOverviewSummary() {
     return useQuery({
         queryKey: ['overview-shipment-summary'],
-        queryFn: fetchOverviewShipmentsSummary,
+        queryFn: fetchOverviewSummary,
+        refetchInterval: false,
+        refetchOnWindowFocus: false,
+    })
+}
+
+export function useOverviewStatusSplit() {
+    return useQuery({
+        queryKey: ['overview-status-split'],
+        queryFn: fetchOverviewStatusSplit,
         refetchInterval: false,
         refetchOnWindowFocus: false,
     })

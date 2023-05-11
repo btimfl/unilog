@@ -557,10 +557,15 @@ export async function fetchExportProgress(): Promise<FetchExportProgressType> {
     return await gateway(`session/api/v1/exports/progress`, { method: 'GET' })
 }
 
-export type FetchOverviewShipmentsSummaryType = Record<
-    'shipment_details' | 'ndr_details',
-    { title: string; value: number }[]
->
-export async function fetchOverviewShipmentsSummary(): Promise<FetchOverviewShipmentsSummaryType> {
+export type FetchOverviewSummaryType = Record<'shipment_details' | 'ndr_details', { title: string; value: number }[]>
+export async function fetchOverviewSummary(): Promise<FetchOverviewSummaryType> {
     return await gateway(`session/api/v1/overview-dashboard/short-summary`, { method: 'GET' })
+}
+
+export type FetchOverviewStatusSplitType = {
+    title: string
+    value: number
+}[]
+export async function fetchOverviewStatusSplit(): Promise<FetchOverviewStatusSplitType> {
+    return await gateway(`session/api/v1/overview-dashboard/status-split`, { method: 'GET' })
 }

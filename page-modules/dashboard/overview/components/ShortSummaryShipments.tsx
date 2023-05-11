@@ -2,10 +2,10 @@ import { HStack, Stat, StatGroup, StatLabel, StatNumber, Text } from '@chakra-ui
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 
-import { useOverviewShipmentsSummary } from '../hooks/queries'
+import { useOverviewSummary } from '../hooks/queries'
 
 export default function ShortSummaryShipments() {
-    const { data, isLoading, isError } = useOverviewShipmentsSummary()
+    const { data, isLoading, isError } = useOverviewSummary()
 
     if (isLoading) {
         return (
