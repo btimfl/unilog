@@ -413,8 +413,14 @@ export async function fetchNdrFunnels(startDate: string, endDate: string): Promi
     })
 }
 
-export async function initLogout(): Promise<object> {
-    return await gateway(`api/seller/logout`, { method: 'GET' })
+export type LogoutResponseType = {
+    code: number
+    description: string
+    result: object
+}
+
+export async function initLogout(): Promise<LogoutResponseType> {
+    return await gateway(`api/seller/logout`, { method: 'GET' }, 'auth')
 }
 export type FetchNdrHistoryType = {
     historyData: Record<
