@@ -1,7 +1,7 @@
 import { FetchNdrReasonSplitType } from 'apis/get'
 import { useEffect, useState } from 'react'
 
-export function useGraph(data: FetchNdrReasonSplitType | undefined) {
+export function useReasonSplitGraph(data: FetchNdrReasonSplitType | undefined) {
     const [graphData, setGraphData] = useState<{
         labels: string[]
         datasets: {

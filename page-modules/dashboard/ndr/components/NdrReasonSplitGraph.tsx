@@ -6,7 +6,7 @@ import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholde
 import Loading from 'shared/components/Loading/Loading'
 
 import { useNdrReason } from '../hooks/queries'
-import { useGraph } from '../hooks/useGraph'
+import { useReasonSplitGraph } from '../hooks/useReasonSplitGraph'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -27,7 +27,7 @@ export function NdrReasonSplitGraph() {
 
     const { data, isLoading, isError } = useNdrReason(startDate, endDate)
 
-    const graphData = useGraph(data)
+    const graphData = useReasonSplitGraph(data)
 
     if (isLoading)
         return (

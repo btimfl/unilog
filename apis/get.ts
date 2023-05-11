@@ -450,7 +450,11 @@ export async function fetchNdrSuccessByCourier(startDate: string, endDate: strin
     })
 }
 
-export type FetchNdrTerminatedCountsType = object
+export type FetchNdrTerminatedCountsType = {
+    'date_range': string
+    'Total NDR shipments': number
+    'Terminated': number
+}[]
 export async function fetchNdrTotalTerminatedCounts(
     startDate: string,
     endDate: string,
