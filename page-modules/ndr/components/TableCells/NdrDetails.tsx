@@ -21,11 +21,17 @@ export default function NdrDetails({ info: { getValue } }: Props) {
             </HStack>
             <HStack justifyContent="space-between">
                 {/* <Text className={styles.key}>Reason: </Text> */}
-                <Text className={styles.value}>{getValue().reason}</Text>
+                <Text className={styles.value} color="red.400" fontWeight="bold">
+                    {getValue().reason}
+                </Text>
             </HStack>
-            <HStack justifyContent="space-between">
+            <HStack justifyContent="space-between" mt={1}>
                 {/* <Text className={styles.key}>Status: </Text> */}
-                <Badge colorScheme={getValue().severity === 'LOW' ? 'orange' : 'red'} className={styles.value}>
+                <Badge
+                    colorScheme={getValue().severity === 'LOW' ? 'orange' : 'red'}
+                    className={styles.value}
+                    fontSize="10px"
+                >
                     {getValue().pending}
                 </Badge>
             </HStack>

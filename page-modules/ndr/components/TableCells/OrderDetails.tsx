@@ -38,10 +38,8 @@ export default function OrderDetails({ info: { getValue } }: Props) {
             <Popover>
                 <PopoverTrigger>
                     <Text
-                        textDecorationLine={'underline'}
-                        textDecorationStyle={'solid'}
-                        textDecorationColor={'purple'}
-                        color={'purple'}
+                        _hover={{ textDecoration: 'underline' }}
+                        color={'blue.400'}
                         cursor={'pointer'}
                         className={styles.value}
                         fontSize={'xs'}
