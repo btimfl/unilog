@@ -1,6 +1,7 @@
 import { Center, Flex, Icon, Text } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 import { initLogout } from 'apis/get'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { BiErrorAlt } from 'react-icons/bi'
@@ -22,6 +23,7 @@ export default function AuthGrant() {
     useEffect(() => {
         // console.log(JSON.stringify(data));
         if (data?.code === 80000) {
+            Cookies.remove('JWT-TOKEN')
             router.push('https://unilog.unicommerce.com/admin')
         }
     }, [data])
