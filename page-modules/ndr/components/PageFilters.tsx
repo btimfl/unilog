@@ -130,7 +130,9 @@ export default function PageFilters({ filters }: Props) {
                             {!!pageFilters.ndrReasons.length ? (
                                 `${pageFilters.ndrReasons.length} Selected`
                             ) : (
-                                <Text as="span">Select reasons</Text>
+                                <Text as="span" fontSize="xs">
+                                    NDR Reasons
+                                </Text>
                             )}
                             <AiFillCaretDown fontSize="14px" />
                         </Flex>
@@ -149,7 +151,7 @@ export default function PageFilters({ filters }: Props) {
                                                 }
                                                 className={styles.checkbox}
                                             >
-                                                {option.display}
+                                                <Text fontSize="xs">{option.display}</Text>
                                             </Checkbox>
                                         </MenuItem>
                                     ))}
@@ -172,7 +174,9 @@ export default function PageFilters({ filters }: Props) {
                             {!!pageFilters.shippingProviders.length ? (
                                 `${pageFilters.shippingProviders.length} Selected`
                             ) : (
-                                <Text as="span">Select Shipping Providers</Text>
+                                <Text as="span" fontSize="xs">
+                                    Shipping Providers
+                                </Text>
                             )}
                             <AiFillCaretDown fontSize="14px" />
                         </Flex>
@@ -189,7 +193,7 @@ export default function PageFilters({ filters }: Props) {
                                             }
                                             className={styles.checkbox}
                                         >
-                                            {option.name}
+                                            <Text fontSize="xs">{option.name}</Text>
                                         </Checkbox>
                                     </MenuItem>
                                 ))}

@@ -608,3 +608,12 @@ export type FetchOverviewCourierWiseReportType = {
 export async function fetchOverviewCourierWiseReport(): Promise<FetchOverviewCourierWiseReportType> {
     return await gateway(`session/api/v1/overview-dashboard/courier-wise-report`, { method: 'GET' })
 }
+
+export type DownloadableReportType = {
+    display_name: string
+    code: string
+}
+
+export async function fetchDownloadableReports(): Promise<DownloadableReportType[]> {
+    return await gateway(`session/api/v1/exports/items`, { method: 'GET' })
+}

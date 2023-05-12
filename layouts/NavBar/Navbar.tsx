@@ -32,14 +32,7 @@ import useExportProgress from './queries'
 export default function NavBar() {
     const { data, isLoading, isError, refetch } = useExportProgress()
     return (
-        <Flex
-            className={styles.NavBar}
-            flexDir="row"
-            justifyContent={'space-between'}
-            align="center"
-            px={4}
-            cursor="pointer"
-        >
+        <Flex className={styles.NavBar} flexDir="row" justifyContent={'space-between'} align="center" px={4}>
             <Flex className={styles.leftSide} align="center" ps={2}>
                 <BreadcrumbComp />
             </Flex>

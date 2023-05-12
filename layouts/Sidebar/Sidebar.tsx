@@ -13,6 +13,7 @@ import Link from 'next/link'
 import { FaLocationArrow } from 'react-icons/fa'
 import { HiOutlineDocument } from 'react-icons/hi'
 import { RxDashboard } from 'react-icons/rx'
+import { TbReportAnalytics } from 'react-icons/tb'
 import { ROUTES } from 'shared/utils/enums'
 
 import brandLogoUrl from './../../public/brandLogo.png'
@@ -21,7 +22,7 @@ import styles from './sidebar.module.scss'
 export default function Sidebar() {
     return (
         <Flex flexDir="column" className={`${styles.Sidebar} expanded`} px={4} position="absolute" align="flex-start">
-            <Flex align="center" gap={2} pt={4} pb={2}>
+            <Flex align="center" gap={2} pt={4} pb={2} minH="55px">
                 <Image src={brandLogoUrl} alt="Unilog" width="50" />
                 <Text className={styles.logoName} as="span" fontWeight="bold" color="white">
                     <Link href="/">UniLog</Link>
@@ -110,6 +111,18 @@ export default function Sidebar() {
                         </Flex>
                     </AccordionPanel>
                 </AccordionItem> */}
+                <AccordionItem border="0">
+                    <AccordionButton p={0} className={styles.menuItem} _hover={{ bgColor: 'gray.800' }}>
+                        <Link href="/reports" className={styles.menuLink}>
+                            <Flex flexDir="row" flexGrow={1} align="center" gap="0.5rem" py={3} px={2}>
+                                <Icon as={TbReportAnalytics} fontSize="lg" color="white" />
+                                <Text fontWeight="bold" className={styles.title} as="span" fontSize="sm" color="white">
+                                    Reports
+                                </Text>
+                            </Flex>
+                        </Link>
+                    </AccordionButton>
+                </AccordionItem>
             </Accordion>
         </Flex>
     )

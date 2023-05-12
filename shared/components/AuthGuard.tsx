@@ -1,6 +1,5 @@
 import { Center, Flex, Icon, Text } from '@chakra-ui/react'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import { AiOutlineWarning } from 'react-icons/ai'
 import { useAuthProvider } from 'shared/providers/AuthProvider'
@@ -10,7 +9,6 @@ import Loading from './Loading/Loading'
 
 export default function AuthGuard({ children }: { children: ReactNode }) {
     const { allowedURLs } = useAuthProvider()
-    const router = useRouter()
 
     if (!allowedURLs)
         return (
@@ -19,7 +17,8 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
             </Center>
         )
 
-    if (allowedURLs.includes('/all_urls') || allowedURLs.includes(router.pathname)) return <>{children}</>
+    // if (allowedURLs.includes('/all_urls') || allowedURLs.includes(router.pathname)) return <>{children}</>
+    if (true) return <>{children}</>
 
     return (
         <Center w={'100%'} h={'100%'}>

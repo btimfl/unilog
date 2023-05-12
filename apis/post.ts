@@ -1,3 +1,4 @@
+import { DownloadReportPayloadType } from 'page-modules/reports/hooks/queries'
 import { Filters } from 'page-modules/tracking/orders/types/filters'
 import { FieldValue } from 'shared/types/forms'
 
@@ -128,4 +129,8 @@ export async function fakeAttemptNDR(payload: FakeAttemptNDRType) {
         headers,
         body: JSON.stringify(payload),
     })
+}
+
+export async function initReportJobExecution(payload: DownloadReportPayloadType): Promise<object> {
+    return await gateway(`session/api/v1/exports/job-execution`, { method: 'POST', body: JSON.stringify(payload) })
 }
