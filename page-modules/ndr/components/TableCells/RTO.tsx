@@ -56,9 +56,9 @@ export default function RTO({ trackingNumber }: Props) {
         },
         {
             key: 'sub_remark',
-            display: 'Sub Remarks',
+            display: 'Subcomment',
             initValue: '',
-            placeHolder: 'Enter your remarks here',
+            placeHolder: 'Enter Subcomment',
             type: 'text_input',
             validation: Yup.string(),
         },

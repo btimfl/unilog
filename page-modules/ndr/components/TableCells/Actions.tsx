@@ -3,6 +3,7 @@ import { Button, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList } from '
 import { CellContext } from '@tanstack/react-table'
 import {
     ACTIONS,
+    CUSTOMER_DETAILS,
     DELIVERY_ADDRESS,
     NDR_DETAILS,
     ReportsColumns,
@@ -47,6 +48,7 @@ export default function Actions({ info: { row, getValue } }: Props) {
                                 <Reattempt
                                     ndrReason={(row.getValue('ndrDetails') as NDR_DETAILS).reason}
                                     address={(row.getValue('deliveryAddress') as DELIVERY_ADDRESS).address}
+                                    customerName={(row.getValue('customerDetails') as CUSTOMER_DETAILS).name}
                                     city={(row.getValue('deliveryAddress') as DELIVERY_ADDRESS).city}
                                     state={(row.getValue('deliveryAddress') as DELIVERY_ADDRESS).state}
                                     pincode={(row.getValue('deliveryAddress') as DELIVERY_ADDRESS).pincode}

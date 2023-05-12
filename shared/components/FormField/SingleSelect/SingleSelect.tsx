@@ -24,6 +24,7 @@ export default function SingleSelect({ fieldKey, field }: Props) {
                 !!(formik.errors as Record<string, string>)[fieldKey]
             }
             errorBorderColor={'crimson'}
+            className={`${!field.editable ? 'mandatory' : ''}`}
             {...formik.getFieldProps(fieldKey)}
         >
             {field.options?.filter((option) => !option.hidden)?.length ? (

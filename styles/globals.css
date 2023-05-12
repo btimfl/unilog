@@ -24,3 +24,8 @@ a {
 .HoverInfo {
     pointer-events: none !important;
 }
+
+.chakra-input.mandatory, 
+.chakra-select.mandatory {
+   background-color: ivory;
+}
