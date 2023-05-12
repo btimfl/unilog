@@ -8,23 +8,23 @@ import {
     Icon,
     Text,
 } from '@chakra-ui/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { FaLocationArrow } from 'react-icons/fa'
 import { HiOutlineDocument } from 'react-icons/hi'
-// import { IoMdSettings } from 'react-icons/io'
-import { IoLogoOctocat } from 'react-icons/io'
 import { RxDashboard } from 'react-icons/rx'
 import { ROUTES } from 'shared/utils/enums'
 
+import brandLogoUrl from './../../public/brandLogo.png'
 import styles from './sidebar.module.scss'
 
 export default function Sidebar() {
     return (
         <Flex flexDir="column" className={`${styles.Sidebar} expanded`} px={4} position="absolute" align="flex-start">
-            <Flex align="center" gap={2}>
-                <Icon color="white" as={IoLogoOctocat} fontSize={`32px`} mt={2} className={styles.logo} />
+            <Flex align="center" gap={2} pt={4} pb={2}>
+                <Image src={brandLogoUrl} alt="Unilog" width="50" />
                 <Text className={styles.logoName} as="span" fontWeight="bold" color="white">
-                    <Link href="/">Unilog</Link>
+                    <Link href="/">UniLog</Link>
                 </Text>
             </Flex>
             <Accordion allowToggle w={`100%`}>
