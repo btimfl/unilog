@@ -59,9 +59,4 @@ export function sanitiseData(apiResponse: FetchNonDeliveryReportsType | null | u
     }))
 }
 
-export const TAB_STATUS: NdrTabStatus[] = [
-    'NDR_RAISED_ACTION_REQUIRED',
-    'AUTO_REATTEMPT, SELLER_REATTEMPT, SELLER_RTO_ATTEMPTED, AUTO_RTO_ATTEMPTED, LAST_ACTION_FAILED, SHIPPING_PROVIDER_REATTEMPT, SHIPPING_PROVIDER_RTO_ATTEMPTED',
-    'DELIVERED',
-    'RTO_COMPLETED',
-]
+export const TAB_STATUS: NdrTabStatus[] = ['ACTION_REQUIRED', 'ACTION_TAKEN', 'DELIVERED', 'RTO']

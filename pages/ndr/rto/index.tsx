@@ -4,7 +4,7 @@ import Reports from 'page-modules/ndr/components/Reports'
 export default function RTO() {
     return (
         <>
-            <Reports tabStatus="RTO_COMPLETED" />
+            <Reports tabStatus="RTO" />
         </>
     )
 }
