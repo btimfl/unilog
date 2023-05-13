@@ -414,8 +414,14 @@ export async function fetchNdrFunnels(startDate: string, endDate: string): Promi
     })
 }
 
-export async function initLogout(): Promise<object> {
-    return await gateway(`api/seller/logout`, { method: 'GET' })
+export type LogoutResponseType = {
+    code: number
+    description: string
+    result: object
+}
+
+export async function initLogout(): Promise<LogoutResponseType> {
+    return await gateway(`api/seller/logout`, { method: 'GET' }, 'auth')
 }
 
 export type FetchNdrHistoryType = {
@@ -549,6 +555,7 @@ export type FetchExportProgressType = {
     display_name: string
     completed: boolean
     file_url: string
+    timestamp: string
 }[]
 export async function fetchExportProgress(): Promise<FetchExportProgressType> {
     return await gateway(`session/api/v1/exports/progress`, { method: 'GET' })
@@ -596,4 +603,13 @@ export type FetchOverviewCourierWiseReportType = {
 }[]
 export async function fetchOverviewCourierWiseReport(): Promise<FetchOverviewCourierWiseReportType> {
     return await gateway(`session/api/v1/overview-dashboard/courier-wise-report`, { method: 'GET' })
+}
+
+export type DownloadableReportType = {
+    display_name: string
+    code: string
+}
+
+export async function fetchDownloadableReports(): Promise<DownloadableReportType[]> {
+    return await gateway(`session/api/v1/exports/items`, { method: 'GET' })
 }

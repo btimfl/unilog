@@ -49,7 +49,7 @@ export default function DashboardOverview() {
                     </CardBody>
                 </Card>
             </HStack>
-            <HStack gap={2} mt={4}>
+            <HStack gap={2} mt={4} align="stretch">
                 <Flex gap={4} flexWrap={`wrap`} flexBasis={`25%`}>
                     <StateMap />
                 </Flex>

@@ -5,7 +5,6 @@ import FilterProvider from 'page-modules/ndr/FilterProvider'
 import FilterBar from 'page-modules/ndr/components/FilterBar'
 import FilterStatus from 'page-modules/ndr/components/FilterStatus'
 import PaginationBar from 'page-modules/ndr/components/PaginationBar'
-import TableActionsMenu from 'page-modules/ndr/components/TableActionsMenu'
 import React, { ReactNode, useEffect, useState } from 'react'
 import PageCard from 'shared/components/PageCard/PageCard'
 
@@ -105,7 +104,7 @@ export default function NDR({ children }: { children: ReactNode }) {
                                 gap={1}
                             >
                                 <PaginationBar />
-                                <TableActionsMenu />
+                                {/* <TableActionsMenu /> */}
                             </Flex>
                         </TabList>
 

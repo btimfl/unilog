@@ -1,5 +1,6 @@
 import {
     Box,
+    Divider,
     HStack,
     Popover,
     PopoverArrow,
@@ -38,10 +39,8 @@ export default function OrderDetails({ info: { getValue } }: Props) {
             <Popover>
                 <PopoverTrigger>
                     <Text
-                        textDecorationLine={'underline'}
-                        textDecorationStyle={'solid'}
-                        textDecorationColor={'purple'}
-                        color={'purple'}
+                        _hover={{ textDecoration: 'underline' }}
+                        color={'blue.400'}
                         cursor={'pointer'}
                         className={styles.value}
                         fontSize={'xs'}
@@ -55,14 +54,29 @@ export default function OrderDetails({ info: { getValue } }: Props) {
                     <PopoverHeader>
                         <Text fontWeight={'bold'}>Products</Text>
                     </PopoverHeader>
-                    <PopoverBody>
+                    <PopoverBody maxH={`200px`} overflow="auto">
                         {getValue().products.map((product, index) => {
                             return (
-                                <Box key={index}>
-                                    <TextWithTooltip text={`Name: ` + product.name} maxWidth={'13rem'} />
-                                    <TextWithTooltip text={`SKU: ` + product.sku} maxWidth={'13rem'} />
-                                    <TextWithTooltip text={`Price: ` + product.price} maxWidth={'13rem'} />
-                                </Box>
+                                <>
+                                    <Box key={index}>
+                                        <HStack justifyContent="space-between">
+                                            <Text className={styles.key}>Name: </Text>
+                                            <TextWithTooltip text={product.name} maxWidth={'13rem'} />
+                                        </HStack>
+                                        <HStack justifyContent="space-between">
+                                            <Text className={styles.key}>SKU: </Text>
+                                            <TextWithTooltip text={product.sku} maxWidth={'13rem'} />
+                                        </HStack>
+                                        <HStack justifyContent="space-between">
+                                            <Text className={styles.key}>Price: </Text>
+                                            <TextWithTooltip text={product.price} maxWidth={'13rem'} />
+                                        </HStack>
+                                        {/* <TextWithTooltip text={`Name: ` + product.name} maxWidth={'13rem'} /> */}
+                                        {/* <TextWithTooltip text={`SKU: ` + product.sku} maxWidth={'13rem'} /> */}
+                                        {/* <TextWithTooltip text={`Price: ` + product.price} maxWidth={'13rem'} /> */}
+                                    </Box>
+                                    {index !== getValue().products.length - 1 ? <Divider my={2} /> : <></>}
+                                </>
                             )
                         })}
                     </PopoverBody>

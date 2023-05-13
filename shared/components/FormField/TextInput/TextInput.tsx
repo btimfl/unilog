@@ -25,6 +25,7 @@ export default function TextInput({ fieldKey, field }: Props) {
             }
             errorBorderColor={'crimson'}
             {...formik.getFieldProps(fieldKey)}
+            className={`${!field.editable ? 'mandatory' : ''}`}
         />
     )
 }

@@ -34,14 +34,17 @@ export default function NdrReasonSplitTable() {
         totalNdrRaised: 'Total NDRs raised',
     }
 
-    const tableData: { [key in keyof typeof tableColumns]: string }[] =
+    const tableData: { [key in keyof typeof tableColumns]: { value: string; align: 'left' | 'right' } }[] =
         data.reason_wise_count_details.map((reason) => ({
-            reason: reason['reason'],
-            deliveredShipments: String(reason['Delivered shipments']),
-            lostOrDamagedShipments: String(reason['Lost/Damaged shipments']),
-            pendingShipments: String(reason['Pending shipments']),
-            rtoShipments: String(reason['RTO shipments']),
-            totalNdrRaised: String(reason['Total NDRs Raised (1 shipment may have multiple reports)']),
+            reason: { value: reason['reason'], align: 'left' },
+            deliveredShipments: { value: String(reason['Delivered shipments']), align: 'right' },
+            lostOrDamagedShipments: { value: String(reason['Lost/Damaged shipments']), align: 'right' },
+            pendingShipments: { value: String(reason['Pending shipments']), align: 'right' },
+            rtoShipments: { value: String(reason['RTO shipments']), align: 'right' },
+            totalNdrRaised: {
+                value: String(reason['Total NDRs Raised (1 shipment may have multiple reports)']),
+                align: 'right',
+            },
         })) || []
 
     return (

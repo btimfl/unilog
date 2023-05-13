@@ -12,6 +12,21 @@ module.exports = {
                 destination: '/dashboard/overview',
                 permanent: true,
             },
+            {
+                source: '/ndr',
+                destination: '/ndr/actions-required',
+                permanent: true,
+            },
+            {
+                source: '/dashboard',
+                destination: '/dashboard/overview',
+                permanent: true,
+            },
+            {
+                source: '/tracking',
+                destination: '/tracking/orders',
+                permanent: true,
+            },
         ]
     },
     ...nextConfig,

@@ -44,6 +44,19 @@ export default function FilterStatus() {
                 </CustomTag>
             )}
 
+            {/* SHIPPING PROVIDERS */}
+            {Boolean(pageFilters.shippingProviders.length) && (
+                <CustomTag title={'Shipping Provider'}>
+                    {pageFilters.shippingProviders.map((provider, index) => (
+                        <CustomBadge key={index}>
+                            {data
+                                .find((obj) => obj.key === 'shipping_providers')
+                                ?.option.find((opt) => opt.key === provider)?.display || provider}
+                        </CustomBadge>
+                    ))}
+                </CustomTag>
+            )}
+
             {/* CUSTOM FILTERS */}
             {Object.keys(customFilters).map((key) => {
                 if (Array.isArray(customFilters[key].value)) {

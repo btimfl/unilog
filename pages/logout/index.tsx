@@ -1,21 +1,32 @@
 import { Center, Flex, Icon, Text } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 import { initLogout } from 'apis/get'
-import React, { useState } from 'react'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 import { BiErrorAlt } from 'react-icons/bi'
 import { CgSpinner } from 'react-icons/cg'
 
 import styles from './grant.module.scss'
 
 export default function AuthGrant() {
+    const router = useRouter()
     const [hasError] = useState(false)
 
-    useQuery({
+    const { data } = useQuery({
         queryKey: ['initLogout'],
         queryFn: () => initLogout(),
         refetchOnWindowFocus: false,
         refetchOnMount: false,
     })
+
+    useEffect(() => {
+        // console.log(JSON.stringify(data));
+        if (data?.code === 80000) {
+            Cookies.remove('JWT-TOKEN')
+            router.push('https://unilog.unicommerce.com/admin')
+        }
+    }, [data])
 
     return (
         <>

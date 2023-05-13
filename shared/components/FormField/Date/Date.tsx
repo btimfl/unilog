@@ -25,6 +25,7 @@ export default function Date({ fieldKey, field }: Props) {
                 !!(formik.errors as Record<string, string>)[fieldKey]
             }
             errorBorderColor={'crimson'}
+            className={`${!field.editable ? 'mandatory' : ''}`}
             {...formik.getFieldProps(fieldKey)}
         />
     )

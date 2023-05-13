@@ -31,22 +31,35 @@ export default function NdrSuccessByCourierGraph() {
         raised: 'Raised',
     }
 
-    const tableData: { [key in keyof typeof tableColumns]: string }[] = [
+    let tableData: { [key in keyof typeof tableColumns]: { value: string; align: 'left' | 'right' } }[] = [
         {
-            courier: 'Overall',
-            deliveredPercentage: String(data.overall.delivered_percentage),
-            raisedAndDelivered: String(
-                data.overall.counts.find((count) => count.title === 'Total NDR Raised & Delivered shipments')?.value,
-            ),
-            raised: String(data.overall.counts.find((count) => count.title === 'Total NDR Raised shipments')?.value),
+            courier: { value: 'Overall', align: 'left' },
+            deliveredPercentage: { value: `${String(data.overall.delivered_percentage)} %`, align: 'right' },
+            raisedAndDelivered: {
+                value: String(
+                    data.overall.counts.find((count) => count.title === 'Total NDR Raised & Delivered shipments')
+                        ?.value,
+                ),
+                align: 'right',
+            },
+            raised: {
+                value: String(data.overall.counts.find((count) => count.title === 'Total NDR Raised shipments')?.value),
+                align: 'right',
+            },
         },
-        ...data.courier_wise_ndr_success.map((courier) => ({
-            courier: courier.courier,
-            deliveredPercentage: String(courier.delivered_percentage),
-            raisedAndDelivered: String(courier.counts.find((count) => count.title === 'Raised & Delivered')?.value),
-            raised: String(courier.counts.find((count) => count.title === 'Raised')?.value),
-        })),
     ]
+
+    tableData = tableData.concat(
+        data.courier_wise_ndr_success.map((courier) => ({
+            courier: { value: courier.courier, align: 'left' },
+            deliveredPercentage: { value: `${String(courier.delivered_percentage)} %`, align: 'right' },
+            raisedAndDelivered: {
+                value: String(courier.counts.find((count) => count.title === 'Raised & Delivered')?.value),
+                align: 'right',
+            },
+            raised: { value: String(courier.counts.find((count) => count.title === 'Raised')?.value), align: 'right' },
+        })),
+    )
 
     return (
         <Flex h={'300px'}>

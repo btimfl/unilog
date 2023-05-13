@@ -79,7 +79,7 @@ export default function DashboardNDR() {
                         <NdrSuccessByCourierGraph />
                     </CardBody>
                 </Card>
-                <Card w={`100%`}>
+                {/* <Card w={`100%`}>
                     <CardHeader py={3} fontWeight="bold">
                         NDR Reason
                     </CardHeader>
@@ -87,7 +87,7 @@ export default function DashboardNDR() {
                     <CardBody>
                         <NdrStatusSplitGraph />
                     </CardBody>
-                </Card>
+                </Card> */}
             </HStack>
         </>
     )

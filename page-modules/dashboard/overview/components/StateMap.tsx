@@ -23,14 +23,13 @@ export default function StateMap() {
                     justifyContent={'space-between'}
                     alignItems={'center'}
                 >
-                    <Text fontSize={'sm'}>Courier Split By State</Text>
+                    <Text>Courier Split By State</Text>
                     <Select
                         width={'auto'}
                         size={'sm'}
                         fontSize={'small'}
                         background={'white'}
                         borderRadius={'0.3rem'}
-                        placeholder={'Select Option'}
                         icon={<AiFillCaretDown fontSize={'14px'} />}
                         onChange={(e) => setCategory(e.target.value)}
                         value={category}

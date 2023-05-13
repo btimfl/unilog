@@ -42,15 +42,24 @@ type Props = {
     city: string
     state: string
     address: string
+    customerName: string
     pincode: string
     trackingNumber: string
 }
 
-export default function Reattempt({ ndrReason, city, state, address, pincode, trackingNumber }: Props) {
+export default function Reattempt({ ndrReason, city, state, address, customerName, pincode, trackingNumber }: Props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const { data } = useRemarks()
     const [FILTERS, setFILTERS] = useState<Filter[]>([
+        {
+            key: 'customerName',
+            display: 'Customer Name',
+            initValue: customerName,
+            placeHolder: 'Customer Name',
+            type: 'text_input',
+            validation: Yup.string().required('Required'),
+        },
         {
             key: 'address',
             display: 'Address',
@@ -77,9 +86,9 @@ export default function Reattempt({ ndrReason, city, state, address, pincode, tr
         },
         {
             key: 'sub_remark',
-            display: 'Sub Remarks',
+            display: 'Subcomment',
             initValue: '',
-            placeHolder: 'Enter your remarks here',
+            placeHolder: 'Enter Subcomment',
             type: 'text_input',
             validation: Yup.string(),
         },
@@ -167,15 +176,18 @@ export default function Reattempt({ ndrReason, city, state, address, pincode, tr
             <Drawer isOpen={isOpen} onClose={onClose} placement="right" size="md">
                 <DrawerOverlay />
                 <DrawerContent fontSize={'xs'}>
-                    <DrawerHeader>Reattempt Request</DrawerHeader>
+                    <DrawerHeader py={3} px={4} bg={`gray.100`} fontSize="md">
+                        Reattempt Request
+                    </DrawerHeader>
                     <DrawerCloseButton />
                     <DrawerBody>
-                        <Flex gap={2} padding={'1rem'} borderRadius={'0.25rem'} backgroundColor={'ivory'}>
+                        <Flex gap={2} py={4} borderRadius={'0.25rem'}>
                             <Text>Reason for NDR failure: </Text>
                             <Text color={'red'}>{ndrReason}</Text>
                         </Flex>
                         <Formik
                             initialValues={{
+                                customerName: customerName,
                                 address: address,
                                 landmark: '',
                                 remark: '',
@@ -230,10 +242,11 @@ export default function Reattempt({ ndrReason, city, state, address, pincode, tr
                                                     key={filter.key}
                                                 >
                                                     <Text
-                                                        as={'p'}
+                                                        as={'span'}
                                                         fontSize={'x-small'}
                                                         color={'gray.500'}
                                                         textTransform={'capitalize'}
+                                                        ps={3}
                                                     >
                                                         {filter.display}:
                                                     </Text>

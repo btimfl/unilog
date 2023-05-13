@@ -1,4 +1,4 @@
-import { CheckCircleIcon, ChevronDownIcon, CloseIcon } from '@chakra-ui/icons'
+import { CheckCircleIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import {
     Avatar,
     Center,
@@ -12,17 +12,18 @@ import {
     Popover,
     PopoverArrow,
     PopoverBody,
+    PopoverCloseButton,
     PopoverContent,
     PopoverHeader,
     PopoverTrigger,
     Text,
-    useDisclosure,
+    Tooltip,
 } from '@chakra-ui/react'
+import { formatDistanceToNow } from 'date-fns'
 import Link from 'next/link'
 import { FiDownload } from 'react-icons/fi'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
-import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
 import BreadcrumbComp from '../Breadcrumb/Breadcrumb'
 import styles from './navbar.module.scss'
@@ -30,27 +31,13 @@ import useExportProgress from './queries'
 
 export default function NavBar() {
     const { data, isLoading, isError, refetch } = useExportProgress()
-
-    const { isOpen, onOpen, onClose } = useDisclosure()
-
-    // const handleLogoutClick = () => {
-    //     Cookies.remove('JWT-TOKEN')
-    //     router.push('https://unilog.unicommerce.com/')
-    // }
     return (
-        <Flex
-            className={styles.NavBar}
-            flexDir="row"
-            justifyContent={'space-between'}
-            align="center"
-            px={4}
-            cursor="pointer"
-        >
+        <Flex className={styles.NavBar} flexDir="row" justifyContent={'space-between'} align="center" px={4}>
             <Flex className={styles.leftSide} align="center" ps={2}>
                 <BreadcrumbComp />
             </Flex>
             <Flex gap={4}>
-                <Popover isOpen={isOpen} placement="bottom-end" closeOnEsc={true} closeOnBlur={true}>
+                <Popover placement="bottom-end" closeOnEsc={true} isLazy>
                     <PopoverTrigger>
                         <IconButton
                             aria-label="export"
@@ -58,14 +45,7 @@ export default function NavBar() {
                             icon={<FiDownload />}
                             size="sm"
                             variant="ghost"
-                            onClick={
-                                isOpen
-                                    ? onClose
-                                    : () => {
-                                          refetch()
-                                          onOpen()
-                                      }
-                            }
+                            onClick={() => refetch()}
                         ></IconButton>
                     </PopoverTrigger>
                     <PopoverContent>
@@ -75,10 +55,10 @@ export default function NavBar() {
                                 <Text fontWeight={'bold'} fontSize="sm">
                                     Exports
                                 </Text>
-                                <CloseIcon onClick={onClose} fontSize="xs" />
+                                <PopoverCloseButton />
                             </Flex>
                         </PopoverHeader>
-                        <PopoverBody>
+                        <PopoverBody p={0} maxH={`200px`} overflow="auto">
                             {isLoading && (
                                 <Center h={'100px'}>
                                     <Loading />
@@ -90,17 +70,85 @@ export default function NavBar() {
                                 </Center>
                             )}
                             {data &&
-                                data.map((file, index) => (
+                                data?.map((file, index) => (
                                     <Flex mt={1} justify={`space-between`} align="center" fontSize={'xs'} key={index}>
-                                        <TextWithTooltip text={file.display_name} width="10rem" />
-                                        {file.completed ? (
-                                            <CheckCircleIcon fontSize={'0.8rem'} color={'green.400'} />
-                                        ) : (
-                                            <CircularProgress
-                                                className={styles.circularProgress}
-                                                isIndeterminate
-                                                color="#63b3ed"
-                                            />
+                                        {file.completed && (
+                                            <Link href={file.file_url} target="_blank" className={styles.exportLink}>
+                                                <Flex
+                                                    borderBottom="1px solid var(--chakra-colors-gray-200)"
+                                                    w={`100%`}
+                                                    px={4}
+                                                    py={2}
+                                                    justify={`space-between`}
+                                                    align="center"
+                                                >
+                                                    <Flex flexDir="column">
+                                                        <Text fontSize="sm">{file.display_name}</Text>
+                                                        <Text fontSize="xs" color="gray.500">
+                                                            Processed:{' '}
+                                                            <Tooltip hasArrow={true} label={file.timestamp}>
+                                                                {formatDistanceToNow(new Date(file.timestamp), {
+                                                                    addSuffix: true,
+                                                                })}
+                                                            </Tooltip>
+                                                        </Text>
+                                                    </Flex>
+
+                                                    <Flex justify={`flex-end`}>
+                                                        {file.completed ? (
+                                                            <Tooltip label="Download" hasArrow={true}>
+                                                                <CheckCircleIcon
+                                                                    fontSize={'1rem'}
+                                                                    color={'green.400'}
+                                                                />
+                                                            </Tooltip>
+                                                        ) : (
+                                                            <CircularProgress
+                                                                className={styles.circularProgress}
+                                                                isIndeterminate
+                                                                color="#63b3ed"
+                                                            />
+                                                        )}
+                                                    </Flex>
+                                                </Flex>
+                                            </Link>
+                                        )}
+
+                                        {!file.completed && (
+                                            <Flex
+                                                borderBottom="1px solid var(--chakra-colors-gray-200)"
+                                                w={`100%`}
+                                                px={4}
+                                                py={2}
+                                                justify={`space-between`}
+                                                align="center"
+                                            >
+                                                <Flex flexDir="column">
+                                                    <Text fontSize="sm">{file.display_name}</Text>
+                                                    <Text fontSize="xs" color="gray.500">
+                                                        Processed:{' '}
+                                                        <Tooltip hasArrow={true} label={file.timestamp}>
+                                                            {formatDistanceToNow(new Date(file.timestamp), {
+                                                                addSuffix: true,
+                                                            })}
+                                                        </Tooltip>
+                                                    </Text>
+                                                </Flex>
+
+                                                <Flex justify={`flex-end`}>
+                                                    {file.completed ? (
+                                                        <Tooltip label="Download" hasArrow={true}>
+                                                            <CheckCircleIcon fontSize={'1rem'} color={'green.400'} />
+                                                        </Tooltip>
+                                                    ) : (
+                                                        <CircularProgress
+                                                            className={styles.circularProgress}
+                                                            isIndeterminate
+                                                            color="#63b3ed"
+                                                        />
+                                                    )}
+                                                </Flex>
+                                            </Flex>
                                         )}
                                     </Flex>
                                 ))}
