@@ -528,7 +528,7 @@ export async function initiateDatatableExport({
             is_web,
         )}&shipping_provider_code=${domainHandler.encodeUriParams(
             shipping_provider_code,
-        )}&status=${domainHandler.encodeUriParams(status)}&query_string=${domainHandler.encodeUriParams(
+        )}&ndr_page=${domainHandler.encodeUriParams(status)}&query_string=${domainHandler.encodeUriParams(
             query_string,
         )}&from=${domainHandler.encodeUriParams(from)}&to=${domainHandler.encodeUriParams(
             to,
