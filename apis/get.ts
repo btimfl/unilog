@@ -262,11 +262,7 @@ export type FetchNonDeliveryReportsType = {
     }
 }
 
-export type NdrTabStatus =
-    | 'NDR_RAISED_ACTION_REQUIRED'
-    | 'AUTO_REATTEMPT, SELLER_REATTEMPT, SELLER_RTO_ATTEMPTED, AUTO_RTO_ATTEMPTED, LAST_ACTION_FAILED, SHIPPING_PROVIDER_REATTEMPT, SHIPPING_PROVIDER_RTO_ATTEMPTED'
-    | 'DELIVERED'
-    | 'RTO_COMPLETED'
+export type NdrTabStatus = 'ACTION_REQUIRED' | 'ACTION_TAKEN' | 'DELIVERED' | 'RTO'
 export async function fetchNonDeliveryReports({
     page,
     page_size,
@@ -300,7 +296,7 @@ export async function fetchNonDeliveryReports({
             page_size,
         )}&is_web=${domainHandler.encodeUriParams(is_web)}&shipping_provider_code=${domainHandler.encodeUriParams(
             shipping_provider_code,
-        )}&status=${domainHandler.encodeUriParams(status)}&query_string=${domainHandler.encodeUriParams(
+        )}&ndr_page=${domainHandler.encodeUriParams(status)}&query_string=${domainHandler.encodeUriParams(
             query_string,
         )}&from=${domainHandler.encodeUriParams(from)}&to=${domainHandler.encodeUriParams(
             to,
@@ -532,7 +528,7 @@ export async function initiateDatatableExport({
             is_web,
         )}&shipping_provider_code=${domainHandler.encodeUriParams(
             shipping_provider_code,
-        )}&status=${domainHandler.encodeUriParams(status)}&query_string=${domainHandler.encodeUriParams(
+        )}&ndr_page=${domainHandler.encodeUriParams(status)}&query_string=${domainHandler.encodeUriParams(
             query_string,
         )}&from=${domainHandler.encodeUriParams(from)}&to=${domainHandler.encodeUriParams(
             to,
