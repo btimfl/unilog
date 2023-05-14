@@ -39,6 +39,12 @@ export default async function gateway(URL: string, options: RequestInit, domain?
     const text = await res.text()
     const json = text ? JSON.parse(text) : {}
 
+    if (res.status !== 200) {
+        if (res.status === 403) {
+            Cookies.remove('JWT-TOKEN')
+        }
+    }
+
     if (!res.ok) {
         toast.error(`${json['errorMessage'] || 'An unidentified error occurred. Please try again later'}`, {
             position: 'top-right',
