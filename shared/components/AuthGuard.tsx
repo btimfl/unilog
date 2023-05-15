@@ -20,7 +20,7 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
         )
 
     if (allowedURLs.includes('/all_urls') || allowedURLs.includes(router.pathname)) return <>{children}</>
-    if (true) return <>{children}</>
+    // if (true) return <>{children}</>
 
     return (
         <Center w={'100%'} h={'100%'}>
