@@ -38,7 +38,7 @@ export default function NdrReasonSplitTable() {
         data.reason_wise_count_details.map((reason) => ({
             reason: { value: reason['reason'], align: 'left' },
             deliveredShipments: { value: String(reason['Delivered shipments']), align: 'right' },
-            lostOrDamagedShipments: { value: String(reason['Lost/Damaged shipments']), align: 'right' },
+            lostOrDamagedShipments: { value: String(reason['Lost/Damaged/Unknown shipments']), align: 'right' },
             pendingShipments: { value: String(reason['Pending shipments']), align: 'right' },
             rtoShipments: { value: String(reason['RTO shipments']), align: 'right' },
             totalNdrRaised: {

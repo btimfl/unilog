@@ -375,7 +375,7 @@ export async function fetchNdrFilterMetadata(filterKey: string): Promise<FetchNd
 
 type NdrReasonResponse = {
     'Delivered shipments': string | number
-    'Lost/Damaged shipments': string | number
+    'Lost/Damaged/Unknown shipments': string | number
     'Pending shipments': string | number
     'RTO shipments': string | number
     'Total NDRs Raised (1 shipment may have multiple reports)': string | number
