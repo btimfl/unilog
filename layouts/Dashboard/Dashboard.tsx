@@ -1,11 +1,11 @@
-import { Box, CardBody, IconButton, Tab, TabList, Tabs, Text, Tooltip } from '@chakra-ui/react'
+import { Box, CardBody, Tab, TabList, Tabs, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import ToolbarProvider from 'page-modules/dashboard/ToolbarProvider'
 import Toolbar from 'page-modules/dashboard/ndr/components/Toolbar'
 import React, { ReactNode, useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import { FiRefreshCw } from 'react-icons/fi'
+// import toast from 'react-hot-toast'
+// import { FiRefreshCw } from 'react-icons/fi'
 import PageCard from 'shared/components/PageCard/PageCard'
 import { ROUTES } from 'shared/utils/enums'
 
@@ -16,14 +16,16 @@ function TabToolbar(tabIndex: number): ReactNode {
     switch (tabIndex) {
         case 0:
             return (
-                <Tooltip label="Refresh" hasArrow>
+                <>
+                    {/* <Tooltip label="Refresh" hasArrow>
                     <IconButton
                         size="sm"
                         aria-label={'Refresh'}
                         icon={<FiRefreshCw />}
                         onClick={() => toast('Refreshing...')}
                     />
-                </Tooltip>
+                </Tooltip> */}
+                </>
             )
         case 1:
             return <Toolbar />
