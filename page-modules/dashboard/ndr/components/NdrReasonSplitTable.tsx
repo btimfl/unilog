@@ -26,11 +26,11 @@ export default function NdrReasonSplitTable() {
         )
 
     const tableColumns = {
-        reason: '',
-        deliveredShipments: 'Delivered Shipments',
-        lostOrDamagedShipments: 'Lost / Damaged Shipments',
-        pendingShipments: 'Pending Shipments',
-        rtoShipments: 'RTO Shipments',
+        reason: 'Reason',
+        deliveredShipments: 'Delivered',
+        lostOrDamagedShipments: 'Lost / Damaged / Unknown',
+        pendingShipments: 'Pending',
+        rtoShipments: 'RTO',
         totalNdrRaised: 'Total NDRs raised',
     }
 
