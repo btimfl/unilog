@@ -31,29 +31,6 @@ export const options = {
     maintainAspectRatio: false,
 }
 
-const labels = ['January', 'February', 'March', 'April', 'May']
-
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: 'Dataset 1',
-            data: labels.map(() => 200),
-            backgroundColor: 'rgb(255, 99, 132)',
-        },
-        {
-            label: 'Dataset 2',
-            data: labels.map(() => 250),
-            backgroundColor: 'rgb(75, 192, 192)',
-        },
-        {
-            label: 'Dataset 3',
-            data: labels.map(() => 600),
-            backgroundColor: 'rgb(53, 162, 235)',
-        },
-    ],
-}
-
 export function NdrTotalToTerminatedBar() {
     const { startDate, endDate } = useToolbarContext()
 

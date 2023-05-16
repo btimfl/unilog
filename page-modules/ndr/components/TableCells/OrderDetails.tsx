@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { CellContext } from '@tanstack/react-table'
 import { ORDER_DETAILS, ReportsColumns } from 'page-modules/ndr/types/reports'
+import { Fragment } from 'react'
 import TextWithTooltip from 'shared/components/TextWithTooltip/TextWithTooltip'
 
 import styles from './cell-styles.module.scss'
@@ -57,8 +58,8 @@ export default function OrderDetails({ info: { getValue } }: Props) {
                     <PopoverBody maxH={`200px`} overflow="auto">
                         {getValue().products.map((product, index) => {
                             return (
-                                <>
-                                    <Box key={index}>
+                                <Fragment key={index}>
+                                    <Box>
                                         <HStack justifyContent="space-between">
                                             <Text className={styles.key}>Name: </Text>
                                             <TextWithTooltip text={product.name} maxWidth={'13rem'} />
@@ -76,7 +77,7 @@ export default function OrderDetails({ info: { getValue } }: Props) {
                                         {/* <TextWithTooltip text={`Price: ` + product.price} maxWidth={'13rem'} /> */}
                                     </Box>
                                     {index !== getValue().products.length - 1 ? <Divider my={2} /> : <></>}
-                                </>
+                                </Fragment>
                             )
                         })}
                     </PopoverBody>

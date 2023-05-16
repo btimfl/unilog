@@ -22,12 +22,12 @@ export function useTotalTerminatedBar(data: FetchNdrTerminatedCountsType | undef
             datasets: [
                 {
                     label: 'Total',
-                    data: data.map((el) => el.Terminated) || [],
+                    data: data.map((el) => el['Total NDR shipments']) || [],
                     backgroundColor: 'rgb(255, 99, 132)',
                 },
                 {
                     label: 'Terminated',
-                    data: data.map((el) => el['Total NDR shipments']) || [],
+                    data: data.map((el) => el.Terminated) || [],
                     backgroundColor: 'rgb(75, 192, 192)',
                 },
             ],
