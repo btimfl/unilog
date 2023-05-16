@@ -13,7 +13,9 @@ export default function FilterStatus() {
 
     return (
         <Flex backgroundColor={'white'} gap={2} fontSize="sm" height="2rem" overflowX="auto" align="center">
-            <Text fontSize="sm">Filters Applied: </Text>
+            <Text fontSize="sm" minWidth={'max-content'}>
+                Filters Applied:{' '}
+            </Text>
             {/* DATE RANGE */}
             <CustomTag title={'DATE'}>
                 <Divider orientation="vertical" borderColor="red" />

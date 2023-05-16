@@ -1,5 +1,6 @@
 import { SearchIcon } from '@chakra-ui/icons'
 import {
+    Box,
     Checkbox,
     Flex,
     Icon,
@@ -18,6 +19,8 @@ import {
     useDisclosure,
 } from '@chakra-ui/react'
 import { NdrFilter } from 'apis/get'
+import AutoComplete from 'lib/AutoComplete/AutoComplete'
+import { Option } from 'lib/AutoComplete/AutoComplete'
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
 import { DateRangePicker } from 'react-date-range'
 import { AiFillCaretDown } from 'react-icons/ai'
@@ -120,7 +123,7 @@ export default function PageFilters({ filters }: Props) {
                 </PopoverContent>
             </Popover>
 
-            <Menu autoSelect={false} closeOnSelect={false} placement="bottom-end">
+            {/* <Menu autoSelect={false} closeOnSelect={false} placement="bottom-end">
                 <MenuButton background="white" fontSize="small" w={'100%'} minW={'10rem'}>
                     <Flex
                         align="center"
@@ -160,7 +163,22 @@ export default function PageFilters({ filters }: Props) {
                         <MenuItem isDisabled={true}>No Options Available</MenuItem>
                     )}
                 </MenuList>
-            </Menu>
+            </Menu> */}
+
+            <Box fontSize="small" w={'100%'} minW={'13rem'}>
+                <AutoComplete
+                    placeholder="Select reasons"
+                    options={
+                        ndrReasons?.option
+                            .filter((option) => option.enable)
+                            .map((option) => ({ label: option.display, value: option.key })) || []
+                    }
+                    setSelectedItems={(options: Option[]) =>
+                        setPageFilters((filters) => ({ ...filters, ndrReasons: options.map((option) => option.value) }))
+                    }
+                    multi={true}
+                />
+            </Box>
 
             <Menu autoSelect={false} closeOnSelect={false} placement="bottom-end">
                 <MenuButton background="white" fontSize="small" w={'100%'} minW={'13rem'}>
