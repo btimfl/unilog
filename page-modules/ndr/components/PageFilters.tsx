@@ -118,92 +118,89 @@ export default function PageFilters({ filters }: Props) {
                         direction="horizontal"
                     />
                 </PopoverContent>
-                <Menu autoSelect={false} closeOnSelect={false} placement="bottom-end">
-                    <MenuButton background="white" fontSize="small" w={'100%'} minW={'10rem'}>
-                        <Flex
-                            align="center"
-                            justifyContent="space-between"
-                            fontWeight="normal"
-                            borderRadius={'0.3rem'}
-                            className={styles.filterByButton}
-                        >
-                            {!!pageFilters.ndrReasons.length ? (
-                                `${pageFilters.ndrReasons.length} Selected`
-                            ) : (
-                                <Text as="span" fontSize="xs">
-                                    NDR Reasons
-                                </Text>
-                            )}
-                            <AiFillCaretDown fontSize="14px" />
-                        </Flex>
-                    </MenuButton>
-                    <MenuList zIndex={3} maxH={'300px'} overflow={'auto'}>
-                        {ndrReasons?.option?.filter((option) => option.enable)?.length ? (
-                            <>
-                                {ndrReasons.option
-                                    .filter((option) => option.enable)
-                                    .map((option) => (
-                                        <MenuItem key={option.key}>
-                                            <Checkbox
-                                                isChecked={pageFilters.ndrReasons.includes(option.key)}
-                                                onChange={($event) =>
-                                                    onCheckboxChange($event, 'ndrReasons', option.key)
-                                                }
-                                                className={styles.checkbox}
-                                            >
-                                                <Text fontSize="xs">{option.display}</Text>
-                                            </Checkbox>
-                                        </MenuItem>
-                                    ))}
-                            </>
-                        ) : (
-                            <MenuItem isDisabled={true}>No Options Available</MenuItem>
-                        )}
-                    </MenuList>
-                </Menu>
+            </Popover>
 
-                <Menu autoSelect={false} closeOnSelect={false} placement="bottom-end">
-                    <MenuButton background="white" fontSize="small" w={'100%'} minW={'13rem'}>
-                        <Flex
-                            align="center"
-                            justifyContent="space-between"
-                            fontWeight="normal"
-                            borderRadius={'0.3rem'}
-                            className={styles.filterByButton}
-                        >
-                            {!!pageFilters.shippingProviders.length ? (
-                                `${pageFilters.shippingProviders.length} Selected`
-                            ) : (
-                                <Text as="span" fontSize="xs">
-                                    Shipping Providers
-                                </Text>
-                            )}
-                            <AiFillCaretDown fontSize="14px" />
-                        </Flex>
-                    </MenuButton>
-                    <MenuList zIndex={3} maxH={'300px'} overflow={'auto'}>
-                        {data ? (
-                            <>
-                                {data?.data.map((option) => (
+            <Menu autoSelect={false} closeOnSelect={false} placement="bottom-end">
+                <MenuButton background="white" fontSize="small" w={'100%'} minW={'10rem'}>
+                    <Flex
+                        align="center"
+                        justifyContent="space-between"
+                        fontWeight="normal"
+                        borderRadius={'0.3rem'}
+                        className={styles.filterByButton}
+                    >
+                        {!!pageFilters.ndrReasons.length ? (
+                            `${pageFilters.ndrReasons.length} Selected`
+                        ) : (
+                            <Text as="span" fontSize="xs">
+                                NDR Reasons
+                            </Text>
+                        )}
+                        <AiFillCaretDown fontSize="14px" />
+                    </Flex>
+                </MenuButton>
+                <MenuList zIndex={3} maxH={'300px'} overflow={'auto'}>
+                    {ndrReasons?.option?.filter((option) => option.enable)?.length ? (
+                        <>
+                            {ndrReasons.option
+                                .filter((option) => option.enable)
+                                .map((option) => (
                                     <MenuItem key={option.key}>
                                         <Checkbox
-                                            isChecked={pageFilters.shippingProviders.includes(option.key)}
-                                            onChange={($event) =>
-                                                onCheckboxChange($event, 'shippingProviders', option.key)
-                                            }
+                                            isChecked={pageFilters.ndrReasons.includes(option.key)}
+                                            onChange={($event) => onCheckboxChange($event, 'ndrReasons', option.key)}
                                             className={styles.checkbox}
                                         >
-                                            <Text fontSize="xs">{option.name}</Text>
+                                            <Text fontSize="xs">{option.display}</Text>
                                         </Checkbox>
                                     </MenuItem>
                                 ))}
-                            </>
+                        </>
+                    ) : (
+                        <MenuItem isDisabled={true}>No Options Available</MenuItem>
+                    )}
+                </MenuList>
+            </Menu>
+
+            <Menu autoSelect={false} closeOnSelect={false} placement="bottom-end">
+                <MenuButton background="white" fontSize="small" w={'100%'} minW={'13rem'}>
+                    <Flex
+                        align="center"
+                        justifyContent="space-between"
+                        fontWeight="normal"
+                        borderRadius={'0.3rem'}
+                        className={styles.filterByButton}
+                    >
+                        {!!pageFilters.shippingProviders.length ? (
+                            `${pageFilters.shippingProviders.length} Selected`
                         ) : (
-                            <MenuItem isDisabled={true}>No Options Available</MenuItem>
+                            <Text as="span" fontSize="xs">
+                                Shipping Providers
+                            </Text>
                         )}
-                    </MenuList>
-                </Menu>
-            </Popover>
+                        <AiFillCaretDown fontSize="14px" />
+                    </Flex>
+                </MenuButton>
+                <MenuList zIndex={3} maxH={'300px'} overflow={'auto'}>
+                    {data ? (
+                        <>
+                            {data?.data.map((option) => (
+                                <MenuItem key={option.key}>
+                                    <Checkbox
+                                        isChecked={pageFilters.shippingProviders.includes(option.key)}
+                                        onChange={($event) => onCheckboxChange($event, 'shippingProviders', option.key)}
+                                        className={styles.checkbox}
+                                    >
+                                        <Text fontSize="xs">{option.name}</Text>
+                                    </Checkbox>
+                                </MenuItem>
+                            ))}
+                        </>
+                    ) : (
+                        <MenuItem isDisabled={true}>No Options Available</MenuItem>
+                    )}
+                </MenuList>
+            </Menu>
         </Flex>
     )
 }
