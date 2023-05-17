@@ -6,7 +6,7 @@ export function usePie(data: FetchOverviewStatusSplitType | undefined) {
         labels: string[]
         datasets: {
             label: string
-            data: (string | number)[]
+            data: number[]
             backgroundColor: string[]
         }[]
     }>({

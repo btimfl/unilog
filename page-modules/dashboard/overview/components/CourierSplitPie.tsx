@@ -1,25 +1,10 @@
 import { Center, Flex, Text } from '@chakra-ui/react'
-import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
-import { Doughnut } from 'react-chartjs-2'
+import PieChart from 'lib/Charts/PieChart/PieChart'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 
 import { useOverviewCourierSplit } from '../hooks/queries'
 import { usePie } from '../hooks/usePie'
-
-ChartJS.register(ArcElement, Tooltip, Legend)
-
-const options: {
-    animation: {
-        duration: number
-    }
-    maintainAspectRatio: boolean
-} = {
-    animation: {
-        duration: 500,
-    },
-    maintainAspectRatio: false,
-}
 
 export default function CourierSplitPie() {
     const { data, isLoading, isError } = useOverviewCourierSplit()
@@ -51,7 +36,7 @@ export default function CourierSplitPie() {
 
     return (
         <Flex h={`400px`} justify="center">
-            <Doughnut data={graphData} options={options} width="100%" />
+            <PieChart data={graphData} />
         </Flex>
     )
 }
