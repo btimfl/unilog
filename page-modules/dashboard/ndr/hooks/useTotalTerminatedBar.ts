@@ -6,7 +6,7 @@ export function useTotalTerminatedBar(data: FetchNdrTerminatedCountsType | undef
         labels: string[]
         datasets: {
             label: string
-            data: string | number[] | number
+            data: (number | [number, number] | null)[]
             backgroundColor: string
         }[]
     }>({

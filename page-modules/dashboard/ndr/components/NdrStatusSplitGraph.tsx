@@ -1,38 +1,16 @@
 import { Center, Flex } from '@chakra-ui/react'
 import { NdrStatusSplitResult } from 'apis/get'
-import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js'
+import BarGraph from 'lib/Charts/BarGraph/BarGraph'
 import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
 import React, { useEffect, useState } from 'react'
-import { Bar } from 'react-chartjs-2'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 
 import { useNdrStatus } from '../hooks/queries'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
-
-export const options = {
-    plugins: {
-        title: {
-            display: false,
-            text: 'NDR Status',
-        },
-    },
-    responsive: true,
-    scales: {
-        x: {
-            stacked: true,
-        },
-        y: {
-            stacked: true,
-        },
-    },
-    maintainAspectRatio: false,
-}
-
 type chartType = {
     label: string
-    data: string | number[] | number
+    data: (number | [number, number] | null)[]
     backgroundColor: string
 }
 
@@ -97,11 +75,7 @@ export function NdrStatusSplitGraph() {
 
     return (
         <Flex h={`300px`}>
-            {graphData?.labels.length && graphData?.datasets.length ? (
-                <Bar options={options} data={graphData} />
-            ) : (
-                <></>
-            )}
+            {graphData?.labels.length && graphData?.datasets.length ? <BarGraph data={graphData} /> : <></>}
         </Flex>
     )
 }

@@ -1,35 +1,12 @@
 import { Center, Flex } from '@chakra-ui/react'
-import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js'
+import BarGraph from 'lib/Charts/BarGraph/BarGraph'
 import { useToolbarContext } from 'page-modules/dashboard/ToolbarProvider'
 import React from 'react'
-import { Bar } from 'react-chartjs-2'
 import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholder'
 import Loading from 'shared/components/Loading/Loading'
 
 import { useNdrTerminatedCounts } from '../hooks/queries'
 import { useTotalTerminatedBar } from '../hooks/useTotalTerminatedBar'
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
-
-export const options = {
-    plugins: {
-        title: {
-            display: false,
-            text: 'NDR Status',
-        },
-    },
-    responsive: true,
-    scales: {
-        x: {
-            outerWidth: '0px',
-            stacked: true,
-        },
-        y: {
-            stacked: true,
-        },
-    },
-    maintainAspectRatio: false,
-}
 
 export function NdrTotalToTerminatedBar() {
     const { startDate, endDate } = useToolbarContext()
@@ -54,7 +31,7 @@ export function NdrTotalToTerminatedBar() {
 
     return (
         <Flex h={`300px`}>
-            <Bar options={options} data={barData} />
+            <BarGraph data={barData} />
         </Flex>
     )
 }
