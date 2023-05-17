@@ -29,6 +29,11 @@ export default function MultiSelect({ field: { options }, fieldKey }: Props) {
             selectedOptions={values}
             onOptionClick={onCheckboxChange}
             placeholder={!!values ? `${values.length} Selected` : <Text as="span">Select options</Text>}
+            menuButtonFlexProps={{
+                h: '2rem',
+                border: '1px solid var(--chakra-colors-gray-200)',
+                padding: 'var(--chakra-space-2) var(--chakra-space-3)',
+            }}
         />
     )
 }

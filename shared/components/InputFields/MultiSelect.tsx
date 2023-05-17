@@ -15,6 +15,8 @@ import {
 import { ChangeEvent, ReactNode } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
 
+import styles from './InputFields.module.scss'
+
 type Props = {
     options: { key: string; display: string }[] | undefined
     selectedOptions: string[]
@@ -61,6 +63,7 @@ export default function MultiSelect({
                             <Checkbox
                                 isChecked={selectedOptions.includes(option.key)}
                                 onChange={($event) => onOptionClick($event, option.key)}
+                                className={styles.checkbox}
                                 {...checkboxProps}
                             >
                                 {option.display}
