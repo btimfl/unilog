@@ -102,7 +102,7 @@ export default function PageFilters({ filters }: Props) {
                 </PopoverContent>
             </Popover>
 
-            <Box fontSize="small" w={'100%'} minW={'13rem'}>
+            <Box fontSize="small" w={'100%'} minW={'14.5rem'}>
                 <AutoComplete
                     placeholder="Select NDR reasons"
                     options={
