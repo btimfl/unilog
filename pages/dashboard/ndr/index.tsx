@@ -1,11 +1,11 @@
 import { Card, CardBody, CardHeader, Divider, HStack } from '@chakra-ui/react'
 import Dashboard from 'layouts/Dashboard/Dashboard'
 import NdrFunnels from 'page-modules/dashboard/ndr/components/NdrFunnels'
-import { NdrReasonSplitGraph } from 'page-modules/dashboard/ndr/components/NdrReasonSplitGraph'
+import { NdrReasonSplitGraph } from 'page-modules/dashboard/ndr/components/NdrReasonSplitPie'
 import NdrReasonSplitTable from 'page-modules/dashboard/ndr/components/NdrReasonSplitTable'
-import { NdrStatusSplitGraph } from 'page-modules/dashboard/ndr/components/NdrStatusSplitGraph'
-import NdrSuccessByCourierGraph from 'page-modules/dashboard/ndr/components/NdrSuccessByCourierGraph'
-import { NdrTotalToTerminatedBar } from 'page-modules/dashboard/ndr/components/NdrTotalTerminatedCounts'
+import { NdrStatusSplitGraph } from 'page-modules/dashboard/ndr/components/NdrStatusSplitBar'
+import NdrSuccessByCourierGraph from 'page-modules/dashboard/ndr/components/NdrSuccessByCourierTable'
+import { NdrTotalToTerminatedBar } from 'page-modules/dashboard/ndr/components/NdrTotalTerminatedCountsBar'
 import { NdrShortSummary } from 'page-modules/dashboard/ndr/components/ShortSummary'
 
 export default function DashboardNDR() {

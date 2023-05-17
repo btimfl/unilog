@@ -5,7 +5,7 @@ import ErrorPlaceholder from 'shared/components/ErrorPlaceholder/ErrorPlaceholde
 import Loading from 'shared/components/Loading/Loading'
 
 import { useNdrReason } from '../hooks/queries'
-import { useReasonSplitGraph } from '../hooks/useReasonSplitGraph'
+import { useReasonSplitGraph } from '../hooks/useReasonSplitPie'
 
 export function NdrReasonSplitGraph() {
     const { startDate, endDate } = useToolbarContext()
