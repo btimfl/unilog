@@ -1,35 +1,27 @@
 import { SearchIcon } from '@chakra-ui/icons'
 import {
     Box,
-    Checkbox,
     Flex,
     Icon,
     Input,
     InputGroup,
     InputLeftAddon,
     InputLeftElement,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
     Popover,
     PopoverContent,
     PopoverTrigger,
-    Text,
     useDisclosure,
 } from '@chakra-ui/react'
 import { NdrFilter } from 'apis/get'
 import AutoComplete from 'lib/AutoComplete/AutoComplete'
 import { Option } from 'lib/AutoComplete/AutoComplete'
-import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
+import { KeyboardEvent, useEffect, useState } from 'react'
 import { DateRangePicker } from 'react-date-range'
-import { AiFillCaretDown } from 'react-icons/ai'
 import { RxCalendar } from 'react-icons/rx'
 import { useDateRange } from 'shared/hooks/useDateRange'
 
 import { useFilterContext } from '../FilterProvider'
 import { useShippingProviders } from '../hooks/queries'
-import styles from './PageFilters.module.scss'
 
 type Props = {
     filters: NdrFilter[] // this can be an empty array if network call fails
@@ -56,19 +48,6 @@ export default function PageFilters({ filters }: Props) {
     const { range, setRange } = useDateRange(onClose, setStartDate, setEndDate)
 
     const ndrReasons = filters.find((filter) => filter.key === 'ndr_status')
-
-    const onCheckboxChange = (
-        ev: ChangeEvent<HTMLInputElement>,
-        field: 'ndrReasons' | 'shippingProviders',
-        key: string,
-    ) => {
-        if (ev.target.checked) setPageFilters((filters) => ({ ...filters, [field]: [...filters[field], key] }))
-        else
-            setPageFilters((filters) => ({
-                ...filters,
-                [field]: filters[field].filter((value) => value !== key),
-            }))
-    }
 
     useEffect(() => {
         setPageFilters((filters) => ({ ...filters, startDate, endDate }))
@@ -123,51 +102,9 @@ export default function PageFilters({ filters }: Props) {
                 </PopoverContent>
             </Popover>
 
-            {/* <Menu autoSelect={false} closeOnSelect={false} placement="bottom-end">
-                <MenuButton background="white" fontSize="small" w={'100%'} minW={'10rem'}>
-                    <Flex
-                        align="center"
-                        justifyContent="space-between"
-                        fontWeight="normal"
-                        borderRadius={'0.3rem'}
-                        className={styles.filterByButton}
-                    >
-                        {!!pageFilters.ndrReasons.length ? (
-                            `${pageFilters.ndrReasons.length} Selected`
-                        ) : (
-                            <Text as="span" fontSize="xs">
-                                NDR Reasons
-                            </Text>
-                        )}
-                        <AiFillCaretDown fontSize="14px" />
-                    </Flex>
-                </MenuButton>
-                <MenuList zIndex={3} maxH={'300px'} overflow={'auto'}>
-                    {ndrReasons?.option?.filter((option) => option.enable)?.length ? (
-                        <>
-                            {ndrReasons.option
-                                .filter((option) => option.enable)
-                                .map((option) => (
-                                    <MenuItem key={option.key}>
-                                        <Checkbox
-                                            isChecked={pageFilters.ndrReasons.includes(option.key)}
-                                            onChange={($event) => onCheckboxChange($event, 'ndrReasons', option.key)}
-                                            className={styles.checkbox}
-                                        >
-                                            <Text fontSize="xs">{option.display}</Text>
-                                        </Checkbox>
-                                    </MenuItem>
-                                ))}
-                        </>
-                    ) : (
-                        <MenuItem isDisabled={true}>No Options Available</MenuItem>
-                    )}
-                </MenuList>
-            </Menu> */}
-
             <Box fontSize="small" w={'100%'} minW={'13rem'}>
                 <AutoComplete
-                    placeholder="Select reasons"
+                    placeholder="Select NDR reasons"
                     options={
                         ndrReasons?.option
                             .filter((option) => option.enable)
@@ -180,45 +117,19 @@ export default function PageFilters({ filters }: Props) {
                 />
             </Box>
 
-            <Menu autoSelect={false} closeOnSelect={false} placement="bottom-end">
-                <MenuButton background="white" fontSize="small" w={'100%'} minW={'13rem'}>
-                    <Flex
-                        align="center"
-                        justifyContent="space-between"
-                        fontWeight="normal"
-                        borderRadius={'0.3rem'}
-                        className={styles.filterByButton}
-                    >
-                        {!!pageFilters.shippingProviders.length ? (
-                            `${pageFilters.shippingProviders.length} Selected`
-                        ) : (
-                            <Text as="span" fontSize="xs">
-                                Shipping Providers
-                            </Text>
-                        )}
-                        <AiFillCaretDown fontSize="14px" />
-                    </Flex>
-                </MenuButton>
-                <MenuList zIndex={3} maxH={'300px'} overflow={'auto'}>
-                    {data ? (
-                        <>
-                            {data?.data.map((option) => (
-                                <MenuItem key={option.key}>
-                                    <Checkbox
-                                        isChecked={pageFilters.shippingProviders.includes(option.key)}
-                                        onChange={($event) => onCheckboxChange($event, 'shippingProviders', option.key)}
-                                        className={styles.checkbox}
-                                    >
-                                        <Text fontSize="xs">{option.name}</Text>
-                                    </Checkbox>
-                                </MenuItem>
-                            ))}
-                        </>
-                    ) : (
-                        <MenuItem isDisabled={true}>No Options Available</MenuItem>
-                    )}
-                </MenuList>
-            </Menu>
+            <Box fontSize="small" w={'100%'} minW={'17rem'}>
+                <AutoComplete
+                    placeholder="Select Shipping Providers"
+                    options={data?.data.map((option) => ({ label: option.name, value: option.key })) || []}
+                    setSelectedItems={(options: Option[]) =>
+                        setPageFilters((filters) => ({
+                            ...filters,
+                            shippingProviders: options.map((option) => option.value),
+                        }))
+                    }
+                    multi={true}
+                />
+            </Box>
         </Flex>
     )
 }
