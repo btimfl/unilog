@@ -32,6 +32,7 @@ export default function AutoComplete({ placeholder, options, setSelectedItems, m
     return (
         <Select
             isMulti={multi}
+            useBasicStyles
             selectedOptionStyle={'check'}
             options={options}
             placeholder={placeholder}
